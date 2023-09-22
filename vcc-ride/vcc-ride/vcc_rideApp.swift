@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import RealmSwift
+
 
 @main
 struct vcc_rideApp: App {
@@ -15,3 +17,18 @@ struct vcc_rideApp: App {
         }
     }
 }
+
+//local only realm
+class Todo: Object {
+   @Persisted(primaryKey: true) var _id: ObjectId
+   @Persisted var name: String = ""
+   @Persisted var status: String = ""
+   @Persisted var ownerId: String
+
+   convenience init(name: String, ownerId: String) {
+       self.init()
+       self.name = name
+       self.ownerId = ownerId
+   }
+}
+
