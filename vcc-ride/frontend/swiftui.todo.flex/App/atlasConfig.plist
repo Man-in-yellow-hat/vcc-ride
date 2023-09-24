@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>appId</key>
+	<string>mytutorialapp-phsnl</string>
+	<key>appUrl</key>
+	<string>https://realm.mongodb.com/groups/65091ac77f27624c6c08228a/apps/650de03402abc93d1b1bd9f9</string>
+	<key>baseUrl</key>
+	<string>https://realm.mongodb.com</string>
+	<key>clientApiBaseUrl</key>
+	<string>https://realm.mongodb.com</string>
+	<key>dataApiBaseUrl</key>
+	<string>https://data.mongodb-api.com</string>
+    <key>dataExplorerLink</key>
+    <string>https://cloud.mongodb.com/links/65091ac77f27624c6c08228a/explorer/Cluster0/database/collection/find</string>
+    <key>dataSourceName</key>
+    <string>mongodb-atlas</string>
+</dict>
+</plist>
