@@ -1,0 +1,668 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		95E1ADB52ACCBFA80000FC5B /* VCC_RideApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1ADB42ACCBFA80000FC5B /* VCC_RideApp.swift */; };
+		95E1ADB72ACCBFA80000FC5B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1ADB62ACCBFA80000FC5B /* ContentView.swift */; };
+		95E1ADB92ACCBFA80000FC5B /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1ADB82ACCBFA80000FC5B /* Item.swift */; };
+		95E1ADBB2ACCBFAB0000FC5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95E1ADBA2ACCBFAB0000FC5B /* Assets.xcassets */; };
+		95E1ADBE2ACCBFAB0000FC5B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95E1ADBD2ACCBFAB0000FC5B /* Preview Assets.xcassets */; };
+		95E1ADC82ACCBFAB0000FC5B /* VCC_RideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1ADC72ACCBFAB0000FC5B /* VCC_RideTests.swift */; };
+		95E1ADD22ACCBFAB0000FC5B /* VCC_RideUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1ADD12ACCBFAB0000FC5B /* VCC_RideUITests.swift */; };
+		95E1ADD42ACCBFAB0000FC5B /* VCC_RideUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1ADD32ACCBFAB0000FC5B /* VCC_RideUITestsLaunchTests.swift */; };
+		95E1ADE62ACCC2590000FC5B /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 95E1ADE52ACCC2590000FC5B /* FirebaseAnalytics */; };
+		95E1ADE82ACCC2590000FC5B /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 95E1ADE72ACCC2590000FC5B /* FirebaseAnalyticsOnDeviceConversion */; };
+		95E1ADEA2ACCC2590000FC5B /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 95E1ADE92ACCC2590000FC5B /* FirebaseAnalyticsSwift */; };
+		95E1ADEC2ACCC2590000FC5B /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 95E1ADEB2ACCC2590000FC5B /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		95E1ADEE2ACCC2590000FC5B /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 95E1ADED2ACCC2590000FC5B /* FirebaseAppCheck */; };
+		95E1ADF12ACCC6810000FC5B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 95E1ADF02ACCC6810000FC5B /* GoogleService-Info.plist */; };
+		95E1ADF22ACCC6810000FC5B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 95E1ADF02ACCC6810000FC5B /* GoogleService-Info.plist */; };
+		95E1ADF32ACCC6810000FC5B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 95E1ADF02ACCC6810000FC5B /* GoogleService-Info.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		95E1ADC42ACCBFAB0000FC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95E1ADA92ACCBFA80000FC5B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 95E1ADB02ACCBFA80000FC5B;
+			remoteInfo = "VCC Ride";
+		};
+		95E1ADCE2ACCBFAB0000FC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95E1ADA92ACCBFA80000FC5B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 95E1ADB02ACCBFA80000FC5B;
+			remoteInfo = "VCC Ride";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		95E1ADB12ACCBFA80000FC5B /* VCC Ride.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VCC Ride.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		95E1ADB42ACCBFA80000FC5B /* VCC_RideApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCC_RideApp.swift; sourceTree = "<group>"; };
+		95E1ADB62ACCBFA80000FC5B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		95E1ADB82ACCBFA80000FC5B /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		95E1ADBA2ACCBFAB0000FC5B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		95E1ADBD2ACCBFAB0000FC5B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		95E1ADC32ACCBFAB0000FC5B /* VCC RideTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VCC RideTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		95E1ADC72ACCBFAB0000FC5B /* VCC_RideTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCC_RideTests.swift; sourceTree = "<group>"; };
+		95E1ADCD2ACCBFAB0000FC5B /* VCC RideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VCC RideUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		95E1ADD12ACCBFAB0000FC5B /* VCC_RideUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCC_RideUITests.swift; sourceTree = "<group>"; };
+		95E1ADD32ACCBFAB0000FC5B /* VCC_RideUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCC_RideUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		95E1ADEF2ACCC5C80000FC5B /* VCC-Ride-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "VCC-Ride-Info.plist"; sourceTree = SOURCE_ROOT; };
+		95E1ADF02ACCC6810000FC5B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		95E1ADAE2ACCBFA80000FC5B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95E1ADEA2ACCC2590000FC5B /* FirebaseAnalyticsSwift in Frameworks */,
+				95E1ADE62ACCC2590000FC5B /* FirebaseAnalytics in Frameworks */,
+				95E1ADE82ACCC2590000FC5B /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
+				95E1ADEE2ACCC2590000FC5B /* FirebaseAppCheck in Frameworks */,
+				95E1ADEC2ACCC2590000FC5B /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		95E1ADC02ACCBFAB0000FC5B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		95E1ADCA2ACCBFAB0000FC5B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		95E1ADA82ACCBFA80000FC5B = {
+			isa = PBXGroup;
+			children = (
+				95E1ADB32ACCBFA80000FC5B /* VCC Ride */,
+				95E1ADC62ACCBFAB0000FC5B /* VCC RideTests */,
+				95E1ADD02ACCBFAB0000FC5B /* VCC RideUITests */,
+				95E1ADB22ACCBFA80000FC5B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		95E1ADB22ACCBFA80000FC5B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				95E1ADB12ACCBFA80000FC5B /* VCC Ride.app */,
+				95E1ADC32ACCBFAB0000FC5B /* VCC RideTests.xctest */,
+				95E1ADCD2ACCBFAB0000FC5B /* VCC RideUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		95E1ADB32ACCBFA80000FC5B /* VCC Ride */ = {
+			isa = PBXGroup;
+			children = (
+				95E1ADEF2ACCC5C80000FC5B /* VCC-Ride-Info.plist */,
+				95E1ADB42ACCBFA80000FC5B /* VCC_RideApp.swift */,
+				95E1ADB62ACCBFA80000FC5B /* ContentView.swift */,
+				95E1ADB82ACCBFA80000FC5B /* Item.swift */,
+				95E1ADF02ACCC6810000FC5B /* GoogleService-Info.plist */,
+				95E1ADBA2ACCBFAB0000FC5B /* Assets.xcassets */,
+				95E1ADBC2ACCBFAB0000FC5B /* Preview Content */,
+			);
+			path = "VCC Ride";
+			sourceTree = "<group>";
+		};
+		95E1ADBC2ACCBFAB0000FC5B /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				95E1ADBD2ACCBFAB0000FC5B /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		95E1ADC62ACCBFAB0000FC5B /* VCC RideTests */ = {
+			isa = PBXGroup;
+			children = (
+				95E1ADC72ACCBFAB0000FC5B /* VCC_RideTests.swift */,
+			);
+			path = "VCC RideTests";
+			sourceTree = "<group>";
+		};
+		95E1ADD02ACCBFAB0000FC5B /* VCC RideUITests */ = {
+			isa = PBXGroup;
+			children = (
+				95E1ADD12ACCBFAB0000FC5B /* VCC_RideUITests.swift */,
+				95E1ADD32ACCBFAB0000FC5B /* VCC_RideUITestsLaunchTests.swift */,
+			);
+			path = "VCC RideUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		95E1ADB02ACCBFA80000FC5B /* VCC Ride */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 95E1ADD72ACCBFAB0000FC5B /* Build configuration list for PBXNativeTarget "VCC Ride" */;
+			buildPhases = (
+				95E1ADAD2ACCBFA80000FC5B /* Sources */,
+				95E1ADAE2ACCBFA80000FC5B /* Frameworks */,
+				95E1ADAF2ACCBFA80000FC5B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "VCC Ride";
+			packageProductDependencies = (
+				95E1ADE52ACCC2590000FC5B /* FirebaseAnalytics */,
+				95E1ADE72ACCC2590000FC5B /* FirebaseAnalyticsOnDeviceConversion */,
+				95E1ADE92ACCC2590000FC5B /* FirebaseAnalyticsSwift */,
+				95E1ADEB2ACCC2590000FC5B /* FirebaseAnalyticsWithoutAdIdSupport */,
+				95E1ADED2ACCC2590000FC5B /* FirebaseAppCheck */,
+			);
+			productName = "VCC Ride";
+			productReference = 95E1ADB12ACCBFA80000FC5B /* VCC Ride.app */;
+			productType = "com.apple.product-type.application";
+		};
+		95E1ADC22ACCBFAB0000FC5B /* VCC RideTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 95E1ADDA2ACCBFAB0000FC5B /* Build configuration list for PBXNativeTarget "VCC RideTests" */;
+			buildPhases = (
+				95E1ADBF2ACCBFAB0000FC5B /* Sources */,
+				95E1ADC02ACCBFAB0000FC5B /* Frameworks */,
+				95E1ADC12ACCBFAB0000FC5B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				95E1ADC52ACCBFAB0000FC5B /* PBXTargetDependency */,
+			);
+			name = "VCC RideTests";
+			productName = "VCC RideTests";
+			productReference = 95E1ADC32ACCBFAB0000FC5B /* VCC RideTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		95E1ADCC2ACCBFAB0000FC5B /* VCC RideUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 95E1ADDD2ACCBFAB0000FC5B /* Build configuration list for PBXNativeTarget "VCC RideUITests" */;
+			buildPhases = (
+				95E1ADC92ACCBFAB0000FC5B /* Sources */,
+				95E1ADCA2ACCBFAB0000FC5B /* Frameworks */,
+				95E1ADCB2ACCBFAB0000FC5B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				95E1ADCF2ACCBFAB0000FC5B /* PBXTargetDependency */,
+			);
+			name = "VCC RideUITests";
+			productName = "VCC RideUITests";
+			productReference = 95E1ADCD2ACCBFAB0000FC5B /* VCC RideUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		95E1ADA92ACCBFA80000FC5B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					95E1ADB02ACCBFA80000FC5B = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					95E1ADC22ACCBFAB0000FC5B = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 95E1ADB02ACCBFA80000FC5B;
+					};
+					95E1ADCC2ACCBFAB0000FC5B = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 95E1ADB02ACCBFA80000FC5B;
+					};
+				};
+			};
+			buildConfigurationList = 95E1ADAC2ACCBFA80000FC5B /* Build configuration list for PBXProject "VCC Ride" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 95E1ADA82ACCBFA80000FC5B;
+			packageReferences = (
+				95E1ADE42ACCC2590000FC5B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			productRefGroup = 95E1ADB22ACCBFA80000FC5B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				95E1ADB02ACCBFA80000FC5B /* VCC Ride */,
+				95E1ADC22ACCBFAB0000FC5B /* VCC RideTests */,
+				95E1ADCC2ACCBFAB0000FC5B /* VCC RideUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		95E1ADAF2ACCBFA80000FC5B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95E1ADBE2ACCBFAB0000FC5B /* Preview Assets.xcassets in Resources */,
+				95E1ADBB2ACCBFAB0000FC5B /* Assets.xcassets in Resources */,
+				95E1ADF12ACCC6810000FC5B /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		95E1ADC12ACCBFAB0000FC5B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95E1ADF22ACCC6810000FC5B /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		95E1ADCB2ACCBFAB0000FC5B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95E1ADF32ACCC6810000FC5B /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		95E1ADAD2ACCBFA80000FC5B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95E1ADB72ACCBFA80000FC5B /* ContentView.swift in Sources */,
+				95E1ADB92ACCBFA80000FC5B /* Item.swift in Sources */,
+				95E1ADB52ACCBFA80000FC5B /* VCC_RideApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		95E1ADBF2ACCBFAB0000FC5B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95E1ADC82ACCBFAB0000FC5B /* VCC_RideTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		95E1ADC92ACCBFAB0000FC5B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95E1ADD42ACCBFAB0000FC5B /* VCC_RideUITestsLaunchTests.swift in Sources */,
+				95E1ADD22ACCBFAB0000FC5B /* VCC_RideUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		95E1ADC52ACCBFAB0000FC5B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 95E1ADB02ACCBFA80000FC5B /* VCC Ride */;
+			targetProxy = 95E1ADC42ACCBFAB0000FC5B /* PBXContainerItemProxy */;
+		};
+		95E1ADCF2ACCBFAB0000FC5B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 95E1ADB02ACCBFA80000FC5B /* VCC Ride */;
+			targetProxy = 95E1ADCE2ACCBFAB0000FC5B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		95E1ADD52ACCBFAB0000FC5B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		95E1ADD62ACCBFAB0000FC5B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		95E1ADD82ACCBFAB0000FC5B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"VCC Ride/Preview Content\"";
+				DEVELOPMENT_TEAM = G9HEW2926A;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "VCC-Ride-Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = vccride.apple.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		95E1ADD92ACCBFAB0000FC5B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"VCC Ride/Preview Content\"";
+				DEVELOPMENT_TEAM = G9HEW2926A;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "VCC-Ride-Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = vccride.apple.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		95E1ADDB2ACCBFAB0000FC5B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G9HEW2926A;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "sweGroup6.VCC-RideTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VCC Ride.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VCC Ride";
+			};
+			name = Debug;
+		};
+		95E1ADDC2ACCBFAB0000FC5B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G9HEW2926A;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "sweGroup6.VCC-RideTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VCC Ride.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VCC Ride";
+			};
+			name = Release;
+		};
+		95E1ADDE2ACCBFAB0000FC5B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G9HEW2926A;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "sweGroup6.VCC-RideUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "VCC Ride";
+			};
+			name = Debug;
+		};
+		95E1ADDF2ACCBFAB0000FC5B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G9HEW2926A;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "sweGroup6.VCC-RideUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "VCC Ride";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		95E1ADAC2ACCBFA80000FC5B /* Build configuration list for PBXProject "VCC Ride" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				95E1ADD52ACCBFAB0000FC5B /* Debug */,
+				95E1ADD62ACCBFAB0000FC5B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		95E1ADD72ACCBFAB0000FC5B /* Build configuration list for PBXNativeTarget "VCC Ride" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				95E1ADD82ACCBFAB0000FC5B /* Debug */,
+				95E1ADD92ACCBFAB0000FC5B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		95E1ADDA2ACCBFAB0000FC5B /* Build configuration list for PBXNativeTarget "VCC RideTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				95E1ADDB2ACCBFAB0000FC5B /* Debug */,
+				95E1ADDC2ACCBFAB0000FC5B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		95E1ADDD2ACCBFAB0000FC5B /* Build configuration list for PBXNativeTarget "VCC RideUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				95E1ADDE2ACCBFAB0000FC5B /* Debug */,
+				95E1ADDF2ACCBFAB0000FC5B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		95E1ADE42ACCC2590000FC5B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.16.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		95E1ADE52ACCC2590000FC5B /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95E1ADE42ACCC2590000FC5B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		95E1ADE72ACCC2590000FC5B /* FirebaseAnalyticsOnDeviceConversion */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95E1ADE42ACCC2590000FC5B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsOnDeviceConversion;
+		};
+		95E1ADE92ACCC2590000FC5B /* FirebaseAnalyticsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95E1ADE42ACCC2590000FC5B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
+		};
+		95E1ADEB2ACCC2590000FC5B /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95E1ADE42ACCC2590000FC5B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		95E1ADED2ACCC2590000FC5B /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95E1ADE42ACCC2590000FC5B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 95E1ADA92ACCBFA80000FC5B /* Project object */;
+}
