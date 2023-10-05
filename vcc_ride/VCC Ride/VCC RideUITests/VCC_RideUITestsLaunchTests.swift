@@ -1,13 +1,13 @@
 //
-//  vcc_rideUITestsLaunchTests.swift
-//  vcc-rideUITests
+//  VCC_RideUITestsLaunchTests.swift
+//  VCC RideUITests
 //
-//  Created by Aman Momin on 9/21/23.
+//  Created by Aman Momin on 10/3/23.
 //
 
 import XCTest
 
-final class vcc_rideUITestsLaunchTests: XCTestCase {
+final class VCC_RideUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

@@ -1,13 +1,13 @@
 //
-//  vcc_rideUITests.swift
-//  vcc-rideUITests
+//  VCC_RideUITests.swift
+//  VCC RideUITests
 //
-//  Created by Aman Momin on 9/21/23.
+//  Created by Aman Momin on 10/3/23.
 //
 
 import XCTest
 
-final class vcc_rideUITests: XCTestCase {
+final class VCC_RideUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
