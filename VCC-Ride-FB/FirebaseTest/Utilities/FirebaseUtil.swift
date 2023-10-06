@@ -31,34 +31,23 @@ class FirebaseUtil: NSObject {
         return email.hasSuffix("@vanderbilt.edu")
     }
     
-    func signOut() {
-        do {
-            try auth.signOut()
-            print("signed out?")
-            self.viewModel?.handleSignOut()
-            // Clear user-related data from UserDefaults or perform any additional cleanup
-        } catch let signOutError as NSError {
-            print("Error signing out: \(signOutError.localizedDescription)")
-        }
-    }
-    
-    func authenticateLoggedInUser() {
-        if UserDefaults.standard.bool(forKey: "isLoggedIn"),
-           let googleUserID = UserDefaults.standard.string(forKey: "googleUserID") {
-            // You can use the saved Google User ID for Firebase Authentication
-            Auth.auth().signIn(withCustomToken: googleUserID) { authResult, error in
-                if let error = error {
-                    // Handle authentication error
-                    print("Authentication failed: \(error.localizedDescription)")
-                } else if authResult != nil {
-                    // Authentication successful
-                    print("Authentication successful")
-                    
-                    // Proceed with other initialization or data retrieval logic here
-                }
-            }
-        }
-    }
+//    func authenticateLoggedInUser() {
+//        if UserDefaults.standard.bool(forKey: "isLoggedIn"),
+//           let googleUserID = UserDefaults.standard.string(forKey: "googleUserID") {
+//            // You can use the saved Google User ID for Firebase Authentication
+//            Auth.auth().signIn(withCustomToken: googleUserID) { authResult, error in
+//                if let error = error {
+//                    // Handle authentication error
+//                    print("Authentication failed: \(error.localizedDescription)")
+//                } else if authResult != nil {
+//                    // Authentication successful
+//                    print("Authentication successful")
+//                    
+//                    // Proceed with other initialization or data retrieval logic here
+//                }
+//            }
+//        }
+//    }
 }
 
 class SignIn_withGoogle_VM: ObservableObject {

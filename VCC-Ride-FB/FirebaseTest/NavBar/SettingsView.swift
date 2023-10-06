@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @EnvironmentObject var viewModel: MainViewModel
+
     var body: some View {
         VStack {
             // Other settings content
             Text("SETTINGS")
 
             Button(action: {
-                FirebaseUtil.shared.signOut()
+                signOut()
             }) {
                 Text("Sign Out")
                     .font(.headline)
@@ -23,6 +25,17 @@ struct SettingsView: View {
             }
             .background(Color.red) // Button background color
             .clipShape(RoundedRectangle(cornerRadius: 10)) // Rounded rectangle shape with corner radius
+        }
+    }
+    
+    func signOut() {
+        do {
+            try FirebaseUtil.shared.auth.signOut()
+            print("signed out?")
+            self.viewModel.handleSignOut()
+            // Clear user-related data from UserDefaults or perform any additional cleanup
+        } catch let signOutError as NSError {
+            print("Error signing out: \(signOutError.localizedDescription)")
         }
     }
 }
