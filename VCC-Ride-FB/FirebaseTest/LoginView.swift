@@ -23,14 +23,18 @@ struct LoginView: View {
         NavigationView {
             VStack {
                 if isLoginMode{
-                    Text("Welcome to VCC Ride")
-                        .padding(.horizontal)
-                        .offset(y: -40)
                     
                     Image("VCC-empty-back") // Use the name of your image asset
                         .resizable()
                         .frame(width: 170, height: 225.89) // Adjust the size as needed
-                        .offset(y: -20)
+                        .offset(y: -60)
+                    
+                    Text("VCC Ride")
+                        .padding(.horizontal)
+                        .offset(y: -30)
+//                        .font(.system(size: 22))
+                        .font(.custom("Evanson Tavern", fixedSize: 23))
+                  
                     
                     
                     
