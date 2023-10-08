@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A858D2832ACDADB500A17CCD"
-               BuildableName = "FirebaseTest.app"
-               BlueprintName = "FirebaseTest"
+               BuildableName = "VccRide.app"
+               BlueprintName = "VccRide"
                ReferencedContainer = "container:FirebaseTest.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,8 +44,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A858D2832ACDADB500A17CCD"
-            BuildableName = "FirebaseTest.app"
-            BlueprintName = "FirebaseTest"
+            BuildableName = "VccRide.app"
+            BlueprintName = "VccRide"
             ReferencedContainer = "container:FirebaseTest.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -61,8 +61,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A858D2832ACDADB500A17CCD"
-            BuildableName = "FirebaseTest.app"
-            BlueprintName = "FirebaseTest"
+            BuildableName = "VccRide.app"
+            BlueprintName = "VccRide"
             ReferencedContainer = "container:FirebaseTest.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

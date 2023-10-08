@@ -162,8 +162,7 @@
 			children = (
 				A858D28E2ACDADC700A17CCD /* Preview Assets.xcassets */,
 			);
-			name = "Preview Content";
-			path = Preview_Content;
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		D71B9E122AD0579800144928 /* Utilities */ = {
@@ -463,7 +462,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"VccRide/Preview_Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"VccRide/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VccRide/Info.plist;
@@ -493,7 +492,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"VccRide/Preview_Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"VccRide/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VccRide/Info.plist;
