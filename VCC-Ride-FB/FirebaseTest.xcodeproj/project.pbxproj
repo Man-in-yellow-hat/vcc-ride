@@ -10,7 +10,7 @@
 		A844CE872ACE0A6200EC44C2 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = A844CE862ACE0A6200EC44C2 /* GoogleSignIn */; };
 		A844CE892ACE0A6200EC44C2 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A844CE882ACE0A6200EC44C2 /* GoogleSignInSwift */; };
 		A844CE8E2ACE0EEA00EC44C2 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = A844CE8D2ACE0EEA00EC44C2 /* Application.swift */; };
-		A858D2882ACDADB500A17CCD /* FirebaseTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858D2872ACDADB500A17CCD /* FirebaseTestApp.swift */; };
+		A858D2882ACDADB500A17CCD /* VccRideApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858D2872ACDADB500A17CCD /* VccRideApp.swift */; };
 		A858D28C2ACDADC700A17CCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A858D28B2ACDADC700A17CCD /* Assets.xcassets */; };
 		A858D28F2ACDADC700A17CCD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A858D28E2ACDADC700A17CCD /* Preview Assets.xcassets */; };
 		A858D2962ACDAFE900A17CCD /* LoginJoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858D2952ACDAFE900A17CCD /* LoginJoinView.swift */; };
@@ -59,8 +59,8 @@
 /* Begin PBXFileReference section */
 		A844CE8C2ACE0B6700EC44C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A844CE8D2ACE0EEA00EC44C2 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
-		A858D2842ACDADB500A17CCD /* FirebaseTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A858D2872ACDADB500A17CCD /* FirebaseTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTestApp.swift; sourceTree = "<group>"; };
+		A858D2842ACDADB500A17CCD /* VccRide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VccRide.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A858D2872ACDADB500A17CCD /* VccRideApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VccRideApp.swift; sourceTree = "<group>"; };
 		A858D28B2ACDADC700A17CCD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A858D28E2ACDADC700A17CCD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A858D2952ACDAFE900A17CCD /* LoginJoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginJoinView.swift; sourceTree = "<group>"; };
@@ -122,7 +122,7 @@
 		A858D27B2ACDADB500A17CCD = {
 			isa = PBXGroup;
 			children = (
-				A858D2862ACDADB500A17CCD /* FirebaseTest */,
+				A858D2862ACDADB500A17CCD /* VccRide */,
 				A858D2852ACDADB500A17CCD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -130,12 +130,12 @@
 		A858D2852ACDADB500A17CCD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A858D2842ACDADB500A17CCD /* FirebaseTest.app */,
+				A858D2842ACDADB500A17CCD /* VccRide.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A858D2862ACDADB500A17CCD /* FirebaseTest */ = {
+		A858D2862ACDADB500A17CCD /* VccRide */ = {
 			isa = PBXGroup;
 			children = (
 				D71B9E192AD05C0D00144928 /* NavBar */,
@@ -144,7 +144,7 @@
 				D71B9E122AD0579800144928 /* Utilities */,
 				D7CA928E2ACE38CF007C1994 /* Admin */,
 				A844CE8C2ACE0B6700EC44C2 /* Info.plist */,
-				A858D2872ACDADB500A17CCD /* FirebaseTestApp.swift */,
+				A858D2872ACDADB500A17CCD /* VccRideApp.swift */,
 				D771DED12ACF575C00E79153 /* MainView.swift */,
 				A858D2952ACDAFE900A17CCD /* LoginJoinView.swift */,
 				D71B9E222AD0732800144928 /* LoginView.swift */,
@@ -154,7 +154,7 @@
 				A858D28B2ACDADC700A17CCD /* Assets.xcassets */,
 				A858D28D2ACDADC700A17CCD /* Preview Content */,
 			);
-			path = FirebaseTest;
+			path = VccRide;
 			sourceTree = "<group>";
 		};
 		A858D28D2ACDADC700A17CCD /* Preview Content */ = {
@@ -162,7 +162,8 @@
 			children = (
 				A858D28E2ACDADC700A17CCD /* Preview Assets.xcassets */,
 			);
-			path = "Preview Content";
+			name = "Preview Content";
+			path = Preview_Content;
 			sourceTree = "<group>";
 		};
 		D71B9E122AD0579800144928 /* Utilities */ = {
@@ -212,9 +213,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A858D2832ACDADB500A17CCD /* FirebaseTest */ = {
+		A858D2832ACDADB500A17CCD /* VccRide */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A858D2922ACDADC700A17CCD /* Build configuration list for PBXNativeTarget "FirebaseTest" */;
+			buildConfigurationList = A858D2922ACDADC700A17CCD /* Build configuration list for PBXNativeTarget "VccRide" */;
 			buildPhases = (
 				A858D2802ACDADB500A17CCD /* Sources */,
 				A858D2812ACDADB500A17CCD /* Frameworks */,
@@ -224,7 +225,7 @@
 			);
 			dependencies = (
 			);
-			name = FirebaseTest;
+			name = VccRide;
 			packageProductDependencies = (
 				A858D29E2ACDC6C000A17CCD /* FirebaseAnalytics */,
 				A858D2A02ACDC6C000A17CCD /* FirebaseAnalyticsOnDeviceConversion */,
@@ -257,7 +258,7 @@
 				A844CE882ACE0A6200EC44C2 /* GoogleSignInSwift */,
 			);
 			productName = FirebaseTest;
-			productReference = A858D2842ACDADB500A17CCD /* FirebaseTest.app */;
+			productReference = A858D2842ACDADB500A17CCD /* VccRide.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -275,7 +276,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A858D27F2ACDADB500A17CCD /* Build configuration list for PBXProject "FirebaseTest" */;
+			buildConfigurationList = A858D27F2ACDADB500A17CCD /* Build configuration list for PBXProject "VccRide" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -292,7 +293,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A858D2832ACDADB500A17CCD /* FirebaseTest */,
+				A858D2832ACDADB500A17CCD /* VccRide */,
 			);
 		};
 /* End PBXProject section */
@@ -328,7 +329,7 @@
 				D71B9E212AD05C4C00144928 /* PeopleView.swift in Sources */,
 				D71B9E1F2AD05C4100144928 /* StatsView.swift in Sources */,
 				A858D2D72ACDCD5F00A17CCD /* ImagePickerView.swift in Sources */,
-				A858D2882ACDADB500A17CCD /* FirebaseTestApp.swift in Sources */,
+				A858D2882ACDADB500A17CCD /* VccRideApp.swift in Sources */,
 				D71B9E1B2AD05C2F00144928 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,10 +463,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"FirebaseTest/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"VccRide/Preview_Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FirebaseTest/Info.plist;
+				INFOPLIST_FILE = VccRide/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -492,10 +493,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"FirebaseTest/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"VccRide/Preview_Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FirebaseTest/Info.plist;
+				INFOPLIST_FILE = VccRide/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -518,7 +519,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A858D27F2ACDADB500A17CCD /* Build configuration list for PBXProject "FirebaseTest" */ = {
+		A858D27F2ACDADB500A17CCD /* Build configuration list for PBXProject "VccRide" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A858D2902ACDADC700A17CCD /* Debug */,
@@ -527,7 +528,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A858D2922ACDADC700A17CCD /* Build configuration list for PBXNativeTarget "FirebaseTest" */ = {
+		A858D2922ACDADC700A17CCD /* Build configuration list for PBXNativeTarget "VccRide" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A858D2932ACDADC700A17CCD /* Debug */,

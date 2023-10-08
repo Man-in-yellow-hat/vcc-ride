@@ -13,6 +13,15 @@ struct ContentView: View {
 
     var body: some View {
         TabView(selection: $selectedNavBarTab) {
+            // People view based on user role
+            if viewModel.userRole == "admin" {
+                PeopleView()
+                    .tabItem {
+                        Label("People", systemImage: "person.2")
+                    }
+                    .tag("People")
+            }
+            
             // Calendar view
             CalendarView()
                 .tabItem {
@@ -35,14 +44,6 @@ struct ContentView: View {
                 }
                 .tag("Settings")
             
-            // People view based on user role
-            if viewModel.userRole == "admin" {
-                PeopleView()
-                    .tabItem {
-                        Label("People", systemImage: "person.2")
-                    }
-                    .tag("People")
-            }
             
             // Stats view based on user role
             if viewModel.userRole == "admin" {

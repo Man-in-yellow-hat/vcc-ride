@@ -16,8 +16,9 @@ class MainViewModel: ObservableObject {
         self.isLoggedIn = true
         self.userRole = role
         UserDefaults.standard.set(uid, forKey: "googleUserID")
-        UserDefaults.standard.set(userRole, forKey: "userRole")
+        UserDefaults.standard.set(role, forKey: "userRole")
         UserDefaults.standard.set(true, forKey: "isLoggedIn")
+        print(self.userRole)
     }
     
     func handleSignOut() {
@@ -27,27 +28,28 @@ class MainViewModel: ObservableObject {
     
     // Add a method to retrieve the user's role from UserDefaults
     func retrieveUserRole() {
-        self.userRole = UserDefaults.standard.string(forKey: "UserRole")
+        self.userRole = UserDefaults.standard.string(forKey: "userRole")
     }
     
 }
 
 struct MainView: View {
     @EnvironmentObject var viewModel: MainViewModel
-    
+
     var body: some View {
-        if viewModel.isLoggedIn {
-            return AnyView(
+        Group {
+            if viewModel.isLoggedIn {
                 ContentView().environmentObject(viewModel)
-            )
-        } else {
-            return AnyView(
+            } else {
                 LoginView().environmentObject(viewModel)
-//                LoginJoinView(viewModel: viewModel)
-            )
+            }
+        }
+        .onAppear {
+            viewModel.retrieveUserRole()
         }
     }
 }
+
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView().environmentObject(MainViewModel())
