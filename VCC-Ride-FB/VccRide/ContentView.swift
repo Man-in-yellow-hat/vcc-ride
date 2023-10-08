@@ -22,12 +22,21 @@ struct ContentView: View {
                     .tag("People")
             }
             
-            // Calendar view
-            CalendarView()
-                .tabItem {
-                    Label("Calendar", systemImage: "calendar")
-                }
-                .tag("Calendar")
+            if viewModel.userRole == "admin" {
+                AdminCalendar()
+                    .tabItem {
+                        Label("Calendar", systemImage: "calendar")
+                    }
+                    .tag("AdminCalendar")
+            } else {
+                // Calendar view
+                CalendarView()
+                    .tabItem {
+                        Label("Calendar", systemImage: "calendar")
+                    }
+                    .tag("Calendar")
+            }
+            
             
             // DASHBOARD with swipeable views
             DashboardView()
