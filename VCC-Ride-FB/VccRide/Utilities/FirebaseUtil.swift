@@ -173,16 +173,9 @@ class PracticeDateViewModel: ObservableObject {
         // Generate a unique ID for the new practice date
         let practiceDateID = databaseRef.child("Fall23-Practices").childByAutoId().key ?? ""
         
-        let emptyDict: [String: Int] = [:]
-        
         // Create an empty practice date entry
         let practiceDateEntry: [String: Any] = [
-            "date": date,
-            "north_drivers": emptyDict,
-            "north_riders": emptyDict,
-            "rand_drivers": emptyDict,
-            "rand_riders": emptyDict,
-            "no_pref_drivers": emptyDict
+            "date": date
         ]
         
         // Add the new practice date to the database
