@@ -55,6 +55,7 @@
 		D771DECC2ACF561400E79153 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858D2972ACDAFFD00A17CCD /* ContentView.swift */; };
 		D771DED22ACF575C00E79153 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D771DED12ACF575C00E79153 /* MainView.swift */; };
 		D7A1EAFC2AD2569C0075A4B2 /* AdminCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */; };
+		D7B65D982AD25BCE00D2701B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65D972AD25BCE00D2701B /* UserViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		D71B9E242AD09C5400144928 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D771DED12ACF575C00E79153 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminCalendar.swift; sourceTree = "<group>"; };
+		D7B65D972AD25BCE00D2701B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 			children = (
 				A858D2D42ACDC73F00A17CCD /* FirebaseUtil.swift */,
 				A844CE8D2ACE0EEA00EC44C2 /* Application.swift */,
+				D7B65D972AD25BCE00D2701B /* UserViewModel.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 				D71B9E1C2AD05C3A00144928 /* CalendarView.swift */,
 				D71B9E1E2AD05C4100144928 /* StatsView.swift */,
 				D71B9E202AD05C4C00144928 /* PeopleView.swift */,
+				D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */,
 			);
 			path = NavBar;
 			sourceTree = "<group>";
@@ -207,7 +211,6 @@
 			isa = PBXGroup;
 			children = (
 				D71B9E102AD053FF00144928 /* AdminView.swift */,
-				D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */,
 			);
 			path = Admin;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				D71B9E212AD05C4C00144928 /* PeopleView.swift in Sources */,
 				D71B9E1F2AD05C4100144928 /* StatsView.swift in Sources */,
 				A858D2D72ACDCD5F00A17CCD /* ImagePickerView.swift in Sources */,
+				D7B65D982AD25BCE00D2701B /* UserViewModel.swift in Sources */,
 				A858D2882ACDADB500A17CCD /* VccRideApp.swift in Sources */,
 				D71B9E1B2AD05C2F00144928 /* SettingsView.swift in Sources */,
 			);
