@@ -144,6 +144,52 @@ class SignIn_withGoogle_VM: ObservableObject {
 }
 
 
+class PracticeDateViewModel: ObservableObject {
+    // Reference to the Firebase Realtime Database
+    let databaseRef = Database.database().reference()
+    
+    func fetchExistingDates(completion: @escaping ([String]) -> Void) {
+        print("fetching dates")
+        let datesRef = databaseRef.child("Fall23-Practices")
+        
+        datesRef.observe(.value) { snapshot in
+            var fetchedDates: [String] = []
+            
+            for child in snapshot.children {
+                if let dateSnapshot = child as? DataSnapshot {
+                    if let date = dateSnapshot.childSnapshot(forPath: "date").value as? String {
+                        print("date: ", date)
+                        fetchedDates.append(date)
+                    }
+                }
+            }
+            
+            completion(fetchedDates)
+        }
+    }
+    
+    // Function to add a new practice date
+    func addPracticeDate(date: String) {
+        // Generate a unique ID for the new practice date
+        let practiceDateID = databaseRef.child("Fall23-Practices").childByAutoId().key ?? ""
+        
+        // Create an empty practice date entry
+        let practiceDateEntry: [String: Any] = [
+            "date": date
+        ]
+        
+        // Add the new practice date to the database
+        databaseRef.child("Fall23-Practices").child(practiceDateID).setValue(practiceDateEntry) { (error, _) in
+            if let error = error {
+                print("Error adding practice date: \(error.localizedDescription)")
+            } else {
+                print("Practice date added successfully!")
+            }
+        }
+    }
+}
+
+
 
 
 ////
