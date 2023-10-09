@@ -89,8 +89,10 @@ struct PeopleView: View {
         .onAppear {
             if !isViewAppeared {
                 isViewAppeared = true
-                userViewModel.fetchUsers()
-                clearFilters()
+                userViewModel.fetchUsers {
+                    applyFilters() // Apply filters once data is fetched
+                    clearFilters()
+                }
             }
         }
         .padding()
@@ -98,20 +100,18 @@ struct PeopleView: View {
     
     private func applyFilters() {
         filteredUsers = userViewModel.filterUsers(
-            role: selectedRole,
-            active: (isActive == "Any") ? nil : (isActive == "Active" ? true : false),
-            location: (selectedLocation == "Any") ? nil : selectedLocation
+            roleFilter: selectedRole,
+            activeFilter: isActive,
+            locationFilter: selectedLocation
         )
     }
-
-
     
     
     private func clearFilters() {
         selectedRole = "Any"
         selectedLocation = "Any"
         isActive = "Any"
-        filteredUsers = userViewModel.users
+        applyFilters()
     }
 }
 
