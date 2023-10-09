@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SettingsView: View {
+struct AppSettingsView: View {
     @EnvironmentObject var viewModel: MainViewModel
 
     var body: some View {
@@ -40,8 +40,8 @@ struct SettingsView: View {
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
+struct AppSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        AppSettingsView()
     }
 }

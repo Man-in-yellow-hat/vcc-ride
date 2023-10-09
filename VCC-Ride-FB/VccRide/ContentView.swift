@@ -46,7 +46,7 @@ struct ContentView: View {
                 .tag("DASHBOARD")
             
             // Settings View
-            SettingsView()
+            SettingsMainView()
                 .environmentObject(viewModel)
                 .tabItem {
                     Label("Settings", systemImage: "gear")

@@ -161,14 +161,16 @@ class PracticeDateViewModel: ObservableObject {
             for child in snapshot.children {
                 if let dateSnapshot = child as? DataSnapshot {
                     if let date = dateSnapshot.childSnapshot(forPath: "date").value as? String {
-                        print("date: ", date)
+//                        print("date: ", date)
                         fetchedDates.append(date)
                     }
                 }
             }
-            
+            fetchedDates.sort()
+
             // Update the published property with the new list of dates
             self.practiceDates = fetchedDates
+            
         }
     }
     
