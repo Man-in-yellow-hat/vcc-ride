@@ -7,28 +7,6 @@
 
 import SwiftUI
 
-struct ExistingDatesView: View {
-    @ObservedObject var viewModel: PracticeDateViewModel
-    @State private var dates: [String] = []
-
-    var body: some View {
-        VStack {
-            Text("Existing Dates")
-                .font(.title)
-            
-            List(dates, id: \.self) { date in
-                Text(date)
-            }
-            .onAppear {
-                viewModel.fetchExistingDates { fetchedDates in
-                    self.dates = fetchedDates
-                }
-            }
-        }
-        .padding()
-    }
-}
-
 
 struct AdminCalendar: View {
     @StateObject var practiceDateViewModel = PracticeDateViewModel()
@@ -37,7 +15,13 @@ struct AdminCalendar: View {
     var body: some View {
         NavigationView {
             VStack {
-                ExistingDatesView(viewModel: practiceDateViewModel)
+                if !practiceDateViewModel.practiceDates.isEmpty {
+                    List(practiceDateViewModel.practiceDates, id: \.self) { date in
+                        Text(date)
+                    }
+                } else {
+                    Text("No practice dates available.")
+                }
                 
                 TextField("Enter date (e.g., oct4)", text: $newDate)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -49,9 +33,16 @@ struct AdminCalendar: View {
             }
             .padding()
             .navigationBarTitle("Practice Dates")
+            .onAppear {
+                if practiceDateViewModel.practiceDates.isEmpty {
+                    print("fetching dates, try not to do this too often!")
+                    practiceDateViewModel.fetchExistingDates()
+                }
+            }
         }
     }
 }
+
 
 
 struct AdminCalendar_Previews: PreviewProvider {

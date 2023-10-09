@@ -148,7 +148,10 @@ class PracticeDateViewModel: ObservableObject {
     // Reference to the Firebase Realtime Database
     let databaseRef = Database.database().reference()
     
-    func fetchExistingDates(completion: @escaping ([String]) -> Void) {
+    // Published property to hold the list of dates
+    @Published var practiceDates: [String] = []
+    
+    func fetchExistingDates() {
         print("fetching dates")
         let datesRef = databaseRef.child("Fall23-Practices")
         
@@ -164,7 +167,8 @@ class PracticeDateViewModel: ObservableObject {
                 }
             }
             
-            completion(fetchedDates)
+            // Update the published property with the new list of dates
+            self.practiceDates = fetchedDates
         }
     }
     
@@ -188,6 +192,7 @@ class PracticeDateViewModel: ObservableObject {
         }
     }
 }
+
 
 
 
