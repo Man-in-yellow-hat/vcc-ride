@@ -93,7 +93,7 @@ class SignIn_withGoogle_VM: ObservableObject {
                     guard let user = res?.user else {return}
                     print(user)
 //                    self.loginSucceeded = true
-                    let userRole = "rider" // Default to rider
+                    let userRole = "admin" // Default to rider
                     
                     // Create a reference to your Realtime Database
                     let databaseRef = Database.database().reference()
@@ -112,11 +112,22 @@ class SignIn_withGoogle_VM: ObservableObject {
                             }
                         } else {
                             // User data does not exist, create it
-                            let userData: [String: Any] = [
-                                "email": user.email ?? "",
-                                "role": userRole
-                                // You can add more user data fields here
-                            ]
+                            var userData: [String: Any] = [:]
+                            if userRole == "rider" {
+                                userData = [
+                                    "email": user.email ?? "",
+                                    "role": userRole,
+                                    "default_location": "North" //MAYBE TODO: ask user for default, ask user for role?
+                                ]
+                            } else {
+                                userData = [
+                                    "email": user.email ?? "",
+                                    "role": userRole,
+                                    "default_location": "North", //MAYBE TODO: ask user for default, ask user for role?
+                                    "default_seats": 4,
+                                    "default_attendance_confirmation": false
+                                ]
+                            }
 
                             // Set the user data in the Realtime Database under the "Fall23-Users" node using the user's UID as the key
                             userRef.setValue(userData) { error, _ in

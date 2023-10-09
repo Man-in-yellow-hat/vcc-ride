@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AppSettingsView: View {
     @EnvironmentObject var viewModel: MainViewModel
-
+    
     var body: some View {
         VStack {
             // Other settings content
