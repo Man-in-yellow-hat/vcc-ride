@@ -39,6 +39,7 @@ struct MainView: View {
     var body: some View {
         Group {
             if viewModel.isLoggedIn {
+                // get user active and role?
                 ContentView().environmentObject(viewModel)
             } else {
                 LoginView().environmentObject(viewModel)

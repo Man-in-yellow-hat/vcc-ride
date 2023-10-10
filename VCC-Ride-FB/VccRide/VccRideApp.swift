@@ -29,7 +29,7 @@ struct FirebaseTestApp: App {
                           if user != nil {
                               viewModel.isLoggedIn = true
                           } else {
-                              print(error)
+                              print(error!)
                           }
                       }
 //                    .onAppear {

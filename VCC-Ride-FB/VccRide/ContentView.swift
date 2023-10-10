@@ -15,7 +15,7 @@ struct ContentView: View {
         TabView(selection: $selectedNavBarTab) {
             // People view based on user role
             if viewModel.userRole == "admin" {
-                PeopleView()
+                AdminPeopleView()
                     .tabItem {
                         Label("People", systemImage: "person.2")
                     }
