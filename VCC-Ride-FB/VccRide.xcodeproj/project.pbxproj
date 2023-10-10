@@ -13,7 +13,6 @@
 		A858D2882ACDADB500A17CCD /* VccRideApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858D2872ACDADB500A17CCD /* VccRideApp.swift */; };
 		A858D28C2ACDADC700A17CCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A858D28B2ACDADC700A17CCD /* Assets.xcassets */; };
 		A858D28F2ACDADC700A17CCD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A858D28E2ACDADC700A17CCD /* Preview Assets.xcassets */; };
-		A858D2962ACDAFE900A17CCD /* LoginJoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858D2952ACDAFE900A17CCD /* LoginJoinView.swift */; };
 		A858D29F2ACDC6C000A17CCD /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A858D29E2ACDC6C000A17CCD /* FirebaseAnalytics */; };
 		A858D2A12ACDC6C000A17CCD /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = A858D2A02ACDC6C000A17CCD /* FirebaseAnalyticsOnDeviceConversion */; };
 		A858D2A32ACDC6C000A17CCD /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A858D2A22ACDC6C000A17CCD /* FirebaseAnalyticsSwift */; };
@@ -46,7 +45,7 @@
 		D71B9E112AD053FF00144928 /* AdminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E102AD053FF00144928 /* AdminView.swift */; };
 		D71B9E162AD058DA00144928 /* DriverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E152AD058DA00144928 /* DriverView.swift */; };
 		D71B9E182AD058E100144928 /* RiderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E172AD058E100144928 /* RiderView.swift */; };
-		D71B9E1B2AD05C2F00144928 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E1A2AD05C2F00144928 /* SettingsView.swift */; };
+		D71B9E1B2AD05C2F00144928 /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E1A2AD05C2F00144928 /* AppSettingsView.swift */; };
 		D71B9E1D2AD05C3A00144928 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E1C2AD05C3A00144928 /* CalendarView.swift */; };
 		D71B9E1F2AD05C4100144928 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E1E2AD05C4100144928 /* StatsView.swift */; };
 		D71B9E212AD05C4C00144928 /* PeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E202AD05C4C00144928 /* PeopleView.swift */; };
@@ -56,6 +55,12 @@
 		D771DED22ACF575C00E79153 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D771DED12ACF575C00E79153 /* MainView.swift */; };
 		D7A1EAFC2AD2569C0075A4B2 /* AdminCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */; };
 		D7B65D982AD25BCE00D2701B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65D972AD25BCE00D2701B /* UserViewModel.swift */; };
+		D7B65D9C2AD476C400D2701B /* SettingsMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65D9B2AD476C400D2701B /* SettingsMainView.swift */; };
+		D7B65D9E2AD476D300D2701B /* DriverSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65D9D2AD476D300D2701B /* DriverSettingsView.swift */; };
+		D7B65DA02AD476F100D2701B /* RiderSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65D9F2AD476F100D2701B /* RiderSettingsView.swift */; };
+		D7B65DA22AD476FB00D2701B /* AdminSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65DA12AD476FB00D2701B /* AdminSettingsView.swift */; };
+		D7B65DA42AD5987B00D2701B /* OrganizeDrivers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65DA32AD5987B00D2701B /* OrganizeDrivers.swift */; };
+		D7B65DA82AD5A5F200D2701B /* AdminPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65DA72AD5A5F200D2701B /* AdminPeopleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,14 +70,13 @@
 		A858D2872ACDADB500A17CCD /* VccRideApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VccRideApp.swift; sourceTree = "<group>"; };
 		A858D28B2ACDADC700A17CCD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A858D28E2ACDADC700A17CCD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		A858D2952ACDAFE900A17CCD /* LoginJoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginJoinView.swift; sourceTree = "<group>"; };
 		A858D2972ACDAFFD00A17CCD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A858D2D42ACDC73F00A17CCD /* FirebaseUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUtil.swift; sourceTree = "<group>"; };
 		A858D2D62ACDCD5F00A17CCD /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		D71B9E102AD053FF00144928 /* AdminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminView.swift; sourceTree = "<group>"; };
 		D71B9E152AD058DA00144928 /* DriverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverView.swift; sourceTree = "<group>"; };
 		D71B9E172AD058E100144928 /* RiderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiderView.swift; sourceTree = "<group>"; };
-		D71B9E1A2AD05C2F00144928 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D71B9E1A2AD05C2F00144928 /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
 		D71B9E1C2AD05C3A00144928 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		D71B9E1E2AD05C4100144928 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		D71B9E202AD05C4C00144928 /* PeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleView.swift; sourceTree = "<group>"; };
@@ -81,6 +85,12 @@
 		D771DED12ACF575C00E79153 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminCalendar.swift; sourceTree = "<group>"; };
 		D7B65D972AD25BCE00D2701B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		D7B65D9B2AD476C400D2701B /* SettingsMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMainView.swift; sourceTree = "<group>"; };
+		D7B65D9D2AD476D300D2701B /* DriverSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverSettingsView.swift; sourceTree = "<group>"; };
+		D7B65D9F2AD476F100D2701B /* RiderSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiderSettingsView.swift; sourceTree = "<group>"; };
+		D7B65DA12AD476FB00D2701B /* AdminSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminSettingsView.swift; sourceTree = "<group>"; };
+		D7B65DA32AD5987B00D2701B /* OrganizeDrivers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizeDrivers.swift; sourceTree = "<group>"; };
+		D7B65DA72AD5A5F200D2701B /* AdminPeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPeopleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,12 +155,11 @@
 				D71B9E192AD05C0D00144928 /* NavBar */,
 				D71B9E142AD058CD00144928 /* Driver */,
 				D71B9E132AD0586800144928 /* Rider */,
-				D71B9E122AD0579800144928 /* Utilities */,
 				D7CA928E2ACE38CF007C1994 /* Admin */,
+				D71B9E122AD0579800144928 /* Utilities */,
 				A844CE8C2ACE0B6700EC44C2 /* Info.plist */,
 				A858D2872ACDADB500A17CCD /* VccRideApp.swift */,
 				D771DED12ACF575C00E79153 /* MainView.swift */,
-				A858D2952ACDAFE900A17CCD /* LoginJoinView.swift */,
 				D71B9E222AD0732800144928 /* LoginView.swift */,
 				A858D2D62ACDCD5F00A17CCD /* ImagePickerView.swift */,
 				A858D2972ACDAFFD00A17CCD /* ContentView.swift */,
@@ -175,6 +184,7 @@
 				A858D2D42ACDC73F00A17CCD /* FirebaseUtil.swift */,
 				A844CE8D2ACE0EEA00EC44C2 /* Application.swift */,
 				D7B65D972AD25BCE00D2701B /* UserViewModel.swift */,
+				D7B65DA32AD5987B00D2701B /* OrganizeDrivers.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -182,6 +192,7 @@
 		D71B9E132AD0586800144928 /* Rider */ = {
 			isa = PBXGroup;
 			children = (
+				D7B65D9F2AD476F100D2701B /* RiderSettingsView.swift */,
 				D71B9E172AD058E100144928 /* RiderView.swift */,
 			);
 			path = Rider;
@@ -190,6 +201,7 @@
 		D71B9E142AD058CD00144928 /* Driver */ = {
 			isa = PBXGroup;
 			children = (
+				D7B65D9D2AD476D300D2701B /* DriverSettingsView.swift */,
 				D71B9E152AD058DA00144928 /* DriverView.swift */,
 			);
 			path = Driver;
@@ -198,11 +210,11 @@
 		D71B9E192AD05C0D00144928 /* NavBar */ = {
 			isa = PBXGroup;
 			children = (
-				D71B9E1A2AD05C2F00144928 /* SettingsView.swift */,
+				D71B9E1A2AD05C2F00144928 /* AppSettingsView.swift */,
 				D71B9E1C2AD05C3A00144928 /* CalendarView.swift */,
 				D71B9E1E2AD05C4100144928 /* StatsView.swift */,
 				D71B9E202AD05C4C00144928 /* PeopleView.swift */,
-				D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */,
+				D7B65D9B2AD476C400D2701B /* SettingsMainView.swift */,
 			);
 			path = NavBar;
 			sourceTree = "<group>";
@@ -210,7 +222,10 @@
 		D7CA928E2ACE38CF007C1994 /* Admin */ = {
 			isa = PBXGroup;
 			children = (
+				D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */,
 				D71B9E102AD053FF00144928 /* AdminView.swift */,
+				D7B65DA12AD476FB00D2701B /* AdminSettingsView.swift */,
+				D7B65DA72AD5A5F200D2701B /* AdminPeopleView.swift */,
 			);
 			path = Admin;
 			sourceTree = "<group>";
@@ -323,21 +338,26 @@
 			files = (
 				D771DECC2ACF561400E79153 /* ContentView.swift in Sources */,
 				D7A1EAFC2AD2569C0075A4B2 /* AdminCalendar.swift in Sources */,
+				D7B65DA42AD5987B00D2701B /* OrganizeDrivers.swift in Sources */,
 				D71B9E162AD058DA00144928 /* DriverView.swift in Sources */,
 				D71B9E1D2AD05C3A00144928 /* CalendarView.swift in Sources */,
+				D7B65DA02AD476F100D2701B /* RiderSettingsView.swift in Sources */,
 				D71B9E232AD0732800144928 /* LoginView.swift in Sources */,
 				D771DED22ACF575C00E79153 /* MainView.swift in Sources */,
 				D71B9E182AD058E100144928 /* RiderView.swift in Sources */,
+				D7B65DA82AD5A5F200D2701B /* AdminPeopleView.swift in Sources */,
 				A844CE8E2ACE0EEA00EC44C2 /* Application.swift in Sources */,
 				D71B9E112AD053FF00144928 /* AdminView.swift in Sources */,
 				A858D2D52ACDC73F00A17CCD /* FirebaseUtil.swift in Sources */,
-				A858D2962ACDAFE900A17CCD /* LoginJoinView.swift in Sources */,
 				D71B9E212AD05C4C00144928 /* PeopleView.swift in Sources */,
 				D71B9E1F2AD05C4100144928 /* StatsView.swift in Sources */,
 				A858D2D72ACDCD5F00A17CCD /* ImagePickerView.swift in Sources */,
+				D7B65D9C2AD476C400D2701B /* SettingsMainView.swift in Sources */,
+				D7B65D9E2AD476D300D2701B /* DriverSettingsView.swift in Sources */,
+				D7B65DA22AD476FB00D2701B /* AdminSettingsView.swift in Sources */,
 				D7B65D982AD25BCE00D2701B /* UserViewModel.swift in Sources */,
 				A858D2882ACDADB500A17CCD /* VccRideApp.swift in Sources */,
-				D71B9E1B2AD05C2F00144928 /* SettingsView.swift in Sources */,
+				D71B9E1B2AD05C2F00144928 /* AppSettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

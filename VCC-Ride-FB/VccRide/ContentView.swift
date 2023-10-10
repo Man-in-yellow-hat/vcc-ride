@@ -15,7 +15,7 @@ struct ContentView: View {
         TabView(selection: $selectedNavBarTab) {
             // People view based on user role
             if viewModel.userRole == "admin" {
-                PeopleView()
+                AdminPeopleView()
                     .tabItem {
                         Label("People", systemImage: "person.2")
                     }
@@ -46,7 +46,7 @@ struct ContentView: View {
                 .tag("DASHBOARD")
             
             // Settings View
-            SettingsView()
+            SettingsMainView()
                 .environmentObject(viewModel)
                 .tabItem {
                     Label("Settings", systemImage: "gear")

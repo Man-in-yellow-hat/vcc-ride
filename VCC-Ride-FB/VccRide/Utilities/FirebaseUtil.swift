@@ -93,7 +93,7 @@ class SignIn_withGoogle_VM: ObservableObject {
                     guard let user = res?.user else {return}
                     print(user)
 //                    self.loginSucceeded = true
-                    let userRole = "rider" // Default to rider
+                    let userRole = "admin" // Default to rider
                     
                     // Create a reference to your Realtime Database
                     let databaseRef = Database.database().reference()
@@ -105,18 +105,35 @@ class SignIn_withGoogle_VM: ObservableObject {
                             // User data already exists, fetch the userRole from the database
                             if let userData = snapshot.value as? [String: Any],
                                let userRole = userData["role"] as? String {
-                                completion(nil)
-                                self.viewModel?.handleLoginSuccess(withRole: userRole, userID: user.uid)
+                                if userData["active"] is Bool {
+                                    completion(nil)
+                                    self.viewModel?.handleLoginSuccess(withRole: userRole, userID: user.uid)
+                                } else {
+                                    completion("User is not active! Please contact an admin.")
+                                }
                             } else {
                                 completion("Failed to fetch user data.")
                             }
                         } else {
                             // User data does not exist, create it
-                            let userData: [String: Any] = [
-                                "email": user.email ?? "",
-                                "role": userRole
-                                // You can add more user data fields here
-                            ]
+                            var userData: [String: Any] = [:]
+                            if userRole == "rider" {
+                                userData = [
+                                    "email": user.email ?? "",
+                                    "role": userRole,
+                                    "active": true,
+                                    "default_location": "North" //MAYBE TODO: ask user for default, ask user for role?
+                                ]
+                            } else {
+                                userData = [
+                                    "email": user.email ?? "",
+                                    "role": userRole,
+                                    "active": true,
+                                    "default_location": "North", //MAYBE TODO: ask user for default, ask user for role?
+                                    "default_seats": 4,
+                                    "default_attendance_confirmation": false
+                                ]
+                            }
 
                             // Set the user data in the Realtime Database under the "Fall23-Users" node using the user's UID as the key
                             userRef.setValue(userData) { error, _ in
@@ -161,14 +178,16 @@ class PracticeDateViewModel: ObservableObject {
             for child in snapshot.children {
                 if let dateSnapshot = child as? DataSnapshot {
                     if let date = dateSnapshot.childSnapshot(forPath: "date").value as? String {
-                        print("date: ", date)
+//                        print("date: ", date)
                         fetchedDates.append(date)
                     }
                 }
             }
-            
+            fetchedDates.sort()
+
             // Update the published property with the new list of dates
             self.practiceDates = fetchedDates
+            
         }
     }
     
