@@ -105,8 +105,12 @@ class SignIn_withGoogle_VM: ObservableObject {
                             // User data already exists, fetch the userRole from the database
                             if let userData = snapshot.value as? [String: Any],
                                let userRole = userData["role"] as? String {
-                                completion(nil)
-                                self.viewModel?.handleLoginSuccess(withRole: userRole, userID: user.uid)
+                                if userData["active"] is Bool {
+                                    completion(nil)
+                                    self.viewModel?.handleLoginSuccess(withRole: userRole, userID: user.uid)
+                                } else {
+                                    completion("User is not active! Please contact an admin.")
+                                }
                             } else {
                                 completion("Failed to fetch user data.")
                             }
@@ -117,12 +121,14 @@ class SignIn_withGoogle_VM: ObservableObject {
                                 userData = [
                                     "email": user.email ?? "",
                                     "role": userRole,
+                                    "active": true,
                                     "default_location": "North" //MAYBE TODO: ask user for default, ask user for role?
                                 ]
                             } else {
                                 userData = [
                                     "email": user.email ?? "",
                                     "role": userRole,
+                                    "active": true,
                                     "default_location": "North", //MAYBE TODO: ask user for default, ask user for role?
                                     "default_seats": 4,
                                     "default_attendance_confirmation": false
