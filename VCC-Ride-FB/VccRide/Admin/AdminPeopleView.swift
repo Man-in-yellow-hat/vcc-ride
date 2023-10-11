@@ -16,6 +16,7 @@ struct EditUserView: View {
     @State private var role: String = ""
     @State private var active: Bool = false
     @State private var defaultLocation: String = ""
+    @State private var seats = 4
 
     @Environment(\.presentationMode) var presentationMode
 
@@ -47,12 +48,20 @@ struct EditUserView: View {
                         }
                     }
                 }
+                if role != "rider" {
+                    Section(header: Text("Number of Seats")) {
+                        Stepper(value: $seats, in: 0...10) {
+                            Text("Seats: \(seats)")
+                        }
+                    }
+                }
             }
             Button("Save") {
                 // Update the userData dictionary with the changes
                 userData["role"] = role
                 userData["active"] = active
                 userData["default_location"] = defaultLocation
+                userData["default_seats"] = seats
 
                 // Save user data in the database
                 updateUserData(userData: userData, userID: userID)
@@ -67,6 +76,7 @@ struct EditUserView: View {
             role = userData["role"] as? String ?? ""
             active = userData["active"] as? Bool ?? false
             defaultLocation = userData["default_location"] as? String ?? ""
+            seats = userData["default_seats"] as? Int ?? 4
         }
     }
     private func updateUserData(userData: [String: Any], userID: String) {
