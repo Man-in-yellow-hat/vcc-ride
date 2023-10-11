@@ -17,6 +17,8 @@ struct EditUserView: View {
     @State private var active: Bool = false
     @State private var defaultLocation: String = ""
     @State private var seats = 4
+    
+    @State private var confirmRoleChange: Bool = false
 
     @Environment(\.presentationMode) var presentationMode
 
@@ -56,18 +58,38 @@ struct EditUserView: View {
                     }
                 }
             }
-            Button("Save") {
-                // Update the userData dictionary with the changes
-                userData["role"] = role
-                userData["active"] = active
-                userData["default_location"] = defaultLocation
-                userData["default_seats"] = seats
+            if confirmRoleChange {
+                Section {
+                    Text("Changing a user to or from an admin role requires confirmation.")
+                    Button("Confirm Role Change") {
+                        // Update the user's role
+                        userData["role"] = role
+                        // Save user data in the database
+                        updateUserData(userData: userData, userID: userID)
+                        // Dismiss the view
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
+            } else {
+                Button("Save") {
+                    if role != userData["role"] as? String && role == "admin" || userData["role"] as! String == "admin" {
+                        // A role change is requested, show the confirmation dialog
+                        confirmRoleChange = true
+                    } else {
+                        // Role is not changing, proceed to save
+                        // Update the userData dictionary with the changes
+                        userData["role"] = role
+                        userData["active"] = active
+                        userData["default_location"] = defaultLocation
+                        userData["default_seats"] = seats
 
-                // Save user data in the database
-                updateUserData(userData: userData, userID: userID)
+                        // Save user data in the database
+                        updateUserData(userData: userData, userID: userID)
 
-                // Dismiss the view
-                presentationMode.wrappedValue.dismiss()
+                        // Dismiss the view
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
             }
         }
         .navigationBarTitle("Edit User")
