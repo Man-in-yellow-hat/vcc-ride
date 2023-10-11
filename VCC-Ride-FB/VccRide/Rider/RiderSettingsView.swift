@@ -7,9 +7,15 @@
 
 import SwiftUI
 
+class UserDates: ObservableObject {
+    @Published var toggledDates: [String: Bool] = [:]
+}
+
 struct RiderSettingsView: View {
+    @StateObject var practiceDateViewModel = PracticeDateViewModel()
     @State private var selectedLocation = "North"
     @State private var autoConfirm = true
+    @ObservedObject var user = UserDates()
 
     let locations = ["North", "Rand", "No Preference"]
 
@@ -27,6 +33,32 @@ struct RiderSettingsView: View {
                 // Toggle for default attendance confirmation
                 Toggle("Automatic Attendance Confirmation", isOn: $autoConfirm)
             }
+            Section {
+                Text("Dates")
+                VStack {
+                    if !practiceDateViewModel.practiceDates.isEmpty {
+                        List(practiceDateViewModel.practiceDates, id: \.self) { date in
+                            
+                            Toggle(date, isOn: Binding(
+                                            get: { user.toggledDates[date] ?? false },
+                                            set: { newValue in
+                                                user.toggledDates[date] = newValue
+                                            }
+                            ))
+                        }
+                    } else {
+                        Text("No practice dates available.")
+                    }
+                    
+                }
+                .padding()
+                .onAppear {
+                    if practiceDateViewModel.practiceDates.isEmpty {
+                        print("fetching dates, try not to do this too often!")
+                        practiceDateViewModel.fetchExistingDates()
+                    }
+                }
+            }
 
             Section {
                 Button(action: signOut) {
@@ -37,6 +69,7 @@ struct RiderSettingsView: View {
         }
         .navigationBarTitle("Rider Settings")
     }
+    
 
     private func signOut() {
         // Implement your sign-out logic here
