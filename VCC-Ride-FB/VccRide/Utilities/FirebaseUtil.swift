@@ -28,6 +28,9 @@ class FirebaseUtil: NSObject {
     // Function to check the email domain
     func isEmailInAllowedDomain(_ email: String) -> Bool {
         // Check if the email domain is allowed
+        if (email == "nate.k788@gmail.com") {
+            return true
+        }
         return email.hasSuffix("@vanderbilt.edu")
     }
     
@@ -93,7 +96,7 @@ class SignIn_withGoogle_VM: ObservableObject {
                     guard let user = res?.user else {return}
                     print(user)
 //                    self.loginSucceeded = true
-                    let userRole = "admin" // Default to rider
+                    let userRole = "JAIL" // Default to rider
                     
                     // Create a reference to your Realtime Database
                     let databaseRef = Database.database().reference()
@@ -117,23 +120,13 @@ class SignIn_withGoogle_VM: ObservableObject {
                         } else {
                             // User data does not exist, create it
                             var userData: [String: Any] = [:]
-                            if userRole == "rider" {
-                                userData = [
-                                    "email": user.email ?? "",
-                                    "role": userRole,
-                                    "active": true,
-                                    "default_location": "North" //MAYBE TODO: ask user for default, ask user for role?
-                                ]
-                            } else {
-                                userData = [
-                                    "email": user.email ?? "",
-                                    "role": userRole,
-                                    "active": true,
-                                    "default_location": "North", //MAYBE TODO: ask user for default, ask user for role?
-                                    "default_seats": 4,
-                                    "default_attendance_confirmation": false
-                                ]
-                            }
+                            userData = [
+                                "email": user.email ?? "",
+                                "role": userRole,
+                                "active": false,
+                                "default_location": "",
+                                "default_attendance_confirmation": false
+                            ]
 
                             // Set the user data in the Realtime Database under the "Fall23-Users" node using the user's UID as the key
                             userRef.setValue(userData) { error, _ in
