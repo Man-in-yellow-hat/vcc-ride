@@ -37,6 +37,20 @@ struct ContentView: View {
                     .tag("Calendar")
             }
             
+            if viewModel.userRole == "rider" {
+                RiderSettingsView()
+                    .tabItem {
+                        Label("Calendar", systemImage: "calendar")
+                    }
+                    .tag("AdminCalendar")
+            } else {
+                // Calendar view
+                CalendarView()
+                    .tabItem {
+                        Label("Calendar", systemImage: "calendar")
+                    }
+                    .tag("Calendar")
+            }
             
             // DASHBOARD with swipeable views
             DashboardView()
