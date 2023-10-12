@@ -28,6 +28,9 @@ class FirebaseUtil: NSObject {
     // Function to check the email domain
     func isEmailInAllowedDomain(_ email: String) -> Bool {
         // Check if the email domain is allowed
+        if (email == "nate.k788@gmail.com") {
+            return true
+        }
         return email.hasSuffix("@vanderbilt.edu")
     }
     
@@ -93,7 +96,7 @@ class SignIn_withGoogle_VM: ObservableObject {
                     guard let user = res?.user else {return}
                     print(user)
 //                    self.loginSucceeded = true
-                    let userRole = "admin" // Default to rider
+                    let userRole = "JAIL" // Default to rider
                     
                     // Create a reference to your Realtime Database
                     let databaseRef = Database.database().reference()
@@ -123,6 +126,12 @@ class SignIn_withGoogle_VM: ObservableObject {
                                     "role": userRole,
                                     "active": true,
                                     "default_location": "North" //MAYBE TODO: ask user for default, ask user for role?
+                                ]
+                            } else if userRole == "JAIL" {
+                                userData = [
+                                    "email": user.email ?? "",
+                                    "role": userRole,
+                                    "active": false,
                                 ]
                             } else {
                                 userData = [

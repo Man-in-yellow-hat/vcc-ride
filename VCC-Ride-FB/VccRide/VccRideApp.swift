@@ -17,36 +17,31 @@ struct FirebaseTestApp: App {
     var body: some Scene {
         WindowGroup {
             // Check if the user is logged in
-            let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
+            //            let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
             
-            // Determine the initial view based on the user's authentication status
-            if isLoggedIn {
-                MainView()
-                    .environmentObject(viewModel)
-                    .onAppear {
-                      GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
-                        // Check if `user` exists; otherwise, do something with `error`
-                          if user != nil {
-                              viewModel.isLoggedIn = true
-                          } else {
-                              print(error!)
-                          }
-                      }
-//                    .onAppear {
-//                        FirebaseUtil.shared.authenticateLoggedInUser()
+            MainView()
+                .environmentObject(viewModel)
+                .onAppear() {
+                    if(GIDSignIn.sharedInstance.hasPreviousSignIn() && GIDSignIn.sharedInstance.currentUser == nil) {
+                        GIDSignIn.sharedInstance.restorePreviousSignIn() {
+                            user, error in
+                            if let user = Auth.auth().currentUser {
+                                viewModel.isLoggedIn = true
+                                viewModel.userID = user.uid
+                                viewModel.fetchUserRole(forUserID: user.uid)
+                                print(user, user.uid)
+                                print("HIHI")
+                                viewModel.printstuff()
+                            } else {
+                                print(error ?? "unknown error")
+                            }
+                        }
                     }
-            } else {
-                MainView()
-                    .environmentObject(viewModel)
-//                        if let savedUserRole = UserDefaults.standard.string(forKey: "userRole") {
-//                            // Attempt auto-login with savedUserRole
-//                            // Implement Firebase Authentication logic here
-//
-//                        }
-            }
+                }
         }
     }
 }
+
 
 
 class AppDelegate: NSObject, UIApplicationDelegate {
