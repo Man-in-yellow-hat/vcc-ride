@@ -17,10 +17,11 @@ class MainViewModel: ObservableObject {
     func handleLoginSuccess(withRole role: String, userID uid: String) {
         self.isLoggedIn = true
         self.userRole = role
+        self.userID = uid
         UserDefaults.standard.set(uid, forKey: "googleUserID")
         UserDefaults.standard.set(role, forKey: "userRole")
         UserDefaults.standard.set(true, forKey: "isLoggedIn")
-        print(self.userRole)
+//        print(self.userRole)
     }
     
     func handleSignOut() {
@@ -28,8 +29,26 @@ class MainViewModel: ObservableObject {
         UserDefaults.standard.set(false, forKey: "isLoggedIn")
     }
     
-    func printstuff() {
-        print("printing: ", self.isLoggedIn, self.userID, self.userRole)
+    func getOutOfJail(newRole: String, newLocation: String, newConfirm: Bool) {
+        let ref = Database.database().reference()
+        let userRef = ref.child("Fall23-Users").child(self.userID!)
+        
+        let updates: [String: Any] = [
+            "role": newRole,
+            "active": true, // Set "active" to true
+            "default_location": newLocation,
+            "default_confirm_attendance": newConfirm
+        ]
+        
+        userRef.updateChildValues(updates) { error, _ in
+            if let error = error {
+                print("Error updating user's role: \(error.localizedDescription)")
+            } else {
+                // Role updated successfully
+                self.userRole = newRole
+                print("User's role updated to \(newRole)")
+            }
+        }
     }
     
     // get user role from DB
@@ -46,39 +65,23 @@ class MainViewModel: ObservableObject {
         }
         print(self.userRole)
     }
-
-    // Add a method to retrieve the user's role from UserDefaults
-//    func retrieveUserRole() {
-//        self.userRole = UserDefaults.standard.string(forKey: "userRole")
-//    }
-    
 }
 
 struct MainView: View {
     @EnvironmentObject var viewModel: MainViewModel
-
+    
     var body: some View {
         Group {
-            if viewModel.isLoggedIn {
-                if let userRole = viewModel.userRole {
-                    if userRole == "JAIL" {
-                        // Redirect to SignInJailView if the role is "JAIL"
-//                        print("JAIL")
-                        SignInJailView().environmentObject(viewModel)
-                    } else {
-                        // Navigate to the main content view based on the user's role
-//                        print("Content")
-                        ContentView().environmentObject(viewModel)
-                    }
-                }
-            } else {
-//                print("trying to go to login view?")
+            if viewModel.userRole == nil || !viewModel.isLoggedIn {
                 LoginView().environmentObject(viewModel)
+            } else {
+                if viewModel.userRole == "JAIL" {
+                    SignInJailView().environmentObject(viewModel)
+                } else {
+                    ContentView().environmentObject(viewModel)
+                }
             }
         }
-//        .onAppear {
-//            viewModel.retrieveUserRole()
-//        }
     }
 }
 

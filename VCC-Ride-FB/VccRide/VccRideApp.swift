@@ -16,9 +16,6 @@ struct FirebaseTestApp: App {
     
     var body: some Scene {
         WindowGroup {
-            // Check if the user is logged in
-            //            let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
-            
             MainView()
                 .environmentObject(viewModel)
                 .onAppear() {
@@ -26,12 +23,10 @@ struct FirebaseTestApp: App {
                         GIDSignIn.sharedInstance.restorePreviousSignIn() {
                             user, error in
                             if let user = Auth.auth().currentUser {
+                                print(user.uid)
                                 viewModel.isLoggedIn = true
                                 viewModel.userID = user.uid
                                 viewModel.fetchUserRole(forUserID: user.uid)
-                                print(user, user.uid)
-                                print("HIHI")
-                                viewModel.printstuff()
                             } else {
                                 print(error ?? "unknown error")
                             }
