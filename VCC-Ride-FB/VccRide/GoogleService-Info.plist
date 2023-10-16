@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>746314597722-6b2o0dlbjg398o93ct5kgul641m0naa7.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.746314597722-6b2o0dlbjg398o93ct5kgul641m0naa7</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC19XqB75z7AMOGE71mrIp8ho5PuIdJb4g</string>
+	<key>GCM_SENDER_ID</key>
+	<string>746314597722</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>vccride.vanderbilt.apple.app</string>
+	<key>PROJECT_ID</key>
+	<string>vcc-ride-e61ed</string>
+	<key>STORAGE_BUCKET</key>
+	<string>vcc-ride-e61ed.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:746314597722:ios:aa6db98990667b83049f63</string>
+	<key>DATABASE_URL</key>
+	<string>https://vcc-ride-e61ed-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
