@@ -161,6 +161,9 @@ class PracticeDateViewModel: ObservableObject {
     // Published property to hold the list of dates
     @Published var practiceDates: [String] = []
     
+    // Published property to hold unique ID for date data
+    @Published var dateID: [String: String] = [:]
+    
     func fetchExistingDates() {
         print("fetching dates")
         let datesRef = databaseRef.child("Fall23-Practices")
@@ -173,6 +176,7 @@ class PracticeDateViewModel: ObservableObject {
                     if let date = dateSnapshot.childSnapshot(forPath: "date").value as? String {
 //                        print("date: ", date)
                         fetchedDates.append(date)
+                        self.dateID[date] = dateSnapshot.key
                     }
                 }
             }
@@ -180,12 +184,13 @@ class PracticeDateViewModel: ObservableObject {
 
             // Update the published property with the new list of dates
             self.practiceDates = fetchedDates
-            
         }
     }
     
     // Function to add a new practice date
     func addPracticeDate(date: String) {
+        
+        
         // Generate a unique ID for the new practice date
         let practiceDateID = databaseRef.child("Fall23-Practices").childByAutoId().key ?? ""
         
@@ -200,6 +205,18 @@ class PracticeDateViewModel: ObservableObject {
                 print("Error adding practice date: \(error.localizedDescription)")
             } else {
                 print("Practice date added successfully!")
+            }
+        }
+    }
+    
+    //Function to delete practice date
+    func deletePracticeDate(date: String) {
+        // Delete practice date from database
+        databaseRef.child("Fall23-Practices").child(self.dateID[date]!).removeValue { (error, _) in
+            if let error = error {
+                print("Error deleting practice date: \(error.localizedDescription)")
+            } else {
+                print("Deleted date successfully!")
             }
         }
     }

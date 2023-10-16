@@ -37,6 +37,7 @@ struct ContentView: View {
                     .tag("Calendar")
             }
             
+            /*
             if viewModel.userRole == "rider" {
                 RiderSettingsView()
                     .tabItem {
@@ -51,6 +52,7 @@ struct ContentView: View {
                     }
                     .tag("Calendar")
             }
+            */
             
             // DASHBOARD with swipeable views
             DashboardView()
