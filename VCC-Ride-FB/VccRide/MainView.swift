@@ -53,7 +53,7 @@ class MainViewModel: ObservableObject {
     
     // get user role from DB
     func fetchUserRole(forUserID userID: String) {
-        print("fetching...")
+        print("fetching...", userID)
         let ref = Database.database().reference()
         let userRef = ref.child("Fall23-Users").child(userID) // Adjust the database path as needed
 
@@ -61,9 +61,9 @@ class MainViewModel: ObservableObject {
             if let userData = snapshot.value as? [String: Any],
                let role = userData["role"] as? String {
                 self.userRole = role
+                print("role: ", self.userRole)
             }
         }
-        print(self.userRole)
     }
 }
 

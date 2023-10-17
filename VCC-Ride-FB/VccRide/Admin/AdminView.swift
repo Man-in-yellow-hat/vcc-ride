@@ -8,8 +8,15 @@
 import SwiftUI
 
 struct AdminView: View {
+    @State private var assignDrivers = AssignDrivers() // Create an instance of AssignDrivers
+    
     var body: some View {
-        Text("ADMIN!")
+        VStack {
+            Text("ADMIN!")
+            Button("ASSIGN DRIVERS PLEASE") {
+                assignDrivers.assignNoPrefDrivers()
+            }
+        }
     }
 }
 
