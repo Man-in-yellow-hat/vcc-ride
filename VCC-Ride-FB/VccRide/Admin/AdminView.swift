@@ -61,6 +61,7 @@ struct AdminView: View {
                 
                 HStack(spacing: 20) {
                     ButtonShroud(title: "Assign Drivers", action: {
+                        print("assigning drivers!")
                         assignDrivers.assignNoPrefDrivers()
                     })
                     .frame(width: buttonWidth, height: 70)

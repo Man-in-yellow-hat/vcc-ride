@@ -53,6 +53,7 @@ class AssignDrivers {
     
     public func assignNoPrefDrivers() {
         getLists()
+        print("here!")
         self.date = "Oct10" // TODO: FIX HARDCODED
         self.numRandRiders = randRiders.values.reduce(0, +)
         self.numNorthRiders = northRiders.values.reduce(0, +)
@@ -63,33 +64,35 @@ class AssignDrivers {
         var difNorth = self.numNorthSeats - self.numNorthRiders // keep as var to change later
 
         for driver in self.noPrefDrivers {
+            //
+            var mySeats = 4
+            mySeats = driver.value
             if difNorth < difRand {
-                moveDriver(driverID: driver.key, fromList: "no_pref_driver", toList: "north_driver")
+                moveDriver(driverID: driver.key, thisDriverSeats: mySeats, fromList: "no_pref_driver", toList: "north_driver")
+                difNorth += mySeats
             } else {
-                moveDriver(driverID: driver.key, fromList: "no_pref_driver", toList: "rand_driver")
+                moveDriver(driverID: driver.key, thisDriverSeats: mySeats, fromList: "no_pref_driver", toList: "rand_driver")
+                difRand += mySeats
             }
         }
     }
     
-    private func moveDriver(driverID: String, fromList: String, toList: String) {
+    private func moveDriver(driverID: String, thisDriverSeats: Int, fromList: String, toList: String) {
         let dateRef = Database.database().reference().child("Fall23-Practices").child(self.date)
         let fromListRef = dateRef.child(fromList)
         let toListRef = dateRef.child(toList)
         
+        
         fromListRef.child(driverID).observeSingleEvent(of: .value) { snapshot in
-            if snapshot.exists() {
-                if let driverData = snapshot.value as? Int {
-                    toListRef.child(driverID).setValue(driverData) { (error, _) in
+            toListRef.child(driverID).setValue(thisDriverSeats) { (error, _) in
+                if let error = error {
+                    print("Error moving driver to target list: \(error.localizedDescription)")
+                } else {
+                    print("MOVING DRIVER: \(driverID) FROM \(fromList) TO: \(toList)")
+                    
+                    fromListRef.child(driverID).removeValue { (error, _) in
                         if let error = error {
-                            print("Error moving driver to target list: \(error.localizedDescription)")
-                        } else {
-                            print("MOVING DRIVER: \(driverID) FROM \(fromList) TO: \(toList)")
-                            
-                            fromListRef.child(driverID).removeValue { (error, _) in
-                                if let error = error {
-                                    print("Error removing driver from source list: \(error.localizedDescription)")
-                                }
-                            }
+                            print("Error removing driver from source list: \(error.localizedDescription)")
                         }
                     }
                 }

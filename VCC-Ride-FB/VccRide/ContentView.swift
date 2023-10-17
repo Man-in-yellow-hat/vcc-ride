@@ -30,12 +30,6 @@ struct ContentView: View {
                     .tag("Calendar")
             }
             
-            StatsView()
-                .tabItem {
-                    Label("Stats", systemImage: "chart.line.uptrend.xyaxis")
-                }
-                .tag("Stats")
-            
             
 //            if viewModel.userRole == "rider" {
 //                RiderSettingsView()
@@ -58,13 +52,6 @@ struct ContentView: View {
                     Label("DASHBOARD", systemImage: "house")
                 }
                 .tag("DASHBOARD")
-            
-            PeopleView()
-                .environmentObject(viewModel)
-                .tabItem {
-                    Label("Users", systemImage: "person.3")
-                }
-                .tag("Users")
             
             // Settings View
             SettingsMainView()

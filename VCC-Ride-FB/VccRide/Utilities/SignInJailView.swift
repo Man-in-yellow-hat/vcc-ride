@@ -12,14 +12,16 @@ struct SignInJailView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Please fill out the form below, an admin will give you access soon")
-                    .font(.subheadline)
-                Spacer()
-                
-                Text("Select your Role. If you wish to be an Admin, please contact your Transportation Director.")
-                    .font(.subheadline)
-                Text("")
-                
+                Group {
+                    Text("Please fill out the form below, an admin will give you access soon")
+                        .font(.subheadline)
+                    Spacer()
+                    
+                    Text("Select your Role. If you wish to be an Admin, please contact your Transportation Director.")
+                        .font(.subheadline)
+                    Text("")
+                    
+                }
                 Picker("Role", selection: $selectedRole) {
                     Text("Rider").tag("rider")
                     Text("Driver").tag("driver")
@@ -98,4 +100,3 @@ struct SignInJailView_Previews: PreviewProvider {
         SignInJailView()
     }
 }
-
