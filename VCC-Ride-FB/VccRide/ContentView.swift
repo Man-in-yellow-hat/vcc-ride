@@ -1,10 +1,3 @@
-//
-//  HomeView.swift
-//  FirebaseTest
-//
-//  Created by Junwon Lee on 10/4/23.
-//
-
 import SwiftUI
 
 struct ContentView: View {
@@ -37,6 +30,13 @@ struct ContentView: View {
                     .tag("Calendar")
             }
             
+            StatsView()
+                .tabItem {
+                    Label("Stats", systemImage: "chart.line.uptrend.xyaxis")
+                }
+                .tag("Stats")
+            
+            
 //            if viewModel.userRole == "rider" {
 //                RiderSettingsView()
 //                    .tabItem {
@@ -59,6 +59,13 @@ struct ContentView: View {
                 }
                 .tag("DASHBOARD")
             
+            PeopleView()
+                .environmentObject(viewModel)
+                .tabItem {
+                    Label("Users", systemImage: "person.3")
+                }
+                .tag("Users")
+            
             // Settings View
             SettingsMainView()
                 .environmentObject(viewModel)
@@ -66,6 +73,7 @@ struct ContentView: View {
                     Label("Settings", systemImage: "gear")
                 }
                 .tag("Settings")
+            
             
             
             // Stats view based on user role
