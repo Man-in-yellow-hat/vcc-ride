@@ -1,10 +1,3 @@
-//
-//  HomeView.swift
-//  FirebaseTest
-//
-//  Created by Junwon Lee on 10/4/23.
-//
-
 import SwiftUI
 
 struct ContentView: View {
@@ -37,29 +30,43 @@ struct ContentView: View {
                     .tag("Calendar")
             }
             
-            /*
-            if viewModel.userRole == "rider" {
-                RiderSettingsView()
-                    .tabItem {
-                        Label("Calendar", systemImage: "calendar")
-                    }
-                    .tag("AdminCalendar")
-            } else {
-                // Calendar view
-                CalendarView()
-                    .tabItem {
-                        Label("Calendar", systemImage: "calendar")
-                    }
-                    .tag("Calendar")
-            }
-            */
+            
+//            if viewModel.userRole == "rider" {
+//                RiderSettingsView()
+//                    .tabItem {
+//                        Label("Calendar", systemImage: "calendar")
+//                    }
+//                    .tag("AdminCalendar")
+//            } else {
+//                // Calendar view
+//                CalendarView()
+//                    .tabItem {
+//                        Label("Calendar", systemImage: "calendar")
+//                    }
+//                    .tag("Calendar")
+//            }
             
             // DASHBOARD with swipeable views
-            DashboardView()
-                .tabItem {
-                    Label("DASHBOARD", systemImage: "house")
-                }
-                .tag("DASHBOARD")
+            if viewModel.userRole == "admin" {
+                AdminDashboardView()
+                    .tabItem {
+                        Label("DASHBOARD", systemImage: "house")
+                    }
+                    .tag("DASHBOARD")
+            } else if viewModel.userRole == "driver" {
+                DriverDashboardView()
+                    .tabItem {
+                        Label("DASHBOARD", systemImage: "house")
+                    }
+                    .tag("DASHBOARD")
+            } else {
+                RiderDashboardView()
+                    .tabItem {
+                        Label("DASHBOARD", systemImage: "house")
+                    }
+                    .tag("DASHBOARD")
+            }
+            
             
             // Settings View
             SettingsMainView()
@@ -68,6 +75,7 @@ struct ContentView: View {
                     Label("Settings", systemImage: "gear")
                 }
                 .tag("Settings")
+            
             
             
             // Stats view based on user role
@@ -86,7 +94,7 @@ struct ContentView: View {
 }
 
 
-struct DashboardView: View {
+struct AdminDashboardView: View {
     @State private var selectedTabIndex = 1 // Start with the Admin dashboard
 
     var body: some View {
@@ -99,6 +107,28 @@ struct DashboardView: View {
             
             RiderView()
                 .tag(2)
+        }
+        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
+    }
+}
+
+struct RiderDashboardView: View {
+    
+    var body: some View {
+        RiderView()
+    }
+}
+
+struct DriverDashboardView: View {
+    @State private var selectedTabIndex = 0 // Start with the Admin dashboard
+
+    var body: some View {
+        TabView(selection: $selectedTabIndex) {
+            DriverView()
+                .tag(0)
+            
+            RiderView()
+                .tag(1)
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
     }
