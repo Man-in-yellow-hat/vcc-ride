@@ -47,11 +47,26 @@ struct ContentView: View {
 //            }
             
             // DASHBOARD with swipeable views
-            DashboardView()
-                .tabItem {
-                    Label("DASHBOARD", systemImage: "house")
-                }
-                .tag("DASHBOARD")
+            if viewModel.userRole == "admin" {
+                AdminDashboardView()
+                    .tabItem {
+                        Label("DASHBOARD", systemImage: "house")
+                    }
+                    .tag("DASHBOARD")
+            } else if viewModel.userRole == "driver" {
+                DriverDashboardView()
+                    .tabItem {
+                        Label("DASHBOARD", systemImage: "house")
+                    }
+                    .tag("DASHBOARD")
+            } else {
+                RiderDashboardView()
+                    .tabItem {
+                        Label("DASHBOARD", systemImage: "house")
+                    }
+                    .tag("DASHBOARD")
+            }
+            
             
             // Settings View
             SettingsMainView()
@@ -79,7 +94,7 @@ struct ContentView: View {
 }
 
 
-struct DashboardView: View {
+struct AdminDashboardView: View {
     @State private var selectedTabIndex = 1 // Start with the Admin dashboard
 
     var body: some View {
@@ -92,6 +107,28 @@ struct DashboardView: View {
             
             RiderView()
                 .tag(2)
+        }
+        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
+    }
+}
+
+struct RiderDashboardView: View {
+    
+    var body: some View {
+        RiderView()
+    }
+}
+
+struct DriverDashboardView: View {
+    @State private var selectedTabIndex = 0 // Start with the Admin dashboard
+
+    var body: some View {
+        TabView(selection: $selectedTabIndex) {
+            DriverView()
+                .tag(0)
+            
+            RiderView()
+                .tag(1)
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
     }

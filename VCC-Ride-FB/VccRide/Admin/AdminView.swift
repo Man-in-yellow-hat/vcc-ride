@@ -18,6 +18,9 @@ let ridersDeclinedBranscomb = 9
 let ridersUnknownBranscomb = 10
 let seatsBranscomb = 13
 
+enum Status {
+    case extra, ok, warn, bad, fail
+}
 
 struct AdminView: View {
     
@@ -33,6 +36,10 @@ struct AdminView: View {
         [.text("North"), .combined(imageSystemName: "person.fill.checkmark", value: ridersConfirmedNorth), .combined(imageSystemName: "person.fill.xmark", value: ridersDeclinedNorth), .combined(imageSystemName: "person.fill.questionmark", value: ridersUnknownNorth), .combined(imageSystemName: "figure.seated.side", value: seatsNorth)],
         [.text("Branscomb"), .combined(imageSystemName: "person.fill.checkmark", value: ridersConfirmedBranscomb), .combined(imageSystemName: "person.fill.xmark", value: ridersDeclinedBranscomb), .combined(imageSystemName: "person.fill.questionmark", value: ridersUnknownBranscomb), .combined(imageSystemName: "figure.seated.side", value: seatsBranscomb)],
     ]
+    
+    
+    @State public var randStatus: Status = Status.ok
+    @State public var northStatus: Status = Status.ok
     
     var body: some View {
         VStack {
@@ -172,12 +179,12 @@ struct BoxWithTexts: View {
         // Check the first content item if it's "North" or "Branscomb"
         if case .text(let location) = contents[0] {
             switch location {
-            case "North":
-                return ridersConfirmedNorth > seatsNorth ? Color.red.opacity(0.5) : Color.green.opacity(0.5)
-            case "Branscomb":
-                return ridersConfirmedBranscomb > seatsBranscomb ? Color.red.opacity(0.5) : Color.green.opacity(0.5)
-            default:
-                return Color.gray.opacity(0.2) // Default color
+                case "North":
+                    return ridersConfirmedNorth > seatsNorth ? Color.red.opacity(0.5) : Color.green.opacity(0.5)
+                case "Branscomb":
+                    return ridersConfirmedBranscomb > seatsBranscomb ? Color.red.opacity(0.5) : Color.green.opacity(0.5)
+                default:
+                    return Color.gray.opacity(0.2) // Default color
             }
         } else {
             return Color.gray.opacity(0.2) // Default color
