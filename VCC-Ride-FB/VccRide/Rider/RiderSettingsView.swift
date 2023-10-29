@@ -11,11 +11,13 @@ import Firebase
 
 struct RiderSettingsView: View {
     @StateObject var practiceDateViewModel = PracticeDateViewModel()
-    
+    @EnvironmentObject var viewModel: MainViewModel
+
     
     @State private var selectedLocation = "North"
     @State private var autoConfirm = true
     @State private var availableSeats = 1
+    @State private var attendingDates = [String:Bool]()
 
     let locations = ["North", "Rand", "No Preference"]
 
@@ -42,6 +44,32 @@ struct RiderSettingsView: View {
                 Toggle("Automatic Attendance Confirmation", isOn: $autoConfirm)
             }
             Section {
+                Text("Dates")
+                VStack {
+                    if !practiceDateViewModel.practiceDates.isEmpty {
+                        List(practiceDateViewModel.practiceDates, id: \.self) { date in
+                            
+                            Toggle(date, isOn: Binding(
+                                            get: { attendingDates[date] ?? false },
+                                            set: { newValue in
+                                                attendingDates[date] = newValue
+                                            }
+                            ))
+                        }
+                    } else {
+                        Text("No practice dates available.")
+                    }
+                    
+                }
+                .padding()
+                .onAppear {
+                    if practiceDateViewModel.practiceDates.isEmpty {
+                        print("fetching dates, try not to do this too often!")
+                        practiceDateViewModel.fetchExistingDates()
+                    }
+                }
+            }
+            Section {
                 Button(action: {
                     // Save the updated preferences to the Realtime Database
                     savePreferences()
@@ -66,8 +94,15 @@ struct RiderSettingsView: View {
     }
     
 
-    private func signOut() {
-        // Implement your sign-out logic here
+    func signOut() {
+        do {
+            try FirebaseUtil.shared.auth.signOut()
+            print("signed out?")
+            self.viewModel.handleSignOut()
+            // Clear user-related data from UserDefaults or perform any additional cleanup
+        } catch let signOutError as NSError {
+            print("Error signing out: \(signOutError.localizedDescription)")
+        }
     }
     
     private func fetchUserPreferences() {
@@ -89,6 +124,7 @@ struct RiderSettingsView: View {
                 selectedLocation = dbLocation
                 autoConfirm = dbAutoConfirm
                 availableSeats = dbAvailableSeats
+                attendingDates = dbAttendingDates
             }
         }
     }
@@ -105,6 +141,7 @@ struct RiderSettingsView: View {
             "default_location": selectedLocation,
             "default_attendance_confirmation": autoConfirm,
             "default_seats": availableSeats,
+            "attending_dates": attendingDates
         ]
 
         userRef.updateChildValues(updatedPreferences) { error, _ in
@@ -118,6 +155,7 @@ struct RiderSettingsView: View {
                 dbLocation = selectedLocation
                 dbAutoConfirm = autoConfirm
                 dbAvailableSeats = availableSeats
+                dbAttendingDates = attendingDates
             }
         }
     }
@@ -129,3 +167,4 @@ struct RiderSettingsView_Previews: PreviewProvider {
         RiderSettingsView()
     }
 }
+

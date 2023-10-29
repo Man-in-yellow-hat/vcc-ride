@@ -27,7 +27,7 @@ class FirebaseUtil: NSObject {
     // Function to check the email domain
     func isEmailInAllowedDomain(_ email: String) -> Bool {
         // Check if the email domain is allowed
-        if (email == "nate.k788@gmail.com") {
+        if (email == "nate.k788@gmail.com" || email == "nathan@algernon.com") {
             return true
         }
         return email.hasSuffix("@vanderbilt.edu")

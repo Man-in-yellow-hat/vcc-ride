@@ -11,6 +11,8 @@ struct DriverSettingsView: View {
     @State private var selectedLocation = "North"
     @State private var autoConfirm = true
     @State private var availableSeats = 1
+    @EnvironmentObject var viewModel: MainViewModel
+
 
     let locations = ["North", "Rand", "No Preference"]
 
@@ -42,8 +44,15 @@ struct DriverSettingsView: View {
         .navigationBarTitle("Driver Settings")
     }
 
-    private func signOut() {
-        // Implement your sign-out logic here
+    func signOut() {
+        do {
+            try FirebaseUtil.shared.auth.signOut()
+            print("signed out?")
+            self.viewModel.handleSignOut()
+            // Clear user-related data from UserDefaults or perform any additional cleanup
+        } catch let signOutError as NSError {
+            print("Error signing out: \(signOutError.localizedDescription)")
+        }
     }
 }
 
@@ -52,3 +61,4 @@ struct DriverSettingsView_Previews: PreviewProvider {
         DriverSettingsView()
     }
 }
+
