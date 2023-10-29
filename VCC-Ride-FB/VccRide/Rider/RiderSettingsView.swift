@@ -28,10 +28,16 @@ struct RiderSettingsView: View {
     @State private var dbAutoConfirm = true
     @State private var dbAvailableSeats = 4
     @State private var dbAttendingDates = [String:Bool]()
+    @State private var fname: String = ""
+    @State private var lname: String = ""
     
     var body: some View {
         Form {
             Section(header: Text("Rider Settings")) {
+            
+                TextField("First Name", text: $fname).padding()
+                TextField("Last name", text:$lname).padding()
+                
                 // Dropdown menu for selecting default pickup location
                 Picker("Default Pickup Location", selection: $selectedLocation) {
                     ForEach(locations, id: \.self) { location in
@@ -138,6 +144,8 @@ struct RiderSettingsView: View {
         let userRef = Database.database().reference().child("Fall23-Users").child(userID)
 
         let updatedPreferences: [String: Any] = [
+            "fname": fname,
+            "lname": lname,
             "default_location": selectedLocation,
             "default_attendance_confirmation": autoConfirm,
             "default_seats": availableSeats,

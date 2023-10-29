@@ -15,7 +15,7 @@ struct RiderView: View {
     var body: some View {
         VStack {
             // Title and Subtitle
-            Text("Welcome, \(riderName)").font(.headline)
+            Text("Welcome, \(userViewModel.riderName)").font(.headline)
             Text("Next Practice Date: \(nextPracticeDate)").font(.subheadline)
                 .padding(.bottom)
                         
@@ -37,6 +37,7 @@ struct RiderView: View {
         }
         .padding()
         .onAppear { // Move the onAppear block inside the body
+            userViewModel.fetchUserFeatures()
             if !isViewAppeared {
                 isViewAppeared = true
                 userViewModel.fetchUsers {
