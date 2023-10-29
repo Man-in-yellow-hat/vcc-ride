@@ -133,8 +133,8 @@ struct AdminPeopleView: View {
     @State private var selectedUserData: [String: Any] = [:]
 
     var body: some View {
-        NavigationView {
-            VStack {
+        NavigationStack {
+            VStack (spacing: -10) {
                 HStack {
                     Text("Role:")
                         .padding()
@@ -185,6 +185,7 @@ struct AdminPeopleView: View {
                 Button("Clear Filters") {
                     clearFilters()
                 }
+                .padding()
 
                 List {
                     ForEach(Array(filteredUsers), id: \.key) { (userID, userData) in
