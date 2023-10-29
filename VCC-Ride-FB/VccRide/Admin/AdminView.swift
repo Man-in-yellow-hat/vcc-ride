@@ -31,6 +31,8 @@ struct AdminView: View {
     @State private var filteredUsers: [String: [String: Any]] = [:] // Replace with appropriate data structure
     @State private var isViewAppeared = false
     @ObservedObject private var userViewModel = UserViewModel() // Assuming you have a UserViewModel to fetch and filter users
+    
+    @StateObject private var practiceDateViewModel = PracticeDateViewModel()
 
     @State private var textFieldsData: [[ContentItem]] = [
         [.text("North"), .combined(imageSystemName: "person.fill.checkmark", value: ridersConfirmedNorth), .combined(imageSystemName: "person.fill.xmark", value: ridersDeclinedNorth), .combined(imageSystemName: "person.fill.questionmark", value: ridersUnknownNorth), .combined(imageSystemName: "figure.seated.side", value: seatsNorth)],
@@ -67,6 +69,7 @@ struct AdminView: View {
                 let buttonWidth = availableWidth / 3
                 
                 HStack(spacing: 20) {
+
                     ButtonShroud(title: "Assign Drivers", action: {
                         print("assigning drivers!")
                         assignDrivers.assignNoPrefDrivers()
@@ -82,6 +85,8 @@ struct AdminView: View {
                         //button action goes here
                     })
                     .frame(width: buttonWidth, height: 70)
+                    
+
                 }
                 .padding(.horizontal, 20)
             }
@@ -136,6 +141,11 @@ struct AdminView: View {
                 }
             }
         }
+        ButtonShroud(title: "Update Daily Practice", action: {
+            print("updating daily practice!")
+            practiceDateViewModel.transferPracticeDates()
+        })
+
     }
 
     

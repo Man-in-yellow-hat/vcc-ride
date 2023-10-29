@@ -162,6 +162,46 @@ class PracticeDateViewModel: ObservableObject {
 
     // Published property to hold unique ID for date data
     @Published var dateID: [String: String] = [:]
+    
+    func transferPracticeDates() {
+        let today = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMdd"
+        
+        let curDate = dateFormatter.string(from: today)
+        
+        let sourceRef = databaseRef.child("Fall23-Practices").child(curDate)
+        let destRef = databaseRef.child("Daily-Practice")
+        
+        sourceRef.observeSingleEvent(of: .value) { snapshot in
+            // Check if the key exists at the source location
+            guard let value = snapshot.value else {
+                print("Key not found at source location.")
+                return
+            }
+
+            // Write the key-value pair to the destination location
+            destRef.setValue(value) { error, _ in
+                if let error = error {
+                    print("Error writing to destination: \(error.localizedDescription)")
+                    return
+                }
+
+                print("Key-value pair moved successfully!")
+
+                sourceRef.removeValue { error, _ in
+                    if let error = error {
+                        print("Error removing key from source: \(error.localizedDescription)")
+                    } else {
+                        print("Key-value pair removed from source location.")
+                    }
+                }
+            }
+        }
+
+    }
+    
+
 
     func fetchExistingDates() {
         print("fetching dates")
