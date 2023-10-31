@@ -122,6 +122,8 @@ class SignIn_withGoogle_VM: ObservableObject {
                             userData = [
                                 "email": user.email ?? "",
                                 "role": userRole,
+                                "fname": "",
+                                "lname": "",
                                 "active": false,
                                 "default_location": "",
                                 "default_attendance_confirmation": false

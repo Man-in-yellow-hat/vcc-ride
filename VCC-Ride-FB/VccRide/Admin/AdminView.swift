@@ -46,7 +46,7 @@ struct AdminView: View {
     var body: some View {
         VStack {
             // Title and Subtitle
-            Text("Welcome, \(name)").font(.headline)
+            Text("Welcome, \(userViewModel.riderName)").font(.headline)
             Text("Next Practice Date: \(nextPracticeDate)").font(.subheadline)
                 .padding(.bottom)
             
@@ -134,6 +134,7 @@ struct AdminView: View {
                     .onAppear {
         }
         .onAppear {
+            userViewModel.fetchUserFeatures()
             if !isViewAppeared {
                 isViewAppeared = true
                 userViewModel.fetchUsers {

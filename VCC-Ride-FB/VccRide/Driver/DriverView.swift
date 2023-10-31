@@ -2,7 +2,6 @@ import SwiftUI
 
 let pickupLocation = "Rand"
 let minSeats = 3
-let driverName = "[Driver Name]"
 
 struct DriverView: View {
     
@@ -16,7 +15,7 @@ struct DriverView: View {
     var body: some View {
         VStack {
             // Title and Subtitle
-            Text("Welcome, \(driverName)").font(.headline)
+            Text("Welcome, \(userViewModel.riderName)").font(.headline)
             Text("Next Practice Date: \(nextPracticeDate)").font(.subheadline)
                 .padding(.bottom)
             
@@ -57,7 +56,9 @@ struct DriverView: View {
             .padding(.horizontal, 20) // Add horizontal padding to the ScrollView
         }
         .padding()
-        .onAppear { // Move the onAppear block inside the body
+        .onAppear {
+            userViewModel.fetchUserFeatures()
+            // Move the onAppear block inside the body
             if !isViewAppeared {
                 isViewAppeared = true
                 userViewModel.fetchUsers {
