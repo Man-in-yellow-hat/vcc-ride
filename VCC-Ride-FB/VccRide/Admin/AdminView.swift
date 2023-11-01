@@ -1,4 +1,5 @@
 import SwiftUI
+import MessageUI
 
 enum ContentItem {
     case text(String)
@@ -41,6 +42,8 @@ struct AdminView: View {
     @State public var randStatus: Status = Status.ok
     @State public var northStatus: Status = Status.ok
     
+    private let messageComposeDelegate = MessageDelegate()
+    
     var body: some View {
         VStack {
             // Title and Subtitle
@@ -74,7 +77,7 @@ struct AdminView: View {
                     .frame(width: buttonWidth, height: 70)
                     
                     ButtonShroud(title: "Send Practice Reminder", action: {
-                        //button action goes here
+                        self.presentMessageCompose()
                     })
                     .frame(width: buttonWidth, height: 70)
                     
@@ -244,6 +247,33 @@ extension View {
     }
 }
     
+extension AdminView {
+    /// Delegate for view controller as `MFMessageComposeViewControllerDelegate`
+        private class MessageDelegate: NSObject, MFMessageComposeViewControllerDelegate {
+            func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+                // Customize here
+                controller.dismiss(animated: true)
+            }
+
+        }
+
+        /// Present an message compose view controller modally in UIKit environment
+        private func presentMessageCompose() {
+            guard MFMessageComposeViewController.canSendText() else {
+                return
+            }
+            let vc = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController
+
+            let composeVC = MFMessageComposeViewController()
+            composeVC.messageComposeDelegate = messageComposeDelegate
+
+            // Customize here
+            composeVC.body = "VCC ride SMS feature test!!"
+            composeVC.recipients = [""]
+
+            vc?.present(composeVC, animated: true)
+        }}
+
 struct AdminView_Previews: PreviewProvider {
     static var previews: some View {
         AdminView()
