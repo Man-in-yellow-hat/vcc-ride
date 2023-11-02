@@ -54,8 +54,10 @@
 		D73273B32ADE1C6600F5DA44 /* AssignDrivers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73273B22ADE1C6600F5DA44 /* AssignDrivers.swift */; };
 		D771DECC2ACF561400E79153 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858D2972ACDAFFD00A17CCD /* ContentView.swift */; };
 		D771DED22ACF575C00E79153 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D771DED12ACF575C00E79153 /* MainView.swift */; };
+		D791FA7B2AF14F7C004F343A /* VccRide.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = D791FA7A2AF14F7C004F343A /* VccRide.xctestplan */; };
 		D7A0B1272AD7252500FC5AAC /* SignInJailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A0B1262AD7252500FC5AAC /* SignInJailView.swift */; };
 		D7A1EAFC2AD2569C0075A4B2 /* AdminCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */; };
+		D7B263872AEF245E00213D60 /* DayOfPractice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B263862AEF245E00213D60 /* DayOfPractice.swift */; };
 		D7B65D982AD25BCE00D2701B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65D972AD25BCE00D2701B /* UserViewModel.swift */; };
 		D7B65D9C2AD476C400D2701B /* SettingsMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65D9B2AD476C400D2701B /* SettingsMainView.swift */; };
 		D7B65D9E2AD476D300D2701B /* DriverSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65D9D2AD476D300D2701B /* DriverSettingsView.swift */; };
@@ -63,7 +65,18 @@
 		D7B65DA22AD476FB00D2701B /* AdminSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65DA12AD476FB00D2701B /* AdminSettingsView.swift */; };
 		D7B65DA42AD5987B00D2701B /* OrganizeDrivers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65DA32AD5987B00D2701B /* OrganizeDrivers.swift */; };
 		D7B65DA82AD5A5F200D2701B /* AdminPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65DA72AD5A5F200D2701B /* AdminPeopleView.swift */; };
+		D7C8655B2AF14FFB00DFFE52 /* VccRideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8655A2AF14FFB00DFFE52 /* VccRideTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D7C8655C2AF14FFB00DFFE52 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A858D27C2ACDADB500A17CCD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A858D2832ACDADB500A17CCD;
+			remoteInfo = VccRide;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		A844CE8C2ACE0B6700EC44C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -86,8 +99,11 @@
 		D71B9E242AD09C5400144928 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D73273B22ADE1C6600F5DA44 /* AssignDrivers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignDrivers.swift; sourceTree = "<group>"; };
 		D771DED12ACF575C00E79153 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		D791FA792AF14F45004F343A /* VccRide.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = VccRide.xctestplan; sourceTree = "<group>"; };
+		D791FA7A2AF14F7C004F343A /* VccRide.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VccRide.xctestplan; sourceTree = "<group>"; };
 		D7A0B1262AD7252500FC5AAC /* SignInJailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInJailView.swift; sourceTree = "<group>"; };
 		D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminCalendar.swift; sourceTree = "<group>"; };
+		D7B263862AEF245E00213D60 /* DayOfPractice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfPractice.swift; sourceTree = "<group>"; };
 		D7B65D972AD25BCE00D2701B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		D7B65D9B2AD476C400D2701B /* SettingsMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMainView.swift; sourceTree = "<group>"; };
 		D7B65D9D2AD476D300D2701B /* DriverSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverSettingsView.swift; sourceTree = "<group>"; };
@@ -95,6 +111,8 @@
 		D7B65DA12AD476FB00D2701B /* AdminSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminSettingsView.swift; sourceTree = "<group>"; };
 		D7B65DA32AD5987B00D2701B /* OrganizeDrivers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizeDrivers.swift; sourceTree = "<group>"; };
 		D7B65DA72AD5A5F200D2701B /* AdminPeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPeopleView.swift; sourceTree = "<group>"; };
+		D7C865582AF14FFB00DFFE52 /* VccRideTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VccRideTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7C8655A2AF14FFB00DFFE52 /* VccRideTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VccRideTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,13 +152,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D7C865552AF14FFB00DFFE52 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		A858D27B2ACDADB500A17CCD = {
 			isa = PBXGroup;
 			children = (
+				D791FA792AF14F45004F343A /* VccRide.xctestplan */,
+				D791FA7A2AF14F7C004F343A /* VccRide.xctestplan */,
 				A858D2862ACDADB500A17CCD /* VccRide */,
+				D7C865592AF14FFB00DFFE52 /* VccRideTests */,
 				A858D2852ACDADB500A17CCD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -149,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				A858D2842ACDADB500A17CCD /* VccRide.app */,
+				D7C865582AF14FFB00DFFE52 /* VccRideTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -191,6 +220,7 @@
 				D7B65D972AD25BCE00D2701B /* UserViewModel.swift */,
 				D7B65DA32AD5987B00D2701B /* OrganizeDrivers.swift */,
 				D7A0B1262AD7252500FC5AAC /* SignInJailView.swift */,
+				D7B263862AEF245E00213D60 /* DayOfPractice.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -223,6 +253,14 @@
 				D7B65D9B2AD476C400D2701B /* SettingsMainView.swift */,
 			);
 			path = NavBar;
+			sourceTree = "<group>";
+		};
+		D7C865592AF14FFB00DFFE52 /* VccRideTests */ = {
+			isa = PBXGroup;
+			children = (
+				D7C8655A2AF14FFB00DFFE52 /* VccRideTests.swift */,
+			);
+			path = VccRideTests;
 			sourceTree = "<group>";
 		};
 		D7CA928E2ACE38CF007C1994 /* Admin */ = {
@@ -287,6 +325,24 @@
 			productReference = A858D2842ACDADB500A17CCD /* VccRide.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D7C865572AF14FFB00DFFE52 /* VccRideTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D7C865602AF14FFB00DFFE52 /* Build configuration list for PBXNativeTarget "VccRideTests" */;
+			buildPhases = (
+				D7C865542AF14FFB00DFFE52 /* Sources */,
+				D7C865552AF14FFB00DFFE52 /* Frameworks */,
+				D7C865562AF14FFB00DFFE52 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D7C8655D2AF14FFB00DFFE52 /* PBXTargetDependency */,
+			);
+			name = VccRideTests;
+			productName = VccRideTests;
+			productReference = D7C865582AF14FFB00DFFE52 /* VccRideTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -294,11 +350,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					A858D2832ACDADB500A17CCD = {
 						CreatedOnToolsVersion = 15.0;
+					};
+					D7C865572AF14FFB00DFFE52 = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = A858D2832ACDADB500A17CCD;
 					};
 				};
 			};
@@ -320,6 +380,7 @@
 			projectRoot = "";
 			targets = (
 				A858D2832ACDADB500A17CCD /* VccRide */,
+				D7C865572AF14FFB00DFFE52 /* VccRideTests */,
 			);
 		};
 /* End PBXProject section */
@@ -331,7 +392,15 @@
 			files = (
 				A858D28F2ACDADC700A17CCD /* Preview Assets.xcassets in Resources */,
 				D71B9E252AD09C5400144928 /* GoogleService-Info.plist in Resources */,
+				D791FA7B2AF14F7C004F343A /* VccRide.xctestplan in Resources */,
 				A858D28C2ACDADC700A17CCD /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D7C865562AF14FFB00DFFE52 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +413,7 @@
 			files = (
 				D771DECC2ACF561400E79153 /* ContentView.swift in Sources */,
 				D7A1EAFC2AD2569C0075A4B2 /* AdminCalendar.swift in Sources */,
+				D7B263872AEF245E00213D60 /* DayOfPractice.swift in Sources */,
 				D7B65DA42AD5987B00D2701B /* OrganizeDrivers.swift in Sources */,
 				D71B9E162AD058DA00144928 /* DriverView.swift in Sources */,
 				D71B9E1D2AD05C3A00144928 /* CalendarView.swift in Sources */,
@@ -369,7 +439,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D7C865542AF14FFB00DFFE52 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7C8655B2AF14FFB00DFFE52 /* VccRideTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D7C8655D2AF14FFB00DFFE52 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A858D2832ACDADB500A17CCD /* VccRide */;
+			targetProxy = D7C8655C2AF14FFB00DFFE52 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		A858D2902ACDADC700A17CCD /* Debug */ = {
@@ -555,6 +641,60 @@
 			};
 			name = Release;
 		};
+		D7C8655E2AF14FFB00DFFE52 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H22V7CR7C4;
+				ENABLE_ON_DEMAND_RESOURCES = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/Pods/Firebase/CoreOnly/Sources";
+				INFOPLIST_FILE = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = rocks.VccRideTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VccRide.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VccRide";
+			};
+			name = Debug;
+		};
+		D7C8655F2AF14FFB00DFFE52 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H22V7CR7C4;
+				ENABLE_ON_DEMAND_RESOURCES = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/Pods/Firebase/CoreOnly/Sources";
+				INFOPLIST_FILE = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = rocks.VccRideTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VccRide.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VccRide";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -572,6 +712,15 @@
 			buildConfigurations = (
 				A858D2932ACDADC700A17CCD /* Debug */,
 				A858D2942ACDADC700A17CCD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D7C865602AF14FFB00DFFE52 /* Build configuration list for PBXNativeTarget "VccRideTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D7C8655E2AF14FFB00DFFE52 /* Debug */,
+				D7C8655F2AF14FFB00DFFE52 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Firebase
+import FirebaseDatabase
 
 // Function to retrieve daily practice data
 func retrieveDailyPracticeData(forDate date: String, completion: @escaping ([String: Any]?) -> Void) {

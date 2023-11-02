@@ -169,7 +169,7 @@ class PracticeDateViewModel: ObservableObject {
         dateFormatter.dateFormat = "MMMdd"
         
         let curDate = dateFormatter.string(from: today)
-        
+        print(curDate)
         let sourceRef = databaseRef.child("Fall23-Practices").child(curDate)
         let destRef = databaseRef.child("Daily-Practice")
         

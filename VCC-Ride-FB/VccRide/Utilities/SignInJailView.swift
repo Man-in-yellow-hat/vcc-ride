@@ -61,6 +61,7 @@ struct SignInJailView: View {
                     Picker("Role", selection: $selectedRole) {
                         Text("Rider").tag("rider")
                         Text("Driver").tag("driver")
+                        Text("Admin").tag("admin") // TODO: REMOVE AFTER BLACK BOX TESTING
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     .onChange(of: selectedRole) { newValue in

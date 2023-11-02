@@ -68,10 +68,12 @@ struct AdminCalendar: View {
                             Button("Done", action: {
                                 datePickerVisible = false
                                 dateFormatter.dateStyle = .medium
-                                practiceDateViewModel.addPracticeDate(date: dateFormatter.string(from: newDate))
+//                                practiceDateViewModel.addPracticeDate(date: dateFormatter.string(from: newDate))
+                                let filteredChar = newDate.formatted(Date.FormatStyle().month(.abbreviated).day(.twoDigits)).filter { !$0.isWhitespace }
+                                practiceDateViewModel.addPracticeDate(date: String(filteredChar))
                             }).padding()
                         }
-                        DatePicker("", selection: $newDate).datePickerStyle(GraphicalDatePickerStyle())
+                        DatePicker("", selection: $newDate, displayedComponents: .date).datePickerStyle(GraphicalDatePickerStyle())
                     }.background(Color(UIColor.secondarySystemBackground))
                         .zIndex(2)
                 }

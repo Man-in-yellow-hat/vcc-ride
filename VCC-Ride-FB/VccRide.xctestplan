@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "E9C11457-53A9-4261-9E00-BEEF09D3A256",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:VccRide.xcodeproj",
+      "identifier" : "A858D2832ACDADB500A17CCD",
+      "name" : "VccRide"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:VccRide.xcodeproj",
+        "identifier" : "D7C865572AF14FFB00DFFE52",
+        "name" : "VccRideTests"
+      }
+    }
+  ],
+  "version" : 1
+}
