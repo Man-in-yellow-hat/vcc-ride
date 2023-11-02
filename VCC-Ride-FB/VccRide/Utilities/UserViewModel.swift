@@ -12,6 +12,9 @@ import FirebaseDatabase
 class UserViewModel: ObservableObject {
     private let databaseRef = Database.database().reference().child("Fall23-Users")
     @Published var users: [String: [String: Any]] = [:]
+    @Published var riderName: String = ""
+    @Published var riderLocation: String = ""
+    
 
     func fetchUsers(completion: @escaping () -> Void) {
         print("Fetching users. Shouldn't do this too often..")
@@ -22,7 +25,23 @@ class UserViewModel: ObservableObject {
             completion() // Call the completion handler when data is fetched
         }
     }
-
+    
+    func fetchUserFeatures() {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            //TODO: Handle the case when there is no logged-in user
+            return
+        }
+        
+        // Firebase reference for the user's data
+        let userRef = Database.database().reference().child("Fall23-Users").child(userID)
+        
+        userRef.observeSingleEvent(of: .value) { snapshot in
+            if let userData = snapshot.value as? [String: Any] {
+                self.riderName = userData["fname"] as? String ?? ""
+                self.riderLocation = userData["default_location"] as? String ?? ""
+            }
+        }
+    }
     
     // Function to filter users based on criteria
     func filterUsers(

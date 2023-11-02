@@ -51,8 +51,10 @@
 		D71B9E212AD05C4C00144928 /* PeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E202AD05C4C00144928 /* PeopleView.swift */; };
 		D71B9E232AD0732800144928 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E222AD0732800144928 /* LoginView.swift */; };
 		D71B9E252AD09C5400144928 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D71B9E242AD09C5400144928 /* GoogleService-Info.plist */; };
+		D73273B32ADE1C6600F5DA44 /* AssignDrivers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73273B22ADE1C6600F5DA44 /* AssignDrivers.swift */; };
 		D771DECC2ACF561400E79153 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858D2972ACDAFFD00A17CCD /* ContentView.swift */; };
 		D771DED22ACF575C00E79153 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D771DED12ACF575C00E79153 /* MainView.swift */; };
+		D7A0B1272AD7252500FC5AAC /* SignInJailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A0B1262AD7252500FC5AAC /* SignInJailView.swift */; };
 		D7A1EAFC2AD2569C0075A4B2 /* AdminCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */; };
 		D7B65D982AD25BCE00D2701B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65D972AD25BCE00D2701B /* UserViewModel.swift */; };
 		D7B65D9C2AD476C400D2701B /* SettingsMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65D9B2AD476C400D2701B /* SettingsMainView.swift */; };
@@ -82,7 +84,9 @@
 		D71B9E202AD05C4C00144928 /* PeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleView.swift; sourceTree = "<group>"; };
 		D71B9E222AD0732800144928 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		D71B9E242AD09C5400144928 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D73273B22ADE1C6600F5DA44 /* AssignDrivers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignDrivers.swift; sourceTree = "<group>"; };
 		D771DED12ACF575C00E79153 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		D7A0B1262AD7252500FC5AAC /* SignInJailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInJailView.swift; sourceTree = "<group>"; };
 		D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminCalendar.swift; sourceTree = "<group>"; };
 		D7B65D972AD25BCE00D2701B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		D7B65D9B2AD476C400D2701B /* SettingsMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMainView.swift; sourceTree = "<group>"; };
@@ -181,10 +185,12 @@
 		D71B9E122AD0579800144928 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D73273B22ADE1C6600F5DA44 /* AssignDrivers.swift */,
 				A858D2D42ACDC73F00A17CCD /* FirebaseUtil.swift */,
 				A844CE8D2ACE0EEA00EC44C2 /* Application.swift */,
 				D7B65D972AD25BCE00D2701B /* UserViewModel.swift */,
 				D7B65DA32AD5987B00D2701B /* OrganizeDrivers.swift */,
+				D7A0B1262AD7252500FC5AAC /* SignInJailView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -347,6 +353,7 @@
 				D71B9E182AD058E100144928 /* RiderView.swift in Sources */,
 				D7B65DA82AD5A5F200D2701B /* AdminPeopleView.swift in Sources */,
 				A844CE8E2ACE0EEA00EC44C2 /* Application.swift in Sources */,
+				D73273B32ADE1C6600F5DA44 /* AssignDrivers.swift in Sources */,
 				D71B9E112AD053FF00144928 /* AdminView.swift in Sources */,
 				A858D2D52ACDC73F00A17CCD /* FirebaseUtil.swift in Sources */,
 				D71B9E212AD05C4C00144928 /* PeopleView.swift in Sources */,
@@ -357,6 +364,7 @@
 				D7B65DA22AD476FB00D2701B /* AdminSettingsView.swift in Sources */,
 				D7B65D982AD25BCE00D2701B /* UserViewModel.swift in Sources */,
 				A858D2882ACDADB500A17CCD /* VccRideApp.swift in Sources */,
+				D7A0B1272AD7252500FC5AAC /* SignInJailView.swift in Sources */,
 				D71B9E1B2AD05C2F00144928 /* AppSettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -492,6 +500,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VccRide/Preview Content\"";
+				DEVELOPMENT_TEAM = H22V7CR7C4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VccRide/Info.plist;
@@ -523,6 +532,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VccRide/Preview Content\"";
+				DEVELOPMENT_TEAM = H22V7CR7C4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VccRide/Info.plist;

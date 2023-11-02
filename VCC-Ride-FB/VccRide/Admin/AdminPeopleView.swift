@@ -1,5 +1,5 @@
 //
-//  PeopleView.swift
+//  AdminPeopleView.swift
 //  FirebaseTest
 //
 //  Created by Nathan King on 10/6/23.
@@ -9,48 +9,103 @@ import SwiftUI
 import FirebaseDatabase
 
 struct EditUserView: View {
-    var userID: String
-    @State var userData: [String: Any]
+    @Binding var userID: String
+    @Binding var userData: [String: Any]
+
+    @State private var email: String = ""
+    @State private var role: String = ""
+    @State private var active: Bool = false
+    @State private var defaultLocation: String = ""
+    @State private var seats = 4
+    
+    @State private var confirmRoleChange: Bool = false
+
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        Text("Email: \(userData["email"] as? String ?? "")")
-        Form {
-            ForEach(userData.sorted(by: { $0.key < $1.key }), id: \.key) { (key, value) in
-                if key != "email" {
-                    Section(header: Text(key.capitalized)) {
-                        if let stringValue = value as? String {
-                            TextField("Enter \(key.capitalized)", text: Binding<String>(
-                                get: { stringValue },
-                                set: { newValue in
-                                    userData[key] = newValue
-                                }
-                            ))
-                        } else if let boolValue = value as? Bool {
-                            Toggle(isOn: Binding<Bool>(
-                                get: { boolValue },
-                                set: { newValue in
-                                    userData[key] = newValue
-                                }
-                            )) {
-                                Text(key.capitalized)
-                            }
-                        } else {
-                            Text("Unsupported data type for \(key)")
+        VStack {
+            Text("Email: \(email)")
+                .font(.headline)
+                .padding()
+
+            Form {
+                Section(header: Text("Role")) {
+                    Picker("Select Role", selection: $role) {
+                        Text("Rider").tag("rider")
+                        Text("Driver").tag("driver")
+                        Text("Admin").tag("admin")
+                    }
+                }
+
+                Section(header: Text("Active")) {
+                    Toggle("Active", isOn: $active)
+                }
+
+                Section(header: Text("Default Location")) {
+                    Picker("Select Location", selection: $defaultLocation) {
+                        Text("North").tag("North")
+                        Text("Rand").tag("Rand")
+                        if role != "rider" {
+                            Text("No Preference").tag("no_pref")
+                        }
+                    }
+                }
+                if role != "rider" {
+                    Section(header: Text("Number of Seats")) {
+                        Stepper(value: $seats, in: 0...10) {
+                            Text("Seats: \(seats)")
                         }
                     }
                 }
             }
+            if confirmRoleChange {
+                Section {
+                    Text("Changing a user to or from an admin role requires confirmation.")
+                    Button("Confirm Role Change") {
+                        // Update the user's role
+                        userData["role"] = role
+                        // Save user data in the database
+                        updateUserData(userData: userData, userID: userID)
+                        // Dismiss the view
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
+            } else {
+                Button("Save") {
+                    if role != userData["role"] as? String && role == "admin" || userData["role"] as! String == "admin" {
+                        // A role change is requested, show the confirmation dialog
+                        confirmRoleChange = true
+                    } else {
+                        // Role is not changing, proceed to save
+                        // Update the userData dictionary with the changes
+                        userData["role"] = role
+                        userData["active"] = active
+                        userData["default_location"] = defaultLocation
+                        userData["default_seats"] = seats
 
-            Button("Save Changes") {
-                updateUserData()
+                        // Save user data in the database
+                        updateUserData(userData: userData, userID: userID)
+
+                        // Dismiss the view
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
             }
         }
         .navigationBarTitle("Edit User")
+        .onAppear {
+            email = userData["email"] as? String ?? ""
+            role = userData["role"] as? String ?? ""
+            active = userData["active"] as? Bool ?? false
+            defaultLocation = userData["default_location"] as? String ?? ""
+            seats = userData["default_seats"] as? Int ?? 4
+        }
     }
-
-    private func updateUserData() {
+    private func updateUserData(userData: [String: Any], userID: String) {
+        print("user:", userID)
         // Get a reference to the Firebase Realtime Database
         let ref = Database.database().reference()
+        print(userID)
 
         // Update the user's data in the database
         ref.child("Fall23-Users").child(userID).updateChildValues(userData) { error, _ in
@@ -73,13 +128,13 @@ struct AdminPeopleView: View {
     @State private var filteredUsers: [String: [String: Any]] = [:]
     @State private var isViewAppeared: Bool = false
 
-    @State private var isEditUserViewPresented = false // Track whether EditUserView is presented
-    @State private var selectedUserID = "" // Store the selected user's ID
+    @State private var isEditUserViewPresented = false
+    @State private var selectedUserID = ""
+    @State private var selectedUserData: [String: Any] = [:]
 
     var body: some View {
-        NavigationView {
-            VStack {
-                // Role Picker
+        NavigationStack {
+            VStack (spacing: -10) {
                 HStack {
                     Text("Role:")
                         .padding()
@@ -95,8 +150,7 @@ struct AdminPeopleView: View {
                         applyFilters()
                     }
                 }
-                
-                // Location Picker
+
                 HStack {
                     Text("Location:")
                         .padding()
@@ -105,15 +159,14 @@ struct AdminPeopleView: View {
                         Text("Any").tag("Any")
                         Text("North").tag("North")
                         Text("Rand").tag("Rand")
-                        Text("No Preference").tag("no_pref")
+                        Text("No Preference").tag("No Preference")
                     }
                     .pickerStyle(MenuPickerStyle())
                     .onChange(of: selectedLocation) { _ in
                         applyFilters()
                     }
                 }
-                
-                // Active Picker
+
                 HStack {
                     Text("Active:")
                         .padding()
@@ -129,17 +182,16 @@ struct AdminPeopleView: View {
                     }
                 }
 
-                // Clear Filters Button
                 Button("Clear Filters") {
                     clearFilters()
                 }
+                .padding()
 
-                // User List
                 List {
                     ForEach(Array(filteredUsers), id: \.key) { (userID, userData) in
                         Button(action: {
-                            // Show EditUserView when a user is selected
                             selectedUserID = userID
+                            selectedUserData = userData
                             isEditUserViewPresented.toggle()
                         }) {
                             VStack(alignment: .leading, spacing: 10) {
@@ -157,9 +209,9 @@ struct AdminPeopleView: View {
                 }
             }
             .sheet(isPresented: $isEditUserViewPresented) {
-                EditUserView(userID: selectedUserID, userData: filteredUsers[selectedUserID] ?? [:])
+                EditUserView(userID: $selectedUserID, userData: $selectedUserData)
             }
-            .navigationBarTitle("Admin People") // Adjust the title as needed
+            .navigationBarTitle("Admin People")
         }
         .onAppear {
             if !isViewAppeared {

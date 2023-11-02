@@ -6,19 +6,22 @@
 //
 
 import SwiftUI
+import FirebaseDatabase
 
 class MainViewModel: ObservableObject {
 //    @State var isLoggedIn: Bool = false
     @Published var isLoggedIn: Bool = false
     @Published var userRole: String? // Add the role field
+    @Published var userID: String?
 
     func handleLoginSuccess(withRole role: String, userID uid: String) {
         self.isLoggedIn = true
         self.userRole = role
+        self.userID = uid
         UserDefaults.standard.set(uid, forKey: "googleUserID")
         UserDefaults.standard.set(role, forKey: "userRole")
         UserDefaults.standard.set(true, forKey: "isLoggedIn")
-        print(self.userRole)
+//        print(self.userRole)
     }
     
     func handleSignOut() {
@@ -26,27 +29,59 @@ class MainViewModel: ObservableObject {
         UserDefaults.standard.set(false, forKey: "isLoggedIn")
     }
     
-    // Add a method to retrieve the user's role from UserDefaults
-    func retrieveUserRole() {
-        self.userRole = UserDefaults.standard.string(forKey: "userRole")
+    func getOutOfJail(newRole: String, newLocation: String, newConfirm: Bool, fullName: String) {
+        let ref = Database.database().reference()
+        let userRef = ref.child("Fall23-Users").child(self.userID!)
+        
+        let updates: [String: Any] = [
+            "role": newRole,
+            "active": true, // Set "active" to true
+            "default_location": newLocation,
+            "default_confirm_attendance": newConfirm,
+            "name": fullName
+        ]
+        
+        userRef.updateChildValues(updates) { error, _ in
+            if let error = error {
+                print("Error updating user's role: \(error.localizedDescription)")
+            } else {
+                // Role updated successfully
+                self.userRole = newRole
+                print("User's role updated to \(newRole)")
+            }
+        }
     }
     
+    // get user role from DB
+    func fetchUserRole(forUserID userID: String) {
+        print("fetching...", userID)
+        let ref = Database.database().reference()
+        let userRef = ref.child("Fall23-Users").child(userID) // Adjust the database path as needed
+
+        userRef.observeSingleEvent(of: .value) { snapshot in
+            if let userData = snapshot.value as? [String: Any],
+               let role = userData["role"] as? String {
+                self.userRole = role
+                print("role: ", self.userRole)
+            }
+        }
+    }
 }
 
 struct MainView: View {
     @EnvironmentObject var viewModel: MainViewModel
-
+    
     var body: some View {
         Group {
-            if viewModel.isLoggedIn {
-                // get user active and role?
-                ContentView().environmentObject(viewModel)
-            } else {
+            if viewModel.userRole == nil || !viewModel.isLoggedIn {
                 LoginView().environmentObject(viewModel)
+            } else {
+                if viewModel.userRole == "JAIL" {
+                    SignInJailView().environmentObject(viewModel)
+                } else {
+                    ContentView().environmentObject(viewModel)
+                }
             }
-        }
-        .onAppear {
-            viewModel.retrieveUserRole()
         }
     }
 }
