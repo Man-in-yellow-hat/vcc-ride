@@ -8,7 +8,7 @@
 import SwiftUI
 import Firebase
 
-class Driver: Identifiable {
+class Climber: Identifiable {
     var id: String // Unique identifier for the driver
     var name: String // Driver's name
     var location: String // Driver's location (e.g., "NORTH" or "RAND")
@@ -22,25 +22,28 @@ class Driver: Identifiable {
     }
 }
 
+class Driver: Climber {
+    var locationPreference: String
+
+    override init(id: String, name: String, location: String, seats: Int) {
+        self.locationPreference = location
+        super.init(id: id, name: name, location: location, seats: seats)
+    }
+}
+
+// could have some sort of class allowing friends of android users to do stuff for them??
+
 class DriversViewModel: ObservableObject {
     static let shared = DriversViewModel() // SINGLETON
     
     @Published var drivers: [Driver] = []
+    @Published var riders: [Climber] = []
     public var hasBeenAssigned: Bool = false // TODO: RESET EACH DAY
     private var isDriversListPopulated: Bool = false
 
-    public var randDrivers = [String:Int]()
     private var numRandSeats = 0
-    
-    public var northDrivers = [String:Int]()
     private var numNorthSeats = 0
-    
-    public var noPrefDrivers = [String:Int]()
-    
-    private var randRiders = [String:Int]()
     private var numRandRiders = 0
-    
-    private var northRiders = [String:Int]()
     private var numNorthRiders = 0
     
     private var date = ""
@@ -72,17 +75,15 @@ class DriversViewModel: ObservableObject {
 
         practiceRef.observeSingleEvent(of: .value) { snapshot, error in
             if let riderData = snapshot.value as? [String: Any] {
-                print("here1")
                 
                 // Create driver objects for north_drivers
                 if let northDriversData = riderData["north_driver"] as? [String: [String: Any]] {
                     for (driverID, driverInfo) in northDriversData {
-                        print("here2")
                         if let name = driverInfo["name"] as? String,
                            let seats = driverInfo["seats"] as? Int {
-                            let driver = Driver(id: driverID, name: name, location: "NORTH", seats: seats)
-                            print("here3")
-                            self.drivers.append(driver)
+                            let northDriver = Driver(id: driverID, name: name, location: "NORTH", seats: seats)
+                            self.drivers.append(northDriver)
+                            self.numNorthSeats += seats
                         }
                     }
                 }
@@ -92,8 +93,9 @@ class DriversViewModel: ObservableObject {
                     for (driverID, driverInfo) in randDriversData {
                         if let name = driverInfo["name"] as? String,
                            let seats = driverInfo["seats"] as? Int {
-                            let driver = Driver(id: driverID, name: name, location: "RAND", seats: seats)
-                            self.drivers.append(driver)
+                            let randDriver = Driver(id: driverID, name: name, location: "RAND", seats: seats)
+                            self.drivers.append(randDriver)
+                            self.numRandSeats += seats
                         }
                     }
                 }
@@ -104,15 +106,16 @@ class DriversViewModel: ObservableObject {
                         for (driverID, driverInfo) in noPrefDriversData {
                             if let name = driverInfo["name"] as? String,
                                let seats = driverInfo["seats"] as? Int {
-                                let driver = Driver(id: driverID, name: name, location: "NONE", seats: seats)
-                                self.drivers.append(driver)
+                                let noPrefDriver = Driver(id: driverID, name: name, location: "NONE", seats: seats)
+                                self.drivers.append(noPrefDriver)
+                                // don't add seats anywhere, will do that when we assign the drivers
                             }
                         }
                     }
                 }
 
                 // Notify observers of changes in driver data
-                self.objectWillChange.send() // is this necessary?
+                self.objectWillChange.send()
             }
         }
     }
@@ -127,27 +130,22 @@ class DriversViewModel: ObservableObject {
             print("getting lists from DAILY")
             getLists(fromWhere: "Daily-Practice")
         } else {
-            getDate()
             print("getting lists from FALL")
+            getDate()
             getLists(fromWhere: "Fall23-Practices")
-            self.numRandRiders = randRiders.values.reduce(0, +)
-            self.numNorthRiders = northRiders.values.reduce(0, +)
-            self.numRandSeats = randDrivers.values.reduce(0, +)
-            self.numNorthSeats = northDrivers.values.reduce(0, +)
             
             var difRand = self.numRandSeats - self.numRandRiders // keep as var to change later
             var difNorth = self.numNorthSeats - self.numNorthRiders // keep as var to change later
 
-            for driver in self.noPrefDrivers {
-                //
-                var mySeats = 4
-                mySeats = driver.value
+            for driver in drivers.filter({ $0.locationPreference == "NONE" }) { // assign no pref drivers
                 if difNorth < difRand {
-                    moveDriver(dbChild: "Fall23-Practices", driverID: driver.key, thisDriverSeats: mySeats, fromList: "no_pref_driver", toList: "north_driver")
-                    difNorth += mySeats
+                    moveDriver(dbChild: "Fall23-Practices", driverID: driver.id, thisDriverSeats: driver.seats, fromList: "no_pref_driver", toList: "north_driver")
+                    difNorth += driver.seats
+                    driver.location = "NORTH"
                 } else {
-                    moveDriver(dbChild: "Fall23-Practices", driverID: driver.key, thisDriverSeats: mySeats, fromList: "no_pref_driver", toList: "rand_driver")
-                    difRand += mySeats
+                    moveDriver(dbChild: "Fall23-Practices", driverID: driver.id, thisDriverSeats: driver.seats, fromList: "no_pref_driver", toList: "rand_driver")
+                    difRand += driver.seats
+                    driver.location = "RAND"
                 }
             }
             self.hasBeenAssigned = true
@@ -156,26 +154,36 @@ class DriversViewModel: ObservableObject {
     }
     
     public func moveDriver(dbChild: String, driverID: String, thisDriverSeats: Int, fromList: String, toList: String) {
-        let dateRef = Database.database().reference().child(dbChild).child(self.date)
-        let fromListRef = dateRef.child(fromList)
-        let toListRef = dateRef.child(toList)
+        let databaseRef = Database.database().reference().child(dbChild)
+        var practiceRef = databaseRef
+        if (dbChild == "Fall23-Pratices") {
+            practiceRef = practiceRef.child(self.date)
+        }
         
+        let fromListRef = practiceRef.child(fromList)
+        let toListRef = practiceRef.child(toList)
         
+
         fromListRef.child(driverID).observeSingleEvent(of: .value) { snapshot in
-            toListRef.child(driverID).setValue(thisDriverSeats) { (error, _) in
-                if let error = error {
-                    print("Error moving driver to target list: \(error.localizedDescription)")
-                } else {
-                    print("MOVING DRIVER: \(driverID) FROM \(fromList) TO: \(toList)")
-                    
-                    fromListRef.child(driverID).removeValue { (error, _) in
-                        if let error = error {
-                            print("Error removing driver from source list: \(error.localizedDescription)")
+            if let data = snapshot.value as? [String: Any] {
+                // Write the entire node and its subnodes to the destination location
+                toListRef.child(driverID).setValue(data) { (error, _) in
+                    if let error = error {
+                        print("Error moving driver to target list: \(error.localizedDescription)")
+                    } else {
+                        print("MOVING DRIVER: \(driverID) FROM \(fromList) TO: \(toList)")
+                        
+                        // Delete the entire node and its subnodes from the source location
+                        fromListRef.child(driverID).removeValue { (error, _) in
+                            if let error = error {
+                                print("Error removing driver from source list: \(error.localizedDescription)")
+                            }
                         }
                     }
                 }
             }
         }
+        objectWillChange.send()
     }
 }
 

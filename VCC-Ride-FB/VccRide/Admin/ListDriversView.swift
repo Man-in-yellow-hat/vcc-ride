@@ -25,10 +25,17 @@ struct ListDriversView: View {
                         HStack {
                             Text(driver.name)
                             Spacer()
-                            Text(driver.location)
-                                .foregroundColor(.green)
+                            Text(String(driver.seats))
+                            Spacer()
+                            Text(driver.locationPreference)
+                            Button(action: {
+                                driversViewModel.moveDriver(dbChild: "Daily-Practice", driverID: driver.id,
+                                                            thisDriverSeats: driver.seats, fromList: "north_driver", toList: "rand_driver")
+                                driver.location = "RAND"
+                            }) {
+                                Image(systemName: "arrow.down.circle.fill")
+                            }
                         }
-                        // Handle driver selection and assignment
                     }
                 }
 
@@ -37,10 +44,17 @@ struct ListDriversView: View {
                         HStack {
                             Text(driver.name)
                             Spacer()
-                            Text(driver.location)
-                                .foregroundColor(.blue)
+                            Text(String(driver.seats))
+                            Spacer()
+                            Text(driver.locationPreference)
+                            Button(action: {
+                                driversViewModel.moveDriver(dbChild: "Daily-Practice", driverID: driver.id,
+                                                            thisDriverSeats: driver.seats, fromList: "rand_driver", toList: "north_driver")
+                                driver.location = "NORTH"
+                            }) {
+                                Image(systemName: "arrow.up.circle.fill")
+                            }
                         }
-                        // Handle driver selection and assignment
                     }
                 }
             }
