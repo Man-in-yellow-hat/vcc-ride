@@ -68,6 +68,13 @@ class MainViewModel: ObservableObject {
     }
 }
 
+extension MainViewModel {
+    // Include the DriversViewModel as a property
+    var driversViewModel: DriversViewModel {
+        return DriversViewModel.shared
+    }
+}
+
 struct MainView: View {
     @EnvironmentObject var viewModel: MainViewModel
     

@@ -13,26 +13,36 @@ import GoogleSignIn
 struct FirebaseTestApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject var viewModel = MainViewModel() // Create an instance of MainViewModel
-    
+    @State private var isMainViewVisible = false // Add a boolean for the startup screen
+
     var body: some Scene {
         WindowGroup {
-            MainView()
-                .environmentObject(viewModel)
-                .onAppear() {
-                    if(GIDSignIn.sharedInstance.hasPreviousSignIn() && GIDSignIn.sharedInstance.currentUser == nil) {
-                        GIDSignIn.sharedInstance.restorePreviousSignIn() {
-                            user, error in
-                            if let user = Auth.auth().currentUser {
-                                print(user.uid)
-                                viewModel.isLoggedIn = true
-                                viewModel.userID = user.uid
-                                viewModel.fetchUserRole(forUserID: user.uid)
-                            } else {
-                                print(error ?? "unknown error")
+            if self.isMainViewVisible {
+                MainView()
+                    .environmentObject(viewModel)
+                
+            } else {
+                StartupScreen()
+                    .onAppear() {
+                        if(GIDSignIn.sharedInstance.hasPreviousSignIn() && GIDSignIn.sharedInstance.currentUser == nil) {
+                            GIDSignIn.sharedInstance.restorePreviousSignIn() { user, error in
+                                if let user = Auth.auth().currentUser {
+                                    print(user.uid)
+                                    viewModel.isLoggedIn = true
+                                    viewModel.userID = user.uid
+                                    viewModel.fetchUserRole(forUserID: user.uid)
+                                } else {
+                                    print(error ?? "unknown error")
+                                }
                             }
                         }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                             withAnimation(.easeInOut(duration: 0.5)) {
+                                 self.isMainViewVisible = true
+                             }
+                        }
                     }
-                }
+            }
         }
     }
 }

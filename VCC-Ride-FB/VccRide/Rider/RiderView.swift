@@ -5,7 +5,7 @@ let riderName = "[Rider Name]"
 
 struct RiderView: View {
     
-    @State private var assignDrivers = AssignDrivers() // Create an instance of AssignDrivers
+    let driversViewModel = DriversViewModel.shared
     @State private var selectedLocation = "Any"
     @State private var isActive = "Any"
     @State private var filteredUsers: [String: [String: Any]] = [:] // Replace with appropriate data structure

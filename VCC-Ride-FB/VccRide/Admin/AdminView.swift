@@ -23,13 +23,13 @@ enum Status {
 }
 
 struct AdminView: View {
-    
-    @State private var assignDrivers = AssignDrivers() // Create an instance of AssignDrivers
+    let driversViewModel = DriversViewModel.shared
     @State private var selectedRole = "Any"
     @State private var selectedLocation = "Any"
     @State private var isActive = "Any"
     @State private var filteredUsers: [String: [String: Any]] = [:] // Replace with appropriate data structure
     @State private var isViewAppeared = false
+    @State private var assignDriversSheet = false
     @ObservedObject private var userViewModel = UserViewModel() // Assuming you have a UserViewModel to fetch and filter users
     
     @StateObject private var practiceDateViewModel = PracticeDateViewModel()
@@ -72,9 +72,14 @@ struct AdminView: View {
 
                     ButtonShroud(title: "Assign Drivers", action: {
                         print("assigning drivers!")
-                        assignDrivers.assignNoPrefDrivers()
+                        assignDriversSheet.toggle()
+                        driversViewModel.assignDrivers()
                     })
                     .frame(width: buttonWidth, height: 70)
+                    .sheet(isPresented: $assignDriversSheet) {
+                        ListDriversView()
+                    }
+                    
                     
                     ButtonShroud(title: "Send Practice Reminder", action: {
                         //button action goes here
@@ -114,24 +119,24 @@ struct AdminView: View {
             .padding(.bottom, 2)
             
             ScrollView {
-                            ForEach(Array(filteredUsers), id: \.key) { (userID, userData) in
-                                VStack(alignment: .leading, spacing: 10) {
-                                    Text("Email: \(userData["email"] as? String ?? "")")
-                                    Text("Role: \(userData["role"] as? String ?? "")")
+                    ForEach(Array(filteredUsers), id: \.key) { (userID, userData) in
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Email: \(userData["email"] as? String ?? "")")
+                            Text("Role: \(userData["role"] as? String ?? "")")
 
-                                    Text("Location: \(userData["default_location"] as? String ?? "")")
-                                }
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(10)
-                                .background(Color(red: 1.0, green: 0.84, blue: 0.3).opacity(0.4))
-                                .cornerRadius(10)
-                            }
+                            Text("Location: \(userData["default_location"] as? String ?? "")")
                         }
-                        .padding(.top, -85)  // Adjusted padding for ScrollView
-                        .padding(.horizontal, 20) // Add horizontal padding to the ScrollView
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(10)
+                        .background(Color(red: 1.0, green: 0.84, blue: 0.3).opacity(0.4))
+                        .cornerRadius(10)
                     }
-                    .padding(EdgeInsets(top: 0, leading: 7, bottom: 0, trailing: 7)) // Add margins on the sides
-                    .onAppear {
+                }
+                .padding(.top, -85)  // Adjusted padding for ScrollView
+                .padding(.horizontal, 20) // Add horizontal padding to the ScrollView
+            }
+            .padding(EdgeInsets(top: 0, leading: 7, bottom: 0, trailing: 7)) // Add margins on the sides
+            .onAppear {
         }
         .onAppear {
             userViewModel.fetchUserFeatures()
