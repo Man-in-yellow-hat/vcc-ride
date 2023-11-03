@@ -11,7 +11,7 @@ struct ListDriversView: View {
 //    @Binding var selectedDriver: Driver?
 //    let assignmentAction: (Driver, String) -> Void
 
-    @ObservedObject var driversViewModel = DriversViewModel.shared
+    @ObservedObject var dailyViewModel = DailyViewModel.shared
 
     var body: some View {
         VStack {
@@ -21,7 +21,7 @@ struct ListDriversView: View {
 
             List {
                 Section(header: Text("NORTH Drivers").foregroundColor(.green)) {
-                    ForEach(driversViewModel.drivers.filter { $0.location == "NORTH" }) { driver in
+                    ForEach(dailyViewModel.drivers.filter { $0.location == "NORTH" }) { driver in
                         HStack {
                             Text(driver.name)
                             Spacer()
@@ -29,8 +29,8 @@ struct ListDriversView: View {
                             Spacer()
                             Text(driver.locationPreference)
                             Button(action: {
-                                driversViewModel.moveDriver(dbChild: "Daily-Practice", driverID: driver.id,
-                                                            thisDriverSeats: driver.seats, fromList: "north_driver", toList: "rand_driver")
+                                dailyViewModel.moveDriver(dbChild: "Daily-Practice", driverID: driver.id,
+                                                          fromList: "north_driver", toList: "rand_driver")
                                 driver.location = "RAND"
                             }) {
                                 Image(systemName: "arrow.down.circle.fill")
@@ -40,7 +40,7 @@ struct ListDriversView: View {
                 }
 
                 Section(header: Text("RAND Drivers").foregroundColor(.blue)) {
-                    ForEach(driversViewModel.drivers.filter { $0.location == "RAND" }) { driver in
+                    ForEach(dailyViewModel.drivers.filter { $0.location == "RAND" }) { driver in
                         HStack {
                             Text(driver.name)
                             Spacer()
@@ -48,8 +48,8 @@ struct ListDriversView: View {
                             Spacer()
                             Text(driver.locationPreference)
                             Button(action: {
-                                driversViewModel.moveDriver(dbChild: "Daily-Practice", driverID: driver.id,
-                                                            thisDriverSeats: driver.seats, fromList: "rand_driver", toList: "north_driver")
+                                dailyViewModel.moveDriver(dbChild: "Daily-Practice", driverID: driver.id,
+                                                          fromList: "rand_driver", toList: "north_driver")
                                 driver.location = "NORTH"
                             }) {
                                 Image(systemName: "arrow.up.circle.fill")

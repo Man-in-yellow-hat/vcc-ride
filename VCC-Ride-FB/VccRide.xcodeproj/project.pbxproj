@@ -51,7 +51,7 @@
 		D71B9E212AD05C4C00144928 /* PeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E202AD05C4C00144928 /* PeopleView.swift */; };
 		D71B9E232AD0732800144928 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E222AD0732800144928 /* LoginView.swift */; };
 		D71B9E252AD09C5400144928 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D71B9E242AD09C5400144928 /* GoogleService-Info.plist */; };
-		D73273B32ADE1C6600F5DA44 /* DriversViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73273B22ADE1C6600F5DA44 /* DriversViewModel.swift */; };
+		D73273B32ADE1C6600F5DA44 /* DailyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73273B22ADE1C6600F5DA44 /* DailyViewModel.swift */; };
 		D771DECC2ACF561400E79153 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858D2972ACDAFFD00A17CCD /* ContentView.swift */; };
 		D771DED22ACF575C00E79153 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D771DED12ACF575C00E79153 /* MainView.swift */; };
 		D791FA7B2AF14F7C004F343A /* VccRide.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = D791FA7A2AF14F7C004F343A /* VccRide.xctestplan */; };
@@ -59,7 +59,6 @@
 		D792DB2A2AF45BAB003D2E8E /* StartupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D792DB292AF45BAB003D2E8E /* StartupScreen.swift */; };
 		D7A0B1272AD7252500FC5AAC /* SignInJailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A0B1262AD7252500FC5AAC /* SignInJailView.swift */; };
 		D7A1EAFC2AD2569C0075A4B2 /* AdminCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */; };
-		D7B263872AEF245E00213D60 /* DayOfPractice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B263862AEF245E00213D60 /* DayOfPractice.swift */; };
 		D7B65D982AD25BCE00D2701B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65D972AD25BCE00D2701B /* UserViewModel.swift */; };
 		D7B65D9C2AD476C400D2701B /* SettingsMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65D9B2AD476C400D2701B /* SettingsMainView.swift */; };
 		D7B65D9E2AD476D300D2701B /* DriverSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65D9D2AD476D300D2701B /* DriverSettingsView.swift */; };
@@ -99,7 +98,7 @@
 		D71B9E202AD05C4C00144928 /* PeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleView.swift; sourceTree = "<group>"; };
 		D71B9E222AD0732800144928 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		D71B9E242AD09C5400144928 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		D73273B22ADE1C6600F5DA44 /* DriversViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriversViewModel.swift; sourceTree = "<group>"; };
+		D73273B22ADE1C6600F5DA44 /* DailyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewModel.swift; sourceTree = "<group>"; };
 		D771DED12ACF575C00E79153 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		D791FA792AF14F45004F343A /* VccRide.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = VccRide.xctestplan; sourceTree = "<group>"; };
 		D791FA7A2AF14F7C004F343A /* VccRide.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VccRide.xctestplan; sourceTree = "<group>"; };
@@ -108,7 +107,6 @@
 		D792DB292AF45BAB003D2E8E /* StartupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupScreen.swift; sourceTree = "<group>"; };
 		D7A0B1262AD7252500FC5AAC /* SignInJailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInJailView.swift; sourceTree = "<group>"; };
 		D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminCalendar.swift; sourceTree = "<group>"; };
-		D7B263862AEF245E00213D60 /* DayOfPractice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfPractice.swift; sourceTree = "<group>"; };
 		D7B65D972AD25BCE00D2701B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		D7B65D9B2AD476C400D2701B /* SettingsMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMainView.swift; sourceTree = "<group>"; };
 		D7B65D9D2AD476D300D2701B /* DriverSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverSettingsView.swift; sourceTree = "<group>"; };
@@ -220,12 +218,11 @@
 		D71B9E122AD0579800144928 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				D73273B22ADE1C6600F5DA44 /* DriversViewModel.swift */,
+				D73273B22ADE1C6600F5DA44 /* DailyViewModel.swift */,
 				A858D2D42ACDC73F00A17CCD /* FirebaseUtil.swift */,
 				A844CE8D2ACE0EEA00EC44C2 /* Application.swift */,
 				D7B65D972AD25BCE00D2701B /* UserViewModel.swift */,
 				D7B65DA32AD5987B00D2701B /* OrganizeDrivers.swift */,
-				D7B263862AEF245E00213D60 /* DayOfPractice.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -429,7 +426,6 @@
 			files = (
 				D771DECC2ACF561400E79153 /* ContentView.swift in Sources */,
 				D7A1EAFC2AD2569C0075A4B2 /* AdminCalendar.swift in Sources */,
-				D7B263872AEF245E00213D60 /* DayOfPractice.swift in Sources */,
 				D7B65DA42AD5987B00D2701B /* OrganizeDrivers.swift in Sources */,
 				D71B9E162AD058DA00144928 /* DriverView.swift in Sources */,
 				D71B9E1D2AD05C3A00144928 /* CalendarView.swift in Sources */,
@@ -439,7 +435,7 @@
 				D71B9E182AD058E100144928 /* RiderView.swift in Sources */,
 				D7B65DA82AD5A5F200D2701B /* AdminPeopleView.swift in Sources */,
 				A844CE8E2ACE0EEA00EC44C2 /* Application.swift in Sources */,
-				D73273B32ADE1C6600F5DA44 /* DriversViewModel.swift in Sources */,
+				D73273B32ADE1C6600F5DA44 /* DailyViewModel.swift in Sources */,
 				D71B9E112AD053FF00144928 /* AdminView.swift in Sources */,
 				A858D2D52ACDC73F00A17CCD /* FirebaseUtil.swift in Sources */,
 				D792DB2A2AF45BAB003D2E8E /* StartupScreen.swift in Sources */,

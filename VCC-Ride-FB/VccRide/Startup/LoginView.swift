@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var viewModel: MainViewModel
+//    @Environment(\.colorScheme) var colorScheme
     @State private var isVandyTextVisible = false
     @State private var isLogoVisible = false
     @State private var isTextVisible = false
@@ -45,13 +46,14 @@ struct LoginView: View {
                         Image("vcc-CLIMBER")
                             .resizable()
                             .frame(width: 180, height: 207)
-                            .offset(y: -30)
+                            .offset(x: 7, y: -30)
                     }
 
                     if isTextVisible {
                         Text("VCC Ride")
                             .padding(.horizontal)
-//                            .offset(y: -30)
+                            .offset(y: -12)
+                            .foregroundStyle(.black)
                             .font(.custom("Evanson Tavern", fixedSize: 23))
                     }
 

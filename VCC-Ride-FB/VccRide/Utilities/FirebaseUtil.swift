@@ -6,7 +6,6 @@
 import Foundation
 import SwiftUI
 import Firebase
-//import FirebaseStorage
 import FirebaseDatabase
 import GoogleSignIn
 
@@ -20,7 +19,6 @@ class FirebaseUtil: NSObject {
     override init() {
         self.auth = Auth.auth()
         self.db = Database.database()
-//        self.storage = Storage.storage()
         super.init()
     }
 
@@ -32,24 +30,6 @@ class FirebaseUtil: NSObject {
         }
         return email.hasSuffix("@vanderbilt.edu")
     }
-
-//    func authenticateLoggedInUser() {
-//        if UserDefaults.standard.bool(forKey: "isLoggedIn"),
-//           let googleUserID = UserDefaults.standard.string(forKey: "googleUserID") {
-//            // You can use the saved Google User ID for Firebase Authentication
-//            Auth.auth().signIn(withCustomToken: googleUserID) { authResult, error in
-//                if let error = error {
-//                    // Handle authentication error
-//                    print("Authentication failed: \(error.localizedDescription)")
-//                } else if authResult != nil {
-//                    // Authentication successful
-//                    print("Authentication successful")
-//
-//                    // Proceed with other initialization or data retrieval logic here
-//                }
-//            }
-//        }
-//    }
 }
 
 class SignIn_withGoogle_VM: ObservableObject {
@@ -177,27 +157,26 @@ class PracticeDateViewModel: ObservableObject {
         
         sourceRef.observeSingleEvent(of: .value) { snapshot in
             // Check if the key exists at the source location
-            guard let value = snapshot.value else {
+            guard let data = snapshot.value as? [String: Any] else {
                 print("Key not found at source location.")
                 return
             }
 
             // Write the key-value pair to the destination location
-            destRef.setValue(value) { error, _ in
+            destRef.setValue(data) { error, _ in
                 if let error = error {
                     print("Error writing to destination: \(error.localizedDescription)")
                     return
                 }
+                print("Key-value pair duplicated successfully!")
 
-                print("Key-value pair moved successfully!")
-
-                sourceRef.removeValue { error, _ in
-                    if let error = error {
-                        print("Error removing key from source: \(error.localizedDescription)")
-                    } else {
-                        print("Key-value pair removed from source location.")
-                    }
-                }
+//                sourceRef.removeValue { error, _ in
+//                    if let error = error {
+//                        print("Error removing key from source: \(error.localizedDescription)")
+//                    } else {
+//                        print("Key-value pair removed from source location.")
+//                    }
+//                }
             }
         }
 

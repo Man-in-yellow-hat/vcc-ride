@@ -23,7 +23,7 @@ enum Status {
 }
 
 struct AdminView: View {
-    let driversViewModel = DriversViewModel.shared
+    let dailyViewModel = DailyViewModel.shared
     @State private var selectedRole = "Any"
     @State private var selectedLocation = "Any"
     @State private var isActive = "Any"
@@ -73,7 +73,7 @@ struct AdminView: View {
                     ButtonShroud(title: "Assign Drivers", action: {
                         print("assigning drivers!")
                         assignDriversSheet.toggle()
-                        driversViewModel.assignDrivers()
+                        dailyViewModel.assignDrivers(reloadList: true)
                     })
                     .frame(width: buttonWidth, height: 70)
                     .sheet(isPresented: $assignDriversSheet) {
