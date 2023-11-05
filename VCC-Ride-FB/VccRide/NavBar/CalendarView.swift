@@ -27,6 +27,7 @@ struct CalendarView: View {
     @StateObject var practiceDateViewModel = PracticeDateViewModel()
     
     @State private var attendingDates = [String:Bool]()
+    @State private var autoConfirm = false
 
     let locations = ["North", "Rand"]
 
@@ -34,6 +35,7 @@ struct CalendarView: View {
     private let userPreferencesRef = Database.database().reference().child("Fall23-Users")
 
     @State private var dbAttendingDates = [String:Bool]()
+    @State private var dbAutoConfirm = false
     
     var body: some View {
         Form {
@@ -41,9 +43,7 @@ struct CalendarView: View {
                 Text("Dates")
                 VStack {
                     if !practiceDateViewModel.practiceDates.isEmpty {
-                        List(practiceDateViewModel.practiceDates, id: \.self) { date in
-                            
-                            Toggle(date, isOn: Binding(
+                        List(practiceDateViewModel.practiceDates, id: \.self) { date in Toggle(date, isOn: Binding(
                                             get: { attendingDates[date] ?? false },
                                             set: { newValue in
                                                 attendingDates[date] = newValue
@@ -92,7 +92,8 @@ struct CalendarView: View {
 
         userRef.observeSingleEvent(of: .value) { snapshot in
             if let userData = snapshot.value as? [String: Any] {
-                dbAttendingDates = userData["attendance_dates"] as? Dictionary ?? [String:Bool]()
+                dbAttendingDates = userData["attending_dates"] as? Dictionary ?? [String:Bool]()
+                dbAutoConfirm = userData["default_attendance_confirmation"] as? Bool ?? true
                 // Set the current values to the fetched values
                 attendingDates = dbAttendingDates
             }
@@ -104,7 +105,7 @@ struct CalendarView: View {
             //TODO: Handle the case when there is no logged-in user
             return
         }
-
+        
         let userRef = Database.database().reference().child("Fall23-Users").child(userID)
 
         let updatedPreferences: [String: Any] = [
@@ -126,10 +127,6 @@ struct CalendarView: View {
         guard let userID = Auth.auth().currentUser?.uid else {
             return
         }
-        
-//        var location = ""
-//        var role = ""
-//        var seats = 1
         
         userRef.observeSingleEvent(of: .value) { snapshot in
             if let userData = snapshot.value as? [String: Any] {
