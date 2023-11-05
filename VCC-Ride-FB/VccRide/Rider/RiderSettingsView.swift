@@ -10,14 +10,14 @@ import Firebase
 
 
 struct RiderSettingsView: View {
-    @StateObject var practiceDateViewModel = PracticeDateViewModel()
     @EnvironmentObject var viewModel: MainViewModel
 
     
     @State private var selectedLocation = "North"
     @State private var autoConfirm = true
     @State private var availableSeats = 1
-    @State private var attendingDates = [String:Bool]()
+    @State private var fname: String = ""
+    @State private var lname: String = ""
 
     let locations = ["North", "Rand", "No Preference"]
 
@@ -27,9 +27,9 @@ struct RiderSettingsView: View {
     @State private var dbLocation = ""
     @State private var dbAutoConfirm = true
     @State private var dbAvailableSeats = 4
-    @State private var dbAttendingDates = [String:Bool]()
-    @State private var fname: String = ""
-    @State private var lname: String = ""
+    @State private var dbFirstName = ""
+    @State private var dbLastName = ""
+
     
     var body: some View {
         Form {
@@ -48,32 +48,7 @@ struct RiderSettingsView: View {
 
                 // Toggle for default attendance confirmation
                 Toggle("Automatic Attendance Confirmation", isOn: $autoConfirm)
-            }
-            Section {
-                Text("Dates")
-                VStack {
-                    if !practiceDateViewModel.practiceDates.isEmpty {
-                        List(practiceDateViewModel.practiceDates, id: \.self) { date in
-                            
-                            Toggle(date, isOn: Binding(
-                                            get: { attendingDates[date] ?? false },
-                                            set: { newValue in
-                                                attendingDates[date] = newValue
-                                            }
-                            ))
-                        }
-                    } else {
-                        Text("No practice dates available.")
-                    }
-                    
-                }
-                .padding()
-                .onAppear {
-                    if practiceDateViewModel.practiceDates.isEmpty {
-                        print("fetching dates, try not to do this too often!")
-                        practiceDateViewModel.fetchExistingDates()
-                    }
-                }
+            
             }
             Section {
                 Button(action: {
@@ -125,12 +100,14 @@ struct RiderSettingsView: View {
                 dbLocation = userData["default_location"] as? String ?? ""
                 dbAutoConfirm = userData["default_attendance_confirmation"] as? Bool ?? true
                 dbAvailableSeats = userData["default_seats"] as? Int ?? 1
-                dbAttendingDates = userData["attendance_dates"] as? Dictionary ?? [String:Bool]()
+                dbFirstName = userData["fname"] as? String ?? ""
+                dbLastName = userData["lname"] as? String ?? ""
                 // Set the current values to the fetched values
                 selectedLocation = dbLocation
                 autoConfirm = dbAutoConfirm
                 availableSeats = dbAvailableSeats
-                attendingDates = dbAttendingDates
+                fname = dbFirstName
+                lname = dbLastName
             }
         }
     }
@@ -148,8 +125,7 @@ struct RiderSettingsView: View {
             "lname": lname,
             "default_location": selectedLocation,
             "default_attendance_confirmation": autoConfirm,
-            "default_seats": availableSeats,
-            "attending_dates": attendingDates
+            "default_seats": availableSeats
         ]
 
         userRef.updateChildValues(updatedPreferences) { error, _ in
@@ -163,13 +139,12 @@ struct RiderSettingsView: View {
                 dbLocation = selectedLocation
                 dbAutoConfirm = autoConfirm
                 dbAvailableSeats = availableSeats
-                dbAttendingDates = attendingDates
             }
         }
     }
 
 }
-
+ 
 struct RiderSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         RiderSettingsView()
