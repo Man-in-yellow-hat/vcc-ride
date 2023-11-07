@@ -17,11 +17,19 @@ struct SignInJailView: View {
     @State private var firstName: String = ""
     @State private var lastName: String = ""
     
-    var fullName: String {
-        // Combine first name and last name with a space and remove extra whitespace
-        let trimmedFirstName = firstName.trimmingCharacters(in: .whitespaces)
-        let trimmedLastName = lastName.trimmingCharacters(in: .whitespaces)
-        return "\(trimmedFirstName) \(trimmedLastName)"
+//    var fullName: String {
+//        // Combine first name and last name with a space and remove extra whitespace
+//        let trimmedFirstName = firstName.trimmingCharacters(in: .whitespaces)
+//        let trimmedLastName = lastName.trimmingCharacters(in: .whitespaces)
+//        return "\(trimmedFirstName) \(trimmedLastName)"
+//    }
+    
+    var fname: String {
+        return firstName.trimmingCharacters(in: .whitespaces)
+    }
+    
+    var lname: String {
+        return lastName.trimmingCharacters(in: .whitespaces)
     }
     
 
@@ -43,6 +51,7 @@ struct SignInJailView: View {
                     TextField("Last Name", text: $lastName)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .disableAutocorrection(true)
+                        .scrollDismissesKeyboard(.immediately)
 
                 }
                 .ignoresSafeArea(.keyboard, edges: .bottom)
@@ -104,7 +113,7 @@ struct SignInJailView: View {
                 ZStack {
                     Button(action: {
                         // Save the selected role to the database
-                        viewModel.getOutOfJail(newRole: selectedRole, newLocation: selectedLocation, newConfirm: selectedConfirm, fullName: fullName)
+                        viewModel.getOutOfJail(newRole: selectedRole, newLocation: selectedLocation, newConfirm: selectedConfirm, first: fname, last: lname)
                     }) {
                         Text("Continue")
                             .foregroundColor(.white)

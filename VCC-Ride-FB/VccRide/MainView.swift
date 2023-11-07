@@ -29,7 +29,7 @@ class MainViewModel: ObservableObject {
         UserDefaults.standard.set(false, forKey: "isLoggedIn")
     }
     
-    func getOutOfJail(newRole: String, newLocation: String, newConfirm: Bool, fullName: String) {
+    func getOutOfJail(newRole: String, newLocation: String, newConfirm: Bool, first: String, last: String) {
         let ref = Database.database().reference()
         let userRef = ref.child("Fall23-Users").child(self.userID!)
         
@@ -38,7 +38,8 @@ class MainViewModel: ObservableObject {
             "active": true, // Set "active" to true
             "default_location": newLocation,
             "default_confirm_attendance": newConfirm,
-            "name": fullName
+            "fname": first,
+            "lname": last
         ]
         
         userRef.updateChildValues(updates) { error, _ in
