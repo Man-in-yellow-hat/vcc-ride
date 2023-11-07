@@ -12,7 +12,7 @@ struct ListDriversView: View {
 //    let assignmentAction: (Driver, String) -> Void
 
     @ObservedObject var dailyViewModel = DailyViewModel.shared
-    @State private var shouldShowUpdatedView = false // Add a state variable
+    @State private var isLoading = true // Add a state variable
 
     
     var body: some View {
@@ -21,7 +21,7 @@ struct ListDriversView: View {
                 .font(.title)
                 .padding()
             
-            if (shouldShowUpdatedView) {
+            if (!isLoading) {
                 List {
                     Section(header: Text("NORTH Drivers").foregroundColor(.green)) {
                         ForEach(dailyViewModel.drivers.filter { $0.location == "NORTH" }) { driver in
@@ -63,31 +63,14 @@ struct ListDriversView: View {
                 }
             } else {
                 ZStack {
-                    Color.black.opacity(0.8)
-                      .edgesIgnoringSafeArea(.all)
-                      .blur(radius: 200)
-
-                    ZStack {
-                      Color.gray.opacity(0.5)
-
-                      Circle()
-                        .trim(from: 0.2, to: 1)
-                        .stroke(
-                          Color.white,
-                          style: StrokeStyle(
-                            lineWidth: 5,
-                            lineCap: .round
-                          )
-                        )
-                        .shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 3)
-                        .rotationEffect(.degrees(360))
-                    }
-                    .frame(width: 80, height: 80)
-                    .background(Color.white)
-                    .cornerRadius(30)
-                    .shadow(color: Color.white.opacity(0.3), radius: 5, x: 0, y: 5)
-                    .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 2)
+                    Color(.systemBackground)
+                        .ignoresSafeArea()
+                        .opacity(0.8)
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .red))
+                        .scaleEffect(2)
                 }
+                
             }
         }
         .onAppear {
@@ -97,7 +80,7 @@ struct ListDriversView: View {
                 if (!dailyViewModel.isDriversListPopulated) {
                     dailyViewModel.assignNoPref()
                 }
-                shouldShowUpdatedView = true
+                isLoading = false
             }
         }
     }
