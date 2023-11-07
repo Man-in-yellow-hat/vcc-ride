@@ -39,12 +39,15 @@ class DailyViewModel: ObservableObject {
     @Published var drivers: [Driver] = []
     @Published var riders: [Climber] = []
     public var hasBeenAssigned: Bool = false // TODO: RESET EACH DAY
-    private var isDriversListPopulated: Bool = false
+    public var isDriversListPopulated: Bool = false
 
     private var numRandSeats = 0
     private var numNorthSeats = 0
     private var numRandRiders = 0
     private var numNorthRiders = 0
+    
+    private var difNorth = 0
+    private var difRand = 0
     
     private var date = ""
     
@@ -84,7 +87,7 @@ class DailyViewModel: ObservableObject {
     }
     
     private func getDriverList(fromLocation: String, assignedLocation: String) {
-        var practiceRef = Database.database().reference().child("Daily-Practice")
+        let practiceRef = Database.database().reference().child("Daily-Practice")
     
         practiceRef.observeSingleEvent(of: .value) { snapshot, error in
             if let riderData = snapshot.value as? [String: Any] {
@@ -111,7 +114,7 @@ class DailyViewModel: ObservableObject {
     }
     
     private func getRiderList(fromLocation: String, assignedLocation: String) {
-        var practiceRef = Database.database().reference().child("Daily-Practice")
+        let practiceRef = Database.database().reference().child("Daily-Practice")
     
         practiceRef.observeSingleEvent(of: .value) { snapshot, error in
             if let riderData = snapshot.value as? [String: Any] {
@@ -134,19 +137,10 @@ class DailyViewModel: ObservableObject {
         }
     }
     
-//    private func getLists() {
-//        getDriverList(fromLocation: "north_drivers")
-//        getDriverList(fromLocation: "rand_drivers")
-//        getDriverList(fromLocation: "no_pref_drivers")
-//        getRiderList(fromLocation: "north_riders")
-//        getRiderList(fromLocation: "rand_riders")
-//        self.objectWillChange.send()
-//    }
-//
     //if hasBeenAssigned, get drivers list from daily
     //if not hasBeenAssigned, getList from Fall23, assignNoPrefDrivers, mark hasBeenAssigned true
-    public func assignDrivers(reloadList: Bool) {
-        if (self.isDriversListPopulated && !reloadList) {
+    public func assignDrivers() {
+        if (self.isDriversListPopulated) {
             return
         }
 
@@ -157,26 +151,27 @@ class DailyViewModel: ObservableObject {
         getDriverList(fromLocation: "no_pref_drivers", assignedLocation: "NONE")
         getRiderList(fromLocation: "north_riders", assignedLocation: "NORTH")
         getRiderList(fromLocation: "rand_riders", assignedLocation: "RAND")
-//        self.objectWillChange.send()
-
         
-        var difRand = self.numRandSeats - self.numRandRiders // keep as var to change later
-        var difNorth = self.numNorthSeats - self.numNorthRiders // keep as var to change later
+        self.difRand = self.numRandSeats - self.numRandRiders // keep as var to change later
+        self.difNorth = self.numNorthSeats - self.numNorthRiders // keep as var to change later
 
+        self.hasBeenAssigned = true
+        self.isDriversListPopulated = true
+    }
+    
+    public func assignNoPref() {
         for driver in drivers.filter({ $0.locationPreference == "NONE" }) { // assign no pref drivers
             if difNorth < difRand {
-                moveDriver(dbChild: "Fall23-Practices", driverID: driver.id, fromList: "no_pref_driver", toList: "north_driver")
+                moveDriver(dbChild: "Daily-Practice", driverID: driver.id, fromList: "no_pref_drivers", toList: "north_drivers")
                 difNorth += driver.seats
                 driver.location = "NORTH"
             } else {
-                moveDriver(dbChild: "Fall23-Practices", driverID: driver.id, fromList: "no_pref_driver", toList: "rand_driver")
+                moveDriver(dbChild: "Daily-Practice", driverID: driver.id, fromList: "no_pref_drivers", toList: "rand_drivers")
                 difRand += driver.seats
                 driver.location = "RAND"
             }
         }
-        self.hasBeenAssigned = true
-        
-        self.isDriversListPopulated = true
+        objectWillChange.send()
     }
     
     public func moveDriver(dbChild: String, driverID: String, fromList: String, toList: String) {
@@ -189,7 +184,7 @@ class DailyViewModel: ObservableObject {
         let fromListRef = practiceRef.child(fromList)
         let toListRef = practiceRef.child(toList)
         
-
+        print("moving", dbChild, driverID, fromList, toList)
         fromListRef.child(driverID).observeSingleEvent(of: .value) { snapshot in
             if let data = snapshot.value as? [String: Any] {
                 // Write the entire node and its subnodes to the destination location
@@ -207,8 +202,11 @@ class DailyViewModel: ObservableObject {
                         }
                     }
                 }
+            } else {
+                print("here, shouldn't be")
             }
         }
+        objectWillChange.send()
     }
 }
 

@@ -73,7 +73,7 @@ struct AdminView: View {
                     ButtonShroud(title: "Assign Drivers", action: {
                         print("assigning drivers!")
                         assignDriversSheet.toggle()
-                        dailyViewModel.assignDrivers(reloadList: true)
+                        dailyViewModel.assignDrivers()
                     })
                     .frame(width: buttonWidth, height: 70)
                     .sheet(isPresented: $assignDriversSheet) {
