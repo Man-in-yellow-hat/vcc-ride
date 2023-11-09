@@ -32,9 +32,14 @@ struct RiderView: View {
         .padding()
         .onAppear {
             userViewModel.fetchUserFeatures()
+            if dailyViewModel.isDriversListPopulated {
+                print(userViewModel.riderLocation)
+                filteredDrivers = dailyViewModel.drivers
+                // TODO: filter
+            }
             if !isViewAppeared {
                 isViewAppeared = true
-                fetchDriversByLocation(riderLocation: userViewModel.riderLocation)
+//                fetchDriversByLocation(riderLocation: userViewModel.riderLocation)
             }
         }
     }

@@ -10,22 +10,15 @@ import SwiftUI
 struct SettingsMainView: View {
     @EnvironmentObject var viewModel: MainViewModel
     var body: some View {
-        TabView {
-//            AppSettingsView()
-//                .tag(0)
-
-            if viewModel.userRole == "admin" {
-                AdminSettingsView().environmentObject(viewModel)
+        NavigationStack {
+            if viewModel.userRole == "rider" {
+                RiderSettingsView().environmentObject(viewModel)
                     .tag(0)
-            } else if viewModel.userRole == "driver" {
+            } else {
                 DriverSettingsView().environmentObject(viewModel)
-                    .tag(0)
+                    .tag(1)
             }
-            // ALSO WANT TO BE ABLE TO
-            RiderSettingsView().environmentObject(viewModel) // CHANGE THIS TO DEPEND ON USER ROLE
-                .tag(1)
         }
-        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
     }
 }
 

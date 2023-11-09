@@ -86,13 +86,8 @@ class DailyViewModel: ObservableObject {
         }
     }
     
-//    public func externGetDriverList(fromLocation: String) {
-//        var filteredDrivers: [Driver] = []
-//        let practiceRef = Database.database().reference().child("Daily-Practice")
-//            if
-//    }
-    
-    public func getDriverList(fromLocation: String, assignedLocation: String) {
+
+    private func getDriverList(fromLocation: String, assignedLocation: String) {
         let practiceRef = Database.database().reference().child("Daily-Practice")
     
         practiceRef.observeSingleEvent(of: .value) { snapshot, error in

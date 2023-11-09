@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StatsView: View {
     var body: some View {
-        Text("STATS!")
+        Text("STATS Page coming in December 2023!")
     }
 }
 
