@@ -42,6 +42,7 @@
 		A858D2D32ACDC6C100A17CCD /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = A858D2D22ACDC6C100A17CCD /* FirebaseStorageCombine-Community */; };
 		A858D2D52ACDC73F00A17CCD /* FirebaseUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858D2D42ACDC73F00A17CCD /* FirebaseUtil.swift */; };
 		A858D2D72ACDCD5F00A17CCD /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858D2D62ACDCD5F00A17CCD /* ImagePickerView.swift */; };
+		A8B550132B02B65D002E6D7F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A8B550122B02B65D002E6D7F /* GoogleService-Info.plist */; };
 		D71B9E112AD053FF00144928 /* AdminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E102AD053FF00144928 /* AdminView.swift */; };
 		D71B9E162AD058DA00144928 /* DriverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E152AD058DA00144928 /* DriverView.swift */; };
 		D71B9E182AD058E100144928 /* RiderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E172AD058E100144928 /* RiderView.swift */; };
@@ -50,7 +51,6 @@
 		D71B9E1F2AD05C4100144928 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E1E2AD05C4100144928 /* StatsView.swift */; };
 		D71B9E212AD05C4C00144928 /* PeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E202AD05C4C00144928 /* PeopleView.swift */; };
 		D71B9E232AD0732800144928 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E222AD0732800144928 /* LoginView.swift */; };
-		D71B9E252AD09C5400144928 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D71B9E242AD09C5400144928 /* GoogleService-Info.plist */; };
 		D73273B32ADE1C6600F5DA44 /* DailyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73273B22ADE1C6600F5DA44 /* DailyViewModel.swift */; };
 		D771DECC2ACF561400E79153 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858D2972ACDAFFD00A17CCD /* ContentView.swift */; };
 		D771DED22ACF575C00E79153 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D771DED12ACF575C00E79153 /* MainView.swift */; };
@@ -89,6 +89,7 @@
 		A858D2972ACDAFFD00A17CCD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A858D2D42ACDC73F00A17CCD /* FirebaseUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUtil.swift; sourceTree = "<group>"; };
 		A858D2D62ACDCD5F00A17CCD /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		A8B550122B02B65D002E6D7F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D71B9E102AD053FF00144928 /* AdminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminView.swift; sourceTree = "<group>"; };
 		D71B9E152AD058DA00144928 /* DriverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverView.swift; sourceTree = "<group>"; };
 		D71B9E172AD058E100144928 /* RiderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiderView.swift; sourceTree = "<group>"; };
@@ -97,7 +98,6 @@
 		D71B9E1E2AD05C4100144928 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		D71B9E202AD05C4C00144928 /* PeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleView.swift; sourceTree = "<group>"; };
 		D71B9E222AD0732800144928 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		D71B9E242AD09C5400144928 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D73273B22ADE1C6600F5DA44 /* DailyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewModel.swift; sourceTree = "<group>"; };
 		D771DED12ACF575C00E79153 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		D791FA792AF14F45004F343A /* VccRide.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = VccRide.xctestplan; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 				D771DED12ACF575C00E79153 /* MainView.swift */,
 				A858D2D62ACDCD5F00A17CCD /* ImagePickerView.swift */,
 				A858D2972ACDAFFD00A17CCD /* ContentView.swift */,
-				D71B9E242AD09C5400144928 /* GoogleService-Info.plist */,
+				A8B550122B02B65D002E6D7F /* GoogleService-Info.plist */,
 				A844CE8C2ACE0B6700EC44C2 /* Info.plist */,
 				A858D28B2ACDADC700A17CCD /* Assets.xcassets */,
 				A858D28D2ACDADC700A17CCD /* Preview Content */,
@@ -404,7 +404,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A858D28F2ACDADC700A17CCD /* Preview Assets.xcassets in Resources */,
-				D71B9E252AD09C5400144928 /* GoogleService-Info.plist in Resources */,
+				A8B550132B02B65D002E6D7F /* GoogleService-Info.plist in Resources */,
 				D791FA7B2AF14F7C004F343A /* VccRide.xctestplan in Resources */,
 				A858D28C2ACDADC700A17CCD /* Assets.xcassets in Resources */,
 			);
@@ -598,10 +598,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = VccRide/VccRide.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VccRide/Preview Content\"";
-				DEVELOPMENT_TEAM = H22V7CR7C4;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = H22V7CR7C4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VccRide/Info.plist;
@@ -618,6 +620,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = vccride.vanderbilt.apple.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Prov Prof 2";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -631,10 +635,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = VccRide/VccRide.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VccRide/Preview Content\"";
-				DEVELOPMENT_TEAM = H22V7CR7C4;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = H22V7CR7C4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VccRide/Info.plist;
@@ -651,6 +657,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = vccride.vanderbilt.apple.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Prov Prof 2";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
