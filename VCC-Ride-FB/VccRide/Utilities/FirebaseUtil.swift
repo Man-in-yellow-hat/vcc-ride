@@ -13,6 +13,8 @@ class FirebaseUtil: NSObject {
     let auth: Auth
     let db: Database
     var viewModel: MainViewModel?
+    
+    let WHITELISTED: [String] = ["nate.k788@gmail.com", "nathan@algernon.com", "vccride@gmail.com", "vccride.test@gmail.com"]
 
     static let shared = FirebaseUtil()
 
@@ -25,7 +27,7 @@ class FirebaseUtil: NSObject {
     // Function to check the email domain
     func isEmailInAllowedDomain(_ email: String) -> Bool {
         // Check if the email domain is allowed
-        if (email == "nate.k788@gmail.com" || email == "nathan@algernon.com") {
+        if (WHITELISTED.contains(email)) {
             return true
         }
         return email.hasSuffix("@vanderbilt.edu")
