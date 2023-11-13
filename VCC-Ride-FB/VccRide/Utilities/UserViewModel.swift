@@ -28,7 +28,8 @@ class UserViewModel: ObservableObject {
     func filterUsers(
         roleFilter: String? = nil,
         activeFilter: String? = nil,
-        locationFilter: String? = nil
+        locationFilter: String? = nil,
+        emailSearchFilter: String? = nil
     ) -> [String: [String: Any]] {
         var filteredUsers = users
         
@@ -51,6 +52,13 @@ class UserViewModel: ObservableObject {
             filteredUsers = filteredUsers.filter { (_, user) in
                 guard let userLocation = user["default_location"] as? String else { return false }
                 return userLocation == location
+            }
+        }
+        
+        if let emailSearch = emailSearchFilter, emailSearchFilter != "" {
+            filteredUsers = filteredUsers.filter { (_, user) in
+                guard let userEmail = user["email"] as? String else { return false }
+                return userEmail.localizedStandardContains(emailSearch)
             }
         }
         
