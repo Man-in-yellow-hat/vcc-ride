@@ -34,9 +34,13 @@ struct AdminView: View {
     
     @StateObject private var practiceDateViewModel = PracticeDateViewModel()
 
+//    @State private var textFieldsData: [[ContentItem]] = [
+//        [.text("North"), .combined(imageSystemName: "person.fill.checkmark", value: ridersConfirmedNorth), .combined(imageSystemName: "person.fill.xmark", value: ridersDeclinedNorth), .combined(imageSystemName: "person.fill.questionmark", value: ridersUnknownNorth), .combined(imageSystemName: "figure.seated.seatbelt", value: seatsNorth)],
+//        [.text("Branscomb"), .combined(imageSystemName: "person.fill.checkmark", value: ridersConfirmedBranscomb), .combined(imageSystemName: "person.fill.xmark", value: ridersDeclinedBranscomb), .combined(imageSystemName: "person.fill.questionmark", value: ridersUnknownBranscomb), .combined(imageSystemName: "figure.seated.seatbelt", value: seatsBranscomb)],
+//    ]
     @State private var textFieldsData: [[ContentItem]] = [
-        [.text("North"), .combined(imageSystemName: "person.fill.checkmark", value: ridersConfirmedNorth), .combined(imageSystemName: "person.fill.xmark", value: ridersDeclinedNorth), .combined(imageSystemName: "person.fill.questionmark", value: ridersUnknownNorth), .combined(imageSystemName: "figure.seated.side", value: seatsNorth)],
-        [.text("Branscomb"), .combined(imageSystemName: "person.fill.checkmark", value: ridersConfirmedBranscomb), .combined(imageSystemName: "person.fill.xmark", value: ridersDeclinedBranscomb), .combined(imageSystemName: "person.fill.questionmark", value: ridersUnknownBranscomb), .combined(imageSystemName: "figure.seated.side", value: seatsBranscomb)],
+        [.text("North"), .combined(imageSystemName: "person.3.sequence.fill", value: NUMSEATSREQUESTED), .combined(imageSystemName: "chair.lounge.fill", value: NUMSEATSOFFERED), .combined(imageSystemName: "figure.seated.seatbelt", value: NUMSEATSFILLED)],
+        [.text("Rand"), .combined(imageSystemName: "person.3.sequence.fill", value: NUMSEATSREQUESTED), .combined(imageSystemName: "chair.lounge.fill", value: NUMSEATSOFFERED), .combined(imageSystemName: "figure.seated.seatbelt", value: NUMSEATSFILLED)],
     ]
     
     
@@ -44,16 +48,16 @@ struct AdminView: View {
     @State public var northStatus: Status = Status.ok
     
     var body: some View {
-        VStack {
+        ScrollView {
             // Title and Subtitle
             Text("Welcome, \(userViewModel.riderName)").font(.headline)
             Text("Next Practice Date: \(nextPracticeDate)").font(.subheadline)
                 .padding(.bottom)
             
-            HStack(spacing: 20) {
+            VStack(spacing: 20) {
                 ForEach(0..<2) { boxIndex in
                     BoxWithTexts(contents: textFieldsData[boxIndex])
-                        .frame(width: 150, height: 200)
+//                        .frame(width: 150, height: 200)
                 }
             }
             .padding()
@@ -63,11 +67,11 @@ struct AdminView: View {
                 .font(.subheadline)
                 .padding(.bottom, 3.0)
             
-            GeometryReader { geometry in
-                let totalHorizontalPadding: CGFloat = 40.0
-                let availableWidth = geometry.size.width - totalHorizontalPadding - 40.0
-                let buttonWidth = availableWidth / 3
-                
+//            GeometryReader { geometry in
+//                let totalHorizontalPadding: CGFloat = 40.0
+//                let availableWidth = geometry.size.width - totalHorizontalPadding - 40.0
+//                let buttonWidth = availableWidth / 3
+//
                 HStack(spacing: 20) {
 
                     ButtonShroud(title: "Assign Drivers", action: {
@@ -75,7 +79,7 @@ struct AdminView: View {
                         assignDriversSheet.toggle()
                         dailyViewModel.assignDrivers()
                     })
-                    .frame(width: buttonWidth, height: 70)
+//                    .frame(width: buttonWidth, height: 70)
                     .sheet(isPresented: $assignDriversSheet) {
                         ListDriversView()
                     }
@@ -84,57 +88,24 @@ struct AdminView: View {
                     ButtonShroud(title: "Send Practice Reminder", action: {
                         //button action goes here
                     })
-                    .frame(width: buttonWidth, height: 70)
+//                    .frame(width: buttonWidth, height: 70)
                     
                     ButtonShroud(title: "Confirm Attendance", action: {
                         //button action goes here
                     })
-                    .frame(width: buttonWidth, height: 70)
+//                    .frame(width: buttonWidth, height: 70)
                     
 
                 }
                 .padding(.horizontal, 20)
-            }
+//            }
             
-            // Role Picker
-            HStack {
-                Text("Quick User View:")
-                    .font(.subheadline)
-                    .padding(.top, -105)
-                Spacer()
-                Picker("", selection: $selectedRole) {
-                    Text("Any").tag("Any")
-                    Text("Rider").tag("rider")
-                    Text("Driver").tag("driver")
-                    Text("Admin").tag("admin")
-                }
-                .pickerStyle(MenuPickerStyle())
-                .onChange(of: selectedRole) { _ in
-                    applyFilters()
-                }
-                .padding(.top, -115)
-            }
-            .padding(.horizontal)
-
-            .padding(.bottom, 2)
             
-            ScrollView {
-                    ForEach(Array(filteredUsers), id: \.key) { (userID, userData) in
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("Email: \(userData["email"] as? String ?? "")")
-                            Text("Role: \(userData["role"] as? String ?? "")")
-
-                            Text("Location: \(userData["default_location"] as? String ?? "")")
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(10)
-                        .background(Color(red: 1.0, green: 0.84, blue: 0.3).opacity(0.4))
-                        .cornerRadius(10)
-                    }
-                }
-                .padding(.top, -85)  // Adjusted padding for ScrollView
-                .padding(.horizontal, 20) // Add horizontal padding to the ScrollView
-            }
+            ButtonShroud(title: "Update Daily Practice", action: {
+                print("updating daily practice!")
+                practiceDateViewModel.transferPracticeDates()
+            })
+        }
             .padding(EdgeInsets(top: 0, leading: 7, bottom: 0, trailing: 7)) // Add margins on the sides
             .onAppear {
         }
@@ -147,11 +118,6 @@ struct AdminView: View {
                 }
             }
         }
-        ButtonShroud(title: "Update Daily Practice", action: {
-            print("updating daily practice!")
-            practiceDateViewModel.transferPracticeDates()
-        })
-
     }
 
     

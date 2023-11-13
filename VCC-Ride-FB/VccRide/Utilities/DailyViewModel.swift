@@ -36,8 +36,14 @@ class Driver: Climber {
 class DailyViewModel: ObservableObject {
     static let shared = DailyViewModel() // SINGLETON
     
-    @Published var drivers: [Driver] = []
-    @Published var riders: [Climber] = []
+//    @Published var drivers: [Driver] = []
+//    @Published var riders: [Climber] = []
+    
+    @Published var northDrivers: [Driver] = []
+    @Published var randDrivers: [Driver] = []
+    @Published var northClimbers: [Climber] = []
+    @Published var randClimbers: [Climber] = []
+    
     public var hasBeenAssigned: Bool = false // TODO: RESET EACH DAY
     public var isDriversListPopulated: Bool = false
 
@@ -54,7 +60,7 @@ class DailyViewModel: ObservableObject {
     private init() {
         // all we have to do is check if drivers have already been assigned that day
         let ref = Database.database().reference().child("Daily-Practice").child("has_been_assigned")
-        ref.observeSingleEvent(of: .value) { snapshot, error in
+        ref.observe(.value) { snapshot, error in
             if let isAssigned = snapshot.value as? Bool {
                 self.hasBeenAssigned = isAssigned
             }
@@ -87,12 +93,12 @@ class DailyViewModel: ObservableObject {
     }
     
 
-    private func getDriverList(fromLocation: String, assignedLocation: String) {
+    public func getDriverList(fromLocation: String, assignedLocation: String) {
         let practiceRef = Database.database().reference().child("Daily-Practice")
     
-        practiceRef.observeSingleEvent(of: .value) { snapshot, error in
-            if let riderData = snapshot.value as? [String: Any] {
-                if let listData = riderData[fromLocation] as? [String: [String: Any]] {
+        practiceRef.observe(.value) { snapshot, error in
+            if let driverData = snapshot.value as? [String: Any] {
+                if let listData = driverData[fromLocation] as? [String: [String: Any]] {
                     // Make a new driver object for each driver
                     for (driverID, driverInfo) in listData {
                         if let name = driverInfo["name"] as? String,
@@ -100,11 +106,14 @@ class DailyViewModel: ObservableObject {
                            let pref = driverInfo["preference"] as? String {
                             let newDriver = Driver(id: driverID, name: name, location: assignedLocation,
                                                      seats: seats, preference: pref)
-                            if !self.drivers.contains(where: { $0.id == newDriver.id }) {
-                                self.drivers.append(newDriver)
-                            }
-                            if (fromLocation != "no_pref_drivers") {
+                            if (fromLocation == "north_drivers" && !self.northDrivers.contains(where: { $0.id == newDriver.id })) {
+                                self.northDrivers.append(newDriver)
                                 self.adjustSeats(isDriver: true, isNorth: (fromLocation == "north_drivers"), deltaSeats: seats)
+                            } else if (fromLocation == "rand_drivers" && !self.randDrivers.contains(where: { $0.id == newDriver.id})) {
+                                self.randDrivers.append(newDriver)
+                                self.adjustSeats(isDriver: true, isNorth: (fromLocation == "north_drivers"), deltaSeats: seats)
+                            } else if (fromLocation == "no_pref_driers") { // location is noPref
+                                self.assignNoPref(driver: newDriver)
                             }
                         }
                     }
@@ -114,10 +123,15 @@ class DailyViewModel: ObservableObject {
         }
     }
     
-    private func getRiderList(fromLocation: String, assignedLocation: String) {
+    public func getRiderList(fromLocation: String, assignedLocation: String) {
         let practiceRef = Database.database().reference().child("Daily-Practice")
-    
-        practiceRef.observeSingleEvent(of: .value) { snapshot, error in
+        
+        practiceRef.observe(.value) { snapshot, error in
+            if let error = error {
+                print("Error observing practice data: \(error)")
+                return
+            }
+
             if let riderData = snapshot.value as? [String: Any] {
                 if let listData = riderData[fromLocation] as? [String: [String: Any]] {
                     // Make a new climber object for each climber
@@ -126,17 +140,27 @@ class DailyViewModel: ObservableObject {
                            let seats = climberInfo["seats"] as? Int {
                             let newClimber = Climber(id: climberID, name: name, location: assignedLocation, seats: seats)
                             
-                            if !self.riders.contains(where: { $0.id == newClimber.id }) {
-                                self.riders.append(newClimber)
+                            if (fromLocation == "rand_riders" && !self.randClimbers.contains(where: { $0.id == newClimber.id })) {
+                                self.randClimbers.append(newClimber)
+                                self.adjustSeats(isDriver: false, isNorth: (fromLocation == "north_riders"), deltaSeats: seats)
+                            } else if (fromLocation == "north_riders" && !self.northClimbers.contains(where: { $0.id == newClimber.id })) {
+                                self.northClimbers.append(newClimber)
+                                self.adjustSeats(isDriver: false, isNorth: (fromLocation == "north_riders"), deltaSeats: seats)
                             }
-                            self.adjustSeats(isDriver: false, isNorth: (fromLocation == "north_riders"), deltaSeats: seats)
+                        } else {
+                            print("Error parsing climber information for climber ID \(climberID)")
                         }
                     }
+                } else {
+                    print("Error accessing list data for location \(fromLocation)")
                 }
                 self.objectWillChange.send()
+            } else {
+                print("Error parsing rider data")
             }
         }
     }
+
     
     //if hasBeenAssigned, get drivers list from daily
     //if not hasBeenAssigned, getList from Fall23, assignNoPrefDrivers, mark hasBeenAssigned true
@@ -160,17 +184,18 @@ class DailyViewModel: ObservableObject {
         self.isDriversListPopulated = true
     }
     
-    public func assignNoPref() {
-        for driver in drivers.filter({ $0.locationPreference == "NONE" }) { // assign no pref drivers
-            if difNorth < difRand {
-                moveDriver(dbChild: "Daily-Practice", driverID: driver.id, fromList: "no_pref_drivers", toList: "north_drivers")
-                difNorth += driver.seats
-                driver.location = "NORTH"
-            } else {
-                moveDriver(dbChild: "Daily-Practice", driverID: driver.id, fromList: "no_pref_drivers", toList: "rand_drivers")
-                difRand += driver.seats
-                driver.location = "RAND"
-            }
+    public func assignNoPref(driver: Driver) {
+        print("assigning nopref")
+        if difNorth < difRand {
+            moveDriver(dbChild: "Daily-Practice", driverID: driver.id, fromList: "no_pref_drivers", toList: "north_drivers")
+            difNorth += driver.seats
+            driver.location = "NORTH"
+            self.northDrivers.append(driver)
+        } else {
+            moveDriver(dbChild: "Daily-Practice", driverID: driver.id, fromList: "no_pref_drivers", toList: "rand_drivers")
+            difRand += driver.seats
+            driver.location = "RAND"
+            self.randDrivers.append(driver)
         }
         objectWillChange.send()
     }
@@ -185,20 +210,20 @@ class DailyViewModel: ObservableObject {
         let fromListRef = practiceRef.child(fromList)
         let toListRef = practiceRef.child(toList)
         
-        print("moving", dbChild, driverID, fromList, toList)
+//        print("moving", dbChild, driverID, fromList, toList)
         fromListRef.child(driverID).observeSingleEvent(of: .value) { snapshot in
             if let data = snapshot.value as? [String: Any] {
-                // Write the entire node and its subnodes to the destination location
-                toListRef.child(driverID).setValue(data) { (error, _) in
+                // Delete the entire node and its subnodes from the source location
+                fromListRef.child(driverID).removeValue { (error, _) in
                     if let error = error {
-                        print("Error moving driver to target list: \(error.localizedDescription)")
+                        print("Error removing driver from source list: \(error.localizedDescription)")
                     } else {
-                        print("MOVING DRIVER: \(driverID) FROM \(fromList) TO: \(toList)")
-                        
-                        // Delete the entire node and its subnodes from the source location
-                        fromListRef.child(driverID).removeValue { (error, _) in
+                        // Write the entire node and its subnodes to the destination location
+                        toListRef.child(driverID).setValue(data) { (error, _) in
                             if let error = error {
-                                print("Error removing driver from source list: \(error.localizedDescription)")
+                                print("Error moving driver to target list: \(error.localizedDescription)")
+                            } else {
+                                print("MOVING DRIVER: \(driverID) FROM \(fromList) TO: \(toList)")
                             }
                         }
                     }
@@ -209,5 +234,6 @@ class DailyViewModel: ObservableObject {
         }
         objectWillChange.send()
     }
+
 }
 

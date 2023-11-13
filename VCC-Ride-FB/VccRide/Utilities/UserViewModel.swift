@@ -15,6 +15,10 @@ class UserViewModel: ObservableObject {
     @Published var riderName: String = ""
     @Published var riderLocation: String = ""
     
+    init() {
+        self.fetchUserFeatures()
+    }
+    
 
     func fetchUsers(completion: @escaping () -> Void) {
         print("Fetching users. Shouldn't do this too often..")

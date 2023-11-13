@@ -24,7 +24,7 @@ struct ListDriversView: View {
             if (!isLoading) {
                 List {
                     Section(header: Text("NORTH Drivers").foregroundColor(.green)) {
-                        ForEach(dailyViewModel.drivers.filter { $0.location == "NORTH" }) { driver in
+                        ForEach(dailyViewModel.northDrivers) { driver in
                             HStack {
                                 Text(driver.name)
                                 Spacer()
@@ -34,6 +34,7 @@ struct ListDriversView: View {
                                 Button(action: {
                                     dailyViewModel.moveDriver(dbChild: "Daily-Practice", driverID: driver.id,
                                                               fromList: "north_drivers", toList: "rand_drivers")
+                                    dailyViewModel.northDrivers.removeAll(where: { $0.id == driver.id })
                                     driver.location = "RAND"
                                 }) {
                                     Image(systemName: "arrow.down.circle.fill")
@@ -43,7 +44,7 @@ struct ListDriversView: View {
                     }
 
                     Section(header: Text("RAND Drivers").foregroundColor(.blue)) {
-                        ForEach(dailyViewModel.drivers.filter { $0.location == "RAND" }) { driver in
+                        ForEach(dailyViewModel.randDrivers) { driver in
                             HStack {
                                 Text(driver.name)
                                 Spacer()
@@ -53,6 +54,7 @@ struct ListDriversView: View {
                                 Button(action: {
                                     dailyViewModel.moveDriver(dbChild: "Daily-Practice", driverID: driver.id,
                                                               fromList: "rand_drivers", toList: "north_drivers")
+                                    dailyViewModel.randDrivers.removeAll(where: { $0.id == driver.id })
                                     driver.location = "NORTH"
                                 }) {
                                     Image(systemName: "arrow.up.circle.fill")
@@ -77,9 +79,6 @@ struct ListDriversView: View {
             // When the view appears, call assignNoPref with a slight delay
             // to ensure that the data is updated before showing the updated view
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // Adjust the delay as needed
-                if (!dailyViewModel.isDriversListPopulated) {
-                    dailyViewModel.assignNoPref()
-                }
                 isLoading = false
             }
         }

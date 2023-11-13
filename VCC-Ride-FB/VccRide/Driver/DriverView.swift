@@ -8,7 +8,6 @@ struct DriverView: View {
     let dailyViewModel = DailyViewModel.shared
     @State private var selectedLocation = "Any"
     @State private var isActive = "Any"
-    @State private var filteredUsers: [String: [String: Any]] = [:] // Replace with appropriate data structure
     @State private var isViewAppeared = false
     @ObservedObject private var userViewModel = UserViewModel() // Assuming you have a UserViewModel to fetch and filter users
     
@@ -36,15 +35,28 @@ struct DriverView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .fill(Color.gray.opacity(0.3)))
             
-            
-
-                        
             ScrollView {
-                Text("Rider Manifest").font(.subheadline)
-                ForEach(Array(filteredUsers), id: \.key) { (userID, userData) in
+                Text("North Rider Manifest").font(.subheadline)
+                ForEach(dailyViewModel.northClimbers) { climber in
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("Email: \(userData["email"] as? String ?? "")")
-                        Text("Location: \(userData["default_location"] as? String ?? "")")
+                        Text("Name: \(climber.name)")
+                        Text("Location: \(climber.location)")
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding()
+                    .background(Color(red: 1.0, green: 0.84, blue: 0.3).opacity(0.4))
+                    .cornerRadius(10)
+                }
+            }
+            .padding(.top, 20)  // Adjusted padding for ScrollView
+            .padding(.horizontal, 20) // Add horizontal padding to the ScrollView
+            
+            ScrollView {
+                Text("Rand Rider Manifest").font(.subheadline)
+                ForEach(dailyViewModel.randClimbers) { climber in
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Name: \(climber.name)")
+                        Text("Location: \(climber.location)")
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
@@ -58,23 +70,11 @@ struct DriverView: View {
         .padding()
         .onAppear {
             userViewModel.fetchUserFeatures()
-            // Move the onAppear block inside the body
-            if !isViewAppeared {
-                isViewAppeared = true
-                userViewModel.fetchUsers {
-                    applyFilters() // Apply filters once data is fetched
-                }
+            if !dailyViewModel.hasBeenAssigned {
+                dailyViewModel.getRiderList(fromLocation: "north_riders", assignedLocation: "NORTH")
+                dailyViewModel.getRiderList(fromLocation: "rand_riders", assignedLocation: "RAND")
             }
         }
-    }
-    
-    // Define the filter function outside of the body
-    private func applyFilters() {
-        filteredUsers = userViewModel.filterUsers(
-            roleFilter: "rider", // Filter by the "rider" role
-            activeFilter: isActive,
-            locationFilter: pickupLocation
-        )
     }
 }
 
