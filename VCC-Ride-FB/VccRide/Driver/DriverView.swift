@@ -15,7 +15,7 @@ struct DriverView: View {
         VStack {
             // Title and Subtitle
             Text("Welcome, \(userViewModel.riderName)").font(.headline)
-            Text("Next Practice Date: \(nextPracticeDate)").font(.subheadline)
+            Text("Next Practice Date: \(dailyViewModel.date)").font(.subheadline)
                 .padding(.bottom)
             
             VStack { // Wrap the specific lines in a VStack

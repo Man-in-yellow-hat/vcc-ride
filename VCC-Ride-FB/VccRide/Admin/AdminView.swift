@@ -6,17 +6,6 @@ enum ContentItem {
     case combined(imageSystemName: String, value: Int)
 }
 
-//TEMP DATA TO BE REFERENCED BY DB
-let name = "[Admin Name]"
-let nextPracticeDate = "December 25th"
-let ridersConfirmedNorth = 15
-let ridersDeclinedNorth = 17
-let ridersUnknownNorth = 9
-let seatsNorth = 14
-let ridersConfirmedBranscomb = 10
-let ridersDeclinedBranscomb = 9
-let ridersUnknownBranscomb = 10
-let seatsBranscomb = 13
 
 enum Status {
     case extra, ok, warn, bad, fail
@@ -39,8 +28,8 @@ struct AdminView: View {
 //        [.text("Branscomb"), .combined(imageSystemName: "person.fill.checkmark", value: ridersConfirmedBranscomb), .combined(imageSystemName: "person.fill.xmark", value: ridersDeclinedBranscomb), .combined(imageSystemName: "person.fill.questionmark", value: ridersUnknownBranscomb), .combined(imageSystemName: "figure.seated.seatbelt", value: seatsBranscomb)],
 //    ]
     @State private var textFieldsData: [[ContentItem]] = [
-        [.text("North"), .combined(imageSystemName: "person.3.sequence.fill", value: NUMSEATSREQUESTED), .combined(imageSystemName: "chair.lounge.fill", value: NUMSEATSOFFERED), .combined(imageSystemName: "figure.seated.seatbelt", value: NUMSEATSFILLED)],
-        [.text("Rand"), .combined(imageSystemName: "person.3.sequence.fill", value: NUMSEATSREQUESTED), .combined(imageSystemName: "chair.lounge.fill", value: NUMSEATSOFFERED), .combined(imageSystemName: "figure.seated.seatbelt", value: NUMSEATSFILLED)],
+        [.text("North"), .combined(imageSystemName: "person.3.sequence.fill", value: 0), .combined(imageSystemName: "chair.lounge.fill", value: 0), .combined(imageSystemName: "figure.seated.seatbelt", value: 0)],
+        [.text("Rand"), .combined(imageSystemName: "person.3.sequence.fill", value: 0), .combined(imageSystemName: "chair.lounge.fill", value: 0), .combined(imageSystemName: "figure.seated.seatbelt", value: 0)],
     ]
     
     
@@ -51,7 +40,7 @@ struct AdminView: View {
         ScrollView {
             // Title and Subtitle
             Text("Welcome, \(userViewModel.riderName)").font(.headline)
-            Text("Next Practice Date: \(nextPracticeDate)").font(.subheadline)
+            Text("Next Practice Date: \(dailyViewModel.date)").font(.subheadline)
                 .padding(.bottom)
             
             VStack(spacing: 20) {
@@ -66,45 +55,41 @@ struct AdminView: View {
             Text("Quick Actions")
                 .font(.subheadline)
                 .padding(.bottom, 3.0)
-            
-//            GeometryReader { geometry in
-//                let totalHorizontalPadding: CGFloat = 40.0
-//                let availableWidth = geometry.size.width - totalHorizontalPadding - 40.0
-//                let buttonWidth = availableWidth / 3
-//
-                HStack(spacing: 20) {
 
-                    ButtonShroud(title: "Assign Drivers", action: {
-                        print("assigning drivers!")
-                        assignDriversSheet.toggle()
-                        dailyViewModel.assignDrivers()
-                    })
-//                    .frame(width: buttonWidth, height: 70)
-                    .sheet(isPresented: $assignDriversSheet) {
-                        ListDriversView()
-                    }
-                    
-                    
-                    ButtonShroud(title: "Send Practice Reminder", action: {
-                        //button action goes here
-                    })
-//                    .frame(width: buttonWidth, height: 70)
-                    
-                    ButtonShroud(title: "Confirm Attendance", action: {
-                        //button action goes here
-                    })
-//                    .frame(width: buttonWidth, height: 70)
-                    
+            HStack(spacing: 20) {
 
+                ButtonShroud(title: "Assign Drivers", action: {
+                    print("assigning drivers!")
+                    assignDriversSheet.toggle()
+                    dailyViewModel.assignDrivers()
+                })
+//                    .frame(width: buttonWidth, height: 70)
+                .sheet(isPresented: $assignDriversSheet) {
+                    ListDriversView()
                 }
-                .padding(.horizontal, 20)
-//            }
+                
+                
+                ButtonShroud(title: "Send Practice Reminder", action: {
+                    //button action goes here
+                })
+//                    .frame(width: buttonWidth, height: 70)
+                
+                ButtonShroud(title: "Confirm Attendance", action: {
+                    //button action goes here
+                })
+
+                
+
+            }
+            .padding(.horizontal, 20)
+
             
             
             ButtonShroud(title: "Update Daily Practice", action: {
                 print("updating daily practice!")
                 practiceDateViewModel.transferPracticeDates()
             })
+            .padding(.horizontal, 20)
         }
             .padding(EdgeInsets(top: 0, leading: 7, bottom: 0, trailing: 7)) // Add margins on the sides
             .onAppear {
@@ -117,6 +102,10 @@ struct AdminView: View {
                     applyFilters() // Apply filters once data is fetched
                 }
             }
+            textFieldsData = [
+                [.text("North"), .combined(imageSystemName: "person.3.sequence.fill", value: dailyViewModel.numNorthRequested), .combined(imageSystemName: "chair.lounge.fill", value: dailyViewModel.numNorthOffered), .combined(imageSystemName: "figure.seated.seatbelt", value: dailyViewModel.numNorthFilled)],
+                [.text("Rand"), .combined(imageSystemName: "person.3.sequence.fill", value: dailyViewModel.numRandRequested), .combined(imageSystemName: "chair.lounge.fill", value: dailyViewModel.numRandOffered), .combined(imageSystemName: "figure.seated.seatbelt", value: dailyViewModel.numRandFilled)],
+            ]
         }
     }
 
@@ -156,15 +145,16 @@ struct ButtonShroud: View {
 
 struct BoxWithTexts: View {
     var contents: [ContentItem]
+    let dailyViewModel = DailyViewModel.shared
     
     var boxColor: Color {
         // Check the first content item if it's "North" or "Branscomb"
         if case .text(let location) = contents[0] {
             switch location {
                 case "North":
-                    return ridersConfirmedNorth > seatsNorth ? Color.red.opacity(0.5) : Color.green.opacity(0.5)
-                case "Branscomb":
-                    return ridersConfirmedBranscomb > seatsBranscomb ? Color.red.opacity(0.5) : Color.green.opacity(0.5)
+                    return dailyViewModel.numNorthRequested > dailyViewModel.numNorthOffered ? Color.red.opacity(0.5) : Color.green.opacity(0.5)
+                case "Rand":
+                    return dailyViewModel.numRandRequested > dailyViewModel.numRandOffered ? Color.red.opacity(0.5) : Color.green.opacity(0.5)
                 default:
                     return Color.gray.opacity(0.2) // Default color
             }

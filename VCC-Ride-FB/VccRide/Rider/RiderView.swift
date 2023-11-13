@@ -9,7 +9,7 @@ struct RiderView: View {
     var body: some View {
         VStack {
             Text("Welcome, \(userViewModel.riderName)").font(.headline)
-            Text("Next Practice Date: \(nextPracticeDate)").font(.subheadline)
+            Text("Next Practice Date: \(dailyViewModel.date)").font(.subheadline)
                 .padding(.bottom)
 
             ScrollView {

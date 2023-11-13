@@ -44,6 +44,13 @@ class DailyViewModel: ObservableObject {
     @Published var northClimbers: [Climber] = []
     @Published var randClimbers: [Climber] = []
     
+    @Published var numNorthRequested: Int = 0
+    @Published var numNorthOffered: Int = 0
+    @Published var numNorthFilled: Int = 0
+    @Published var numRandRequested: Int = 0
+    @Published var numRandOffered: Int = 0
+    @Published var numRandFilled: Int = 0
+    
     public var hasBeenAssigned: Bool = false // TODO: RESET EACH DAY
     public var isDriversListPopulated: Bool = false
 
@@ -55,7 +62,7 @@ class DailyViewModel: ObservableObject {
     private var difNorth = 0
     private var difRand = 0
     
-    private var date = ""
+    public var date = ""
     
     private init() {
         // all we have to do is check if drivers have already been assigned that day
@@ -92,7 +99,27 @@ class DailyViewModel: ObservableObject {
         }
     }
     
-
+    private func getSeatCounts() {
+        let practiceRef = Database.database().reference().child("Daily-Practice").child("seatCounts")
+        practiceRef.observe(.value) { snapshot, error in
+            if let data = snapshot.value as? [String: Any] {
+                if let numNorthRequested = data["numNorthRequested"] as? Int,
+                   let numRandRequested = data["numRandRequested"] as? Int,
+                   let numNorthOffered = data["numNorthOffered"] as? Int,
+                   let numRandOffered = data["numRandOffered"] as? Int,
+                   let numNorthFilled = data["numNorthFilled"] as? Int,
+                   let numRandFilled = data["numRandFilled"] as? Int {
+                    self.numNorthRequested = numNorthRequested
+                    self.numRandRequested = numRandRequested
+                    self.numNorthOffered = numNorthOffered
+                    self.numRandOffered = numRandOffered
+                    self.numNorthFilled = numNorthFilled
+                    self.numRandFilled = numRandFilled
+                }
+            }
+        }
+    }
+    
     public func getDriverList(fromLocation: String, assignedLocation: String) {
         let practiceRef = Database.database().reference().child("Daily-Practice")
     
