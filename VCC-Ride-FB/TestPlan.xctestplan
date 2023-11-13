@@ -1,20 +1,15 @@
 {
   "configurations" : [
     {
-      "id" : "E9C11457-53A9-4261-9E00-BEEF09D3A256",
-      "name" : "Test Scheme Action",
+      "id" : "D3B71C8C-F8B4-416A-9622-C7BCB44BBB4F",
+      "name" : "Configuration 1",
       "options" : {
 
       }
     }
   ],
   "defaultOptions" : {
-    "codeCoverage" : false,
-    "targetForVariableExpansion" : {
-      "containerPath" : "container:VccRide.xcodeproj",
-      "identifier" : "A858D2832ACDADB500A17CCD",
-      "name" : "VccRide"
-    }
+    "testTimeoutsEnabled" : true
   },
   "testTargets" : [
     {
