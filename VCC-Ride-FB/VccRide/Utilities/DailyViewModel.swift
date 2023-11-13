@@ -117,8 +117,13 @@ class FirebaseDataFetcher: PracticeDataFetching {
 // could have some sort of class allowing friends of android users to do stuff for them??
 
 class DailyViewModel: ObservableObject {
-    var dataFetcher: PracticeDataFetching
     static let shared = DailyViewModel() // SINGLETON
+    
+    static var test = DailyViewModel()
+    private var dataFetcher: PracticeDataFetching
+    static func setSharedInstance(forTesting dataFetcher: PracticeDataFetching) {
+        test = DailyViewModel(dataFetcher: dataFetcher)
+    }
     
 //    @Published var drivers: [Driver] = []
 //    @Published var riders: [Climber] = []
@@ -138,13 +143,13 @@ class DailyViewModel: ObservableObject {
     public var hasBeenAssigned: Bool = false // TODO: RESET EACH DAY
     public var isDriversListPopulated: Bool = false
 
-    private var numRandSeats = 0
-    private var numNorthSeats = 0
-    private var numRandRiders = 0
-    private var numNorthRiders = 0
+    var numRandSeats = 0
+    var numNorthSeats = 0
+    var numRandRiders = 0
+    var numNorthRiders = 0
     
-    private var difNorth = 0
-    private var difRand = 0
+    var difNorth = 0
+    var difRand = 0
     
     public var date = ""
     
