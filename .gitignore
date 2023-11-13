@@ -78,6 +78,5 @@ examples/ios/objc/Draw/Constants.h
 ## Swiftpm
 .swiftpm
 .build
-Package.resolved
 
 examples/installation/ios/swift/SwiftPackageManagerExample/SwiftPackageManagerExample.xcodeproj
