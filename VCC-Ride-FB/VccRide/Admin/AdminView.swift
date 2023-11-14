@@ -123,7 +123,7 @@ struct ButtonShroud: View {
                 .multilineTextAlignment(.center)
                 .padding()
                 .frame(maxWidth: .infinity, minHeight: 60, maxHeight: 70) // Ensure a minimum and maximum height
-                .background(Color(red: 1.0, green: 0.84, blue: 0.3).opacity(0.5))
+                .background(Color.gray.opacity(0.2))
                 .cornerRadius(10)
         }
     }
