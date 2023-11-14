@@ -28,7 +28,8 @@ struct CalendarView: View {
     
     @State private var attendingDates = [String:Bool]()
     @State private var autoConfirm = false
-
+    @State private var name: String = ""
+    @State private var location: String = ""
     let locations = ["North", "Rand"]
 
     // Firebase reference for user preferences
@@ -94,6 +95,8 @@ struct CalendarView: View {
             if let userData = snapshot.value as? [String: Any] {
                 dbAttendingDates = userData["attending_dates"] as? Dictionary ?? [String:Bool]()
                 dbAutoConfirm = userData["default_attendance_confirmation"] as? Bool ?? true
+                name = userData["name"] as? String ?? ""
+                location = userData["default_location"] as? String ?? ""
                 // Set the current values to the fetched values
                 attendingDates = dbAttendingDates
             }
@@ -130,7 +133,7 @@ struct CalendarView: View {
         
         userRef.observeSingleEvent(of: .value) { snapshot in
             if let userData = snapshot.value as? [String: Any] {
-                var location = userData["default_location"] as? String ?? ""
+//                var location = userData["default_location"] as? String ?? ""
                 var role = userData["role"] as? String ?? ""
                 let seats = userData["default_seats"] as? Int ?? 1
                 print(userData)
@@ -139,24 +142,48 @@ struct CalendarView: View {
                     role = "driver" // FOR NOW TODO: MAKE BETTER
                 }
                 
+                var setUserData: [String: Any]
+                if role == "driver" {
+                    setUserData = [
+                        "filled_seats": 0,
+                        "name": self.name,
+                        "preference": self.location,
+                        "seats": seats
+                    ]
+                } else { // role == "rider"
+                    setUserData = [
+                        "in_car": false,
+                        "name": self.name,
+                        "seats": seats
+                    ]
+                }
+                
                 if location == "No Preference" {
                     location = "no_pref"
                 }
                 
                 print(location, role, seats)
-                let childList = location.lowercased() + "_" + role
+                let childList = location.lowercased() + "_" + role + "s"
                 
                 for date in attendingDates {
-                    
+                    print("attending: \(date.key)")
                     let practiceRef = Database.database().reference().child("Fall23-Practices").child(date.key)
                     
-                    practiceRef.child(childList).child(userID).setValue(seats)
+                    practiceRef.child(childList).child(userID).setValue(setUserData)
+                }
+                
+
+                // Remove the user from the appropriate list when unselecting a practice
+                for date in practiceDateViewModel.practiceDates {
+                    if attendingDates[date] == false && dbAttendingDates[date] == true {
+                        let practiceRef = Database.database().reference().child("Fall23-Practices").child(date)
+                        practiceRef.child(childList).child(userID).removeValue()
+                        print("removing: \(date)")
+                    }
                 }
             }
         }
-        
     }
-
 }
 
 struct CalendarView_Previews: PreviewProvider {

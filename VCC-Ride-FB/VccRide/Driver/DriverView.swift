@@ -1,9 +1,6 @@
 import SwiftUI
 import Firebase
 
-//let pickupLocation = "Rand"
-//let minSeats = 3
-
 struct LoadDriverView: View {
     @ObservedObject private var dailyViewModel = DailyViewModel.shared
     @State private var isViewAppeared = false
@@ -54,11 +51,23 @@ struct DriverView: View {
                         .font(.system(size: 30))
                         .foregroundColor(.black)
                         .scaleEffect(x: -1, y: 1) // Mirroring the image horizontally
+                        .gesture(DragGesture()
+                            .onEnded { value in
+                                if value.translation.width > 100 && thisDriver.isFull() {
+                                    // Call your departure function here
+                                    handleDeparture()
+                                }
+                            }
+                        )
                     
-                    Spacer()
+                    if thisDriver.isFull() {
+                        ArrowView()
+                            .padding(.trailing, 10) // Adjust as needed
+                    } else {
+                        Spacer()
+                    }
                     
                     Button(action: {
-                        // Implement the logic to clear filled seats
                         thisDriver.toggleSeat(at: -1)
                     }) {
                         Image(systemName: "clear.fill")
@@ -124,6 +133,7 @@ struct DriverView: View {
                     
                     Spacer()
                     
+                    
                     Text("Rand Drivers").font(.subheadline)
                     ForEach(dailyViewModel.randDrivers) { driver in
                         VStack(alignment: .leading, spacing: 10) {
@@ -155,11 +165,25 @@ struct DriverView: View {
 //            }
 //        }
     }
+    
+    private func handleDeparture() {
+        print("leaving!")
+    }
 }
 
 struct DriverView_Previews: PreviewProvider {
     static var previews: some View {
         DriverView(thisDriver: Driver(id: "tmp", name: "tmp", location: "tmp", seats: 4, preference: "tmp"))
+    }
+}
+
+struct ArrowView: View {
+    var body: some View {
+        Image(systemName: "arrow.right.circle.fill")
+            .font(.system(size: 30))
+            .foregroundColor(.green)
+            .opacity(0.8)
+            .animation(.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0))
     }
 }
 
