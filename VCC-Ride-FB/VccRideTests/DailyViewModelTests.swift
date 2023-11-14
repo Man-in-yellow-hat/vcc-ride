@@ -13,7 +13,7 @@ class MockDataFetcher: PracticeDataFetching {
         let isAssigned = true
         completion(isAssigned)
     }
-    func fetchDriverData(fromLocation: String, assignedLocation: String, completion: @escaping ([VccRide.Driver]) -> Void) {
+    func fetchDriverData(fromLocation: String, completion: @escaping ([VccRide.Driver]) -> Void) {
         let mockDrivers: [VccRide.Driver] = [
             VccRide.Driver(id: "1", name: "Mock Driver 1", location: "north_drivers", seats: 3, preference: "NORTH"),
             VccRide.Driver(id: "2", name: "Mock Driver 2", location: "north_drivers", seats: 2, preference: "NORTH"),
@@ -22,7 +22,7 @@ class MockDataFetcher: PracticeDataFetching {
         completion(mockDrivers)
     }
     
-    func fetchRiderData(fromLocation: String, assignedLocation: String, completion: @escaping ([VccRide.Climber]) -> Void) {
+    func fetchRiderData(fromLocation: String, completion: @escaping ([VccRide.Climber]) -> Void) {
         let mockRiders: [VccRide.Climber] = [
             VccRide.Climber (id: "6", name: "Mock Rider 1", location: "rand_riders", seats: 1),
             VccRide.Climber (id: "9", name: "Mock Rider 4", location: "rand_riders", seats: 1)
@@ -79,12 +79,12 @@ final class DailyViewModelTests: XCTestCase {
         let expectedRiders = [Climber (id: "6", name: "Mock Rider 3", location: "rand_riders", seats: 1),
                               Climber (id: "9", name: "Mock Rider 4", location: "rand_riders", seats: 1)]
 
-        sut.getRiderList(fromLocation: "rand_riders", assignedLocation: "RAND")
+        sut.getRiderList(fromLocation: "rand_riders")
 
         // Assertions
         XCTAssertEqual(sut.randClimbers.count, expectedRiders.count, "The number of rand riders should match")
         XCTAssertEqual(sut.randClimbers.first?.id, expectedRiders.first?.id, "The ID of the rand riders should match")
-        XCTAssertEqual(sut.numRandRiders, 2, "The number of seats should be 2")
+        XCTAssertEqual(sut.numRandRequested, 2, "The number of seats should be 2")
     }
 
     
@@ -95,12 +95,12 @@ final class DailyViewModelTests: XCTestCase {
                                Driver(id: "2", name: "Mock Driver 2", location: "north_drivers", seats: 2, preference: "NORTH"),
                                Driver(id: "5", name: "Mock Driver 5", location: "north_drivers", seats: 3, preference: "NORTH")]
 
-        sut.getDriverList(fromLocation: "north_drivers", assignedLocation: "NORTH")
+        sut.getDriverList(fromLocation: "north_drivers")
         
         // Assertions
         XCTAssertEqual(sut.northDrivers.count, expectedDrivers.count, "The number of north drivers should match")
         XCTAssertEqual(sut.northDrivers.first?.id, expectedDrivers.first?.id, "The ID of the north driver should match")
-        XCTAssertEqual(sut.numNorthSeats, 8, "The number of seats should be 2")
+        XCTAssertEqual(sut.numNorthOffered, 8, "The number of seats should be 2")
     }
 }
 
