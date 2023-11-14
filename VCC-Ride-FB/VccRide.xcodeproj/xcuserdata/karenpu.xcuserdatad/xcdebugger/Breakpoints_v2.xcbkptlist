@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "C47E60E3-B860-4392-A613-47A6E0990F78"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "35E1D28D-B176-48F6-9054-D31256D782FE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VccRide/Utilities/DailyViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
+            landmarkName = "getDate()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "35E1D28D-B176-48F6-9054-D31256D782FE - d935af7ba7ada2b0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VccRide.DailyViewModel.adjustSeats(isDriver: Swift.Bool, isNorth: Swift.Bool, deltaSeats: Swift.Int) -&gt; ()"
+                  moduleName = "VccRide"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/karenpu/Desktop/vcc-ride/VCC-Ride-FB/VccRide/Utilities/DailyViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "171"
+                  endingLineNumber = "171"
+                  offsetFromSymbolStart = "500">
+               </Location>
+               <Location
+                  uuid = "35E1D28D-B176-48F6-9054-D31256D782FE - ef0d28a50835d6d1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VccRide.DailyViewModel.getDate() -&gt; ()"
+                  moduleName = "VccRide"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/karenpu/Desktop/vcc-ride/VCC-Ride-FB/VccRide/Utilities/DailyViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "170"
+                  endingLineNumber = "170"
+                  offsetFromSymbolStart = "128">
+               </Location>
+               <Location
+                  uuid = "35E1D28D-B176-48F6-9054-D31256D782FE - ef0d28a50835d6d1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VccRide.DailyViewModel.getDate() -&gt; ()"
+                  moduleName = "VccRide"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/karenpu/Desktop/vcc-ride/VCC-Ride-FB/VccRide/Utilities/DailyViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "170"
+                  endingLineNumber = "170"
+                  offsetFromSymbolStart = "100">
+               </Location>
+               <Location
+                  uuid = "35E1D28D-B176-48F6-9054-D31256D782FE - ef0d28a50835d693"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VccRide.DailyViewModel.getDate() -&gt; ()"
+                  moduleName = "VccRide"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/karenpu/Desktop/vcc-ride/VCC-Ride-FB/VccRide/Utilities/DailyViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "168"
+                  endingLineNumber = "168"
+                  offsetFromSymbolStart = "132">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
