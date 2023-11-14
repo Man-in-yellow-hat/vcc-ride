@@ -13,6 +13,7 @@
 		873333142B02C46E00418ECB /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 873333132B02C46E00418ECB /* GoogleSignIn */; };
 		873333162B02C4A200418ECB /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 873333152B02C4A200418ECB /* GoogleSignInSwift */; };
 		87401F0D2B02FA7600002639 /* RiderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87401F0C2B02FA7600002639 /* RiderTests.swift */; };
+		8762D0B22B0334DE000FACB8 /* VccRideTests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = D7C865582AF14FFB00DFFE52 /* VccRideTests.xctest */; };
 		A844CE872ACE0A6200EC44C2 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = A844CE862ACE0A6200EC44C2 /* GoogleSignIn */; };
 		A844CE892ACE0A6200EC44C2 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A844CE882ACE0A6200EC44C2 /* GoogleSignInSwift */; };
 		A844CE8E2ACE0EEA00EC44C2 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = A844CE8D2ACE0EEA00EC44C2 /* Application.swift */; };
@@ -435,6 +436,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8762D0B22B0334DE000FACB8 /* VccRideTests.xctest in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

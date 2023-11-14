@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct AdminCalendar: View {
-    @StateObject var practiceDateViewModel = PracticeDateViewModel()
+    @StateObject var practiceDateViewModel = PracticeDateViewModel(dateFetcher: FirebaseDateFetcher())
     //@State private var newDate: String = ""
     @State var newDate = Date()
     @State var datePickerVisible = false

@@ -135,6 +135,28 @@ class SignIn_withGoogle_VM: ObservableObject {
     }
 }
 
+protocol DateFetcher {
+    func fetchDates(completion: @escaping ([String]?) -> Void)
+}
+
+class FirebaseDateFetcher: DateFetcher {
+    func fetchDates(completion: @escaping ([String]?) -> Void) {
+        let datesRef = Database.database().reference().child("Fall23-Practices")
+
+        datesRef.observe(.value) { snapshot in
+            var fetchedDates: [String] = []
+
+            for child in snapshot.children {
+                if let dateSnapshot = child as? DataSnapshot {
+                    fetchedDates.append(dateSnapshot.key)
+                }
+            }
+            completion(fetchedDates)
+        }
+    }
+}
+
+
 
 class PracticeDateViewModel: ObservableObject {
     // Reference to the Firebase Realtime Database
@@ -145,6 +167,12 @@ class PracticeDateViewModel: ObservableObject {
 
     // Published property to hold unique ID for date data
     @Published var dateID: [String: String] = [:]
+    
+    private var dateFetcher: DateFetcher
+    
+    init(dateFetcher: DateFetcher) {
+        self.dateFetcher = dateFetcher
+    }
     
     func transferPracticeDates() {
         let today = Date()
@@ -184,6 +212,29 @@ class PracticeDateViewModel: ObservableObject {
 
     }
     
+    func fetchExistingDates() {
+        print("fetching dates")
+        dateFetcher.fetchDates { fetchedDates in
+            guard var fetchedDates = fetchedDates else { return }
+
+            // Sort the dates chronologically
+            fetchedDates.sort { (dateString1, dateString2) in
+                let formatter = DateFormatter()
+                formatter.dateFormat = "MMMdd" // Update the date format here
+
+                if let date1 = formatter.date(from: dateString1),
+                   let date2 = formatter.date(from: dateString2) {
+                    return date1 < date2
+                }
+                return false
+            }
+
+            // Update the published property with the new list of dates
+            self.practiceDates = fetchedDates
+            print(self.practiceDates)
+        }
+    }
+    
 //    func fetchExistingDates() {
 //        print("fetching dates")
 //        let datesRef = databaseRef.child("Fall23-Practices")
@@ -206,37 +257,37 @@ class PracticeDateViewModel: ObservableObject {
 //            self.practiceDates = fetchedDates
 //        }
 //    }
-    func fetchExistingDates() {
-        print("fetching dates")
-        let datesRef = databaseRef.child("Fall23-Practices")
-
-        datesRef.observe(.value) { snapshot in
-            var fetchedDates: [String] = []
-
-            for child in snapshot.children {
-                if let dateSnapshot = child as? DataSnapshot {
-                    let date = dateSnapshot.key
-                    fetchedDates.append(date)
-                    self.dateID[date] = dateSnapshot.key
-                }
-            }
-
-            // Sort the dates chronologically
-            fetchedDates.sort { (dateString1, dateString2) in
-                let formatter = DateFormatter()
-                formatter.dateFormat = "MMMdd" // Update the date format here
-
-                if let date1 = formatter.date(from: dateString1),
-                   let date2 = formatter.date(from: dateString2) {
-                    return date1 < date2
-                }
-                return false
-            }
-
-            // Update the published property with the new list of dates
-            self.practiceDates = fetchedDates
-        }
-    }
+//    func fetchExistingDates() {
+//        print("fetching dates")
+//        let datesRef = databaseRef.child("Fall23-Practices")
+//
+//        datesRef.observe(.value) { snapshot in
+//            var fetchedDates: [String] = []
+//
+//            for child in snapshot.children {
+//                if let dateSnapshot = child as? DataSnapshot {
+//                    let date = dateSnapshot.key
+//                    fetchedDates.append(date)
+//                    self.dateID[date] = dateSnapshot.key
+//                }
+//            }
+//
+//            // Sort the dates chronologically
+//            fetchedDates.sort { (dateString1, dateString2) in
+//                let formatter = DateFormatter()
+//                formatter.dateFormat = "MMMdd" // Update the date format here
+//
+//                if let date1 = formatter.date(from: dateString1),
+//                   let date2 = formatter.date(from: dateString2) {
+//                    return date1 < date2
+//                }
+//                return false
+//            }
+//
+//            // Update the published property with the new list of dates
+//            self.practiceDates = fetchedDates
+//        }
+//    }
 
 
     // Function to add a new practice date
