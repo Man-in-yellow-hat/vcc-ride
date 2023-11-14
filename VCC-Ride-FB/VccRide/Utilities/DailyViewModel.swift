@@ -113,7 +113,6 @@ class FirebaseDataFetcher: PracticeDataFetching {
 
 
 
-
 // could have some sort of class allowing friends of android users to do stuff for them??
 
 class DailyViewModel: ObservableObject {
