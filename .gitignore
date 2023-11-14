@@ -22,6 +22,10 @@ xcuserdata/
 *.xcscmblueprint
 *.xccheckout
 
+# NATHAN ADDED
+.DS_Store
+*.xcuserstate
+
 ## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
 build/
 DerivedData/
