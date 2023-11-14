@@ -58,6 +58,7 @@
 		D71B9E232AD0732800144928 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E222AD0732800144928 /* LoginView.swift */; };
 		D71B9E252AD09C5400144928 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D71B9E242AD09C5400144928 /* GoogleService-Info.plist */; };
 		D73273B32ADE1C6600F5DA44 /* DailyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73273B22ADE1C6600F5DA44 /* DailyViewModel.swift */; };
+		D741080A2B02F4AB00AE7DB9 /* DriverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74108092B02F4AB00AE7DB9 /* DriverViewModel.swift */; };
 		D771DECC2ACF561400E79153 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858D2972ACDAFFD00A17CCD /* ContentView.swift */; };
 		D771DED22ACF575C00E79153 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D771DED12ACF575C00E79153 /* MainView.swift */; };
 		D792DB252AF42769003D2E8E /* ListDriversView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D792DB242AF42769003D2E8E /* ListDriversView.swift */; };
@@ -108,6 +109,7 @@
 		D71B9E222AD0732800144928 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		D71B9E242AD09C5400144928 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D73273B22ADE1C6600F5DA44 /* DailyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewModel.swift; sourceTree = "<group>"; };
+		D74108092B02F4AB00AE7DB9 /* DriverViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverViewModel.swift; sourceTree = "<group>"; };
 		D771DED12ACF575C00E79153 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		D792DB212AF3F78A003D2E8E /* VccRide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VccRide.entitlements; sourceTree = "<group>"; };
 		D792DB242AF42769003D2E8E /* ListDriversView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDriversView.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 		D71B9E142AD058CD00144928 /* Driver */ = {
 			isa = PBXGroup;
 			children = (
+				D74108092B02F4AB00AE7DB9 /* DriverViewModel.swift */,
 				D7B65D9D2AD476D300D2701B /* DriverSettingsView.swift */,
 				D71B9E152AD058DA00144928 /* DriverView.swift */,
 			);
@@ -464,6 +467,7 @@
 				A858D2D52ACDC73F00A17CCD /* FirebaseUtil.swift in Sources */,
 				D792DB2A2AF45BAB003D2E8E /* StartupScreen.swift in Sources */,
 				D71B9E212AD05C4C00144928 /* PeopleView.swift in Sources */,
+				D741080A2B02F4AB00AE7DB9 /* DriverViewModel.swift in Sources */,
 				870752322B02A9280099CD6D /* UserModel.swift in Sources */,
 				D71B9E1F2AD05C4100144928 /* StatsView.swift in Sources */,
 				A858D2D72ACDCD5F00A17CCD /* ImagePickerView.swift in Sources */,

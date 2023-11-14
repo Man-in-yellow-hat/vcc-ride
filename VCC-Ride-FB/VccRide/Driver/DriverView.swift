@@ -1,20 +1,44 @@
 import SwiftUI
+import Firebase
 
 let pickupLocation = "Rand"
 let minSeats = 3
 
 struct DriverView: View {
     
-    let dailyViewModel = DailyViewModel.shared
+    @ObservedObject private var dailyViewModel = DailyViewModel.shared
     @State private var selectedLocation = "Any"
     @State private var isActive = "Any"
     @State private var isViewAppeared = false
     @ObservedObject private var userViewModel = UserViewModel() // Assuming you have a UserViewModel to fetch and filter users
+    public let thisDriver: Driver
+    
+    init() {
+        thisDriver = Driver(id: "temp", name: "temp", location: "temp", seats: 0, preference: "temp")
+    }
+    
+//    init() {
+//        let driverID = userViewModel.userID
+//        let location = userViewModel.userLocation.lowercased() + "_drivers"
+//        let northRef = Database.database().reference().child("Daily-Practice").child("north_drivers").child(driverID)
+//
+//        let randRef = Database.database().reference().child("Daily-Practice").child("rand_drivers").child(driverID)
+//        randRef.observeSingleEvent(of: .value) { snapshot, error in
+//            if let data = snapshot.value
+//
+//            if let error = error {
+//                print("Error fetching driver data: \(error)")
+//            }
+//        }
+//
+//        //need to get SEATS and
+//        thisDriver = Driver(id: driverID, name: userViewModel.userName, location: location, seats: 0, preference: String)
+//    }
     
     var body: some View {
         VStack {
             // Title and Subtitle
-            Text("Welcome, \(userViewModel.riderName)").font(.headline)
+            Text("Welcome, \(userViewModel.userName)").font(.headline)
             Text("Next Practice Date: \(dailyViewModel.date)").font(.subheadline)
                 .padding(.bottom)
             
@@ -24,9 +48,12 @@ struct DriverView: View {
                 Text("")
                 HStack { // Use HStack here
                     ForEach(0..<minSeats, id: \.self) { index in
-                        Image(systemName: "person.fill") // Replace with your icon
+                        Image(systemName: thisDriver.isSeatFilled(at: index) ? "person.fill" : "person")
                             .font(.system(size: 30)) // Adjust the size as needed
                             .foregroundColor(.black) // Change icon color if needed
+                            .onTapGesture {
+                                thisDriver.toggleSeat(at: index)
+                            }
                     }
                 }
             }
@@ -71,8 +98,8 @@ struct DriverView: View {
         .onAppear {
             userViewModel.fetchUserFeatures()
             if !dailyViewModel.hasBeenAssigned {
-                dailyViewModel.getRiderList(fromLocation: "north_riders", assignedLocation: "NORTH")
-                dailyViewModel.getRiderList(fromLocation: "rand_riders", assignedLocation: "RAND")
+                dailyViewModel.getRiderList(fromLocation: "north_riders")
+                dailyViewModel.getRiderList(fromLocation: "rand_riders")
             }
         }
     }

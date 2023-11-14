@@ -6,32 +6,25 @@ enum ContentItem {
     case combined(imageSystemName: String, value: Int)
 }
 
-
 enum Status {
     case extra, ok, warn, bad, fail
 }
 
 struct AdminView: View {
-    let dailyViewModel = DailyViewModel.shared
+    @ObservedObject private var dailyViewModel = DailyViewModel.shared
     @State private var selectedRole = "Any"
     @State private var selectedLocation = "Any"
     @State private var isActive = "Any"
-    @State private var filteredUsers: [String: [String: Any]] = [:] // Replace with appropriate data structure
     @State private var isViewAppeared = false
     @State private var assignDriversSheet = false
     @ObservedObject private var userViewModel = UserViewModel() // Assuming you have a UserViewModel to fetch and filter users
     
     @StateObject private var practiceDateViewModel = PracticeDateViewModel()
 
-//    @State private var textFieldsData: [[ContentItem]] = [
-//        [.text("North"), .combined(imageSystemName: "person.fill.checkmark", value: ridersConfirmedNorth), .combined(imageSystemName: "person.fill.xmark", value: ridersDeclinedNorth), .combined(imageSystemName: "person.fill.questionmark", value: ridersUnknownNorth), .combined(imageSystemName: "figure.seated.seatbelt", value: seatsNorth)],
-//        [.text("Branscomb"), .combined(imageSystemName: "person.fill.checkmark", value: ridersConfirmedBranscomb), .combined(imageSystemName: "person.fill.xmark", value: ridersDeclinedBranscomb), .combined(imageSystemName: "person.fill.questionmark", value: ridersUnknownBranscomb), .combined(imageSystemName: "figure.seated.seatbelt", value: seatsBranscomb)],
-//    ]
     @State private var textFieldsData: [[ContentItem]] = [
         [.text("North"), .combined(imageSystemName: "person.3.sequence.fill", value: 0), .combined(imageSystemName: "chair.lounge.fill", value: 0), .combined(imageSystemName: "figure.seated.seatbelt", value: 0)],
         [.text("Rand"), .combined(imageSystemName: "person.3.sequence.fill", value: 0), .combined(imageSystemName: "chair.lounge.fill", value: 0), .combined(imageSystemName: "figure.seated.seatbelt", value: 0)],
     ]
-    
     
     @State public var randStatus: Status = Status.ok
     @State public var northStatus: Status = Status.ok
@@ -39,7 +32,7 @@ struct AdminView: View {
     var body: some View {
         ScrollView {
             // Title and Subtitle
-            Text("Welcome, \(userViewModel.riderName)").font(.headline)
+            Text("Welcome, \(userViewModel.userName)").font(.headline)
             Text("Next Practice Date: \(dailyViewModel.date)").font(.subheadline)
                 .padding(.bottom)
             
@@ -61,25 +54,19 @@ struct AdminView: View {
                 ButtonShroud(title: "Assign Drivers", action: {
                     print("assigning drivers!")
                     assignDriversSheet.toggle()
-                    dailyViewModel.assignDrivers()
+//                    dailyViewModel.assignDrivers()
                 })
-//                    .frame(width: buttonWidth, height: 70)
                 .sheet(isPresented: $assignDriversSheet) {
                     ListDriversView()
                 }
                 
-                
                 ButtonShroud(title: "Send Practice Reminder", action: {
                     //button action goes here
                 })
-//                    .frame(width: buttonWidth, height: 70)
                 
                 ButtonShroud(title: "Confirm Attendance", action: {
                     //button action goes here
                 })
-
-                
-
             }
             .padding(.horizontal, 20)
 
@@ -97,29 +84,31 @@ struct AdminView: View {
         .onAppear {
             userViewModel.fetchUserFeatures()
             if !isViewAppeared {
+                dailyViewModel.assignDrivers() // TODO: CHECK THIS IF SHOULD BE MOVED
                 isViewAppeared = true
-                userViewModel.fetchUsers {
-                    applyFilters() // Apply filters once data is fetched
-                }
             }
-            textFieldsData = [
-                [.text("North"), .combined(imageSystemName: "person.3.sequence.fill", value: dailyViewModel.numNorthRequested), .combined(imageSystemName: "chair.lounge.fill", value: dailyViewModel.numNorthOffered), .combined(imageSystemName: "figure.seated.seatbelt", value: dailyViewModel.numNorthFilled)],
-                [.text("Rand"), .combined(imageSystemName: "person.3.sequence.fill", value: dailyViewModel.numRandRequested), .combined(imageSystemName: "chair.lounge.fill", value: dailyViewModel.numRandOffered), .combined(imageSystemName: "figure.seated.seatbelt", value: dailyViewModel.numRandFilled)],
-            ]
+            updateTextFieldsData()
+        }
+        .onChange(of: [
+            dailyViewModel.numNorthRequested,
+            dailyViewModel.numNorthOffered,
+            dailyViewModel.numRandRequested,
+            dailyViewModel.numRandOffered,
+            dailyViewModel.numNorthFilled,
+            dailyViewModel.numRandFilled
+        ]) { _ in
+            // Update textFieldsData when any of the observed properties change
+            updateTextFieldsData()
         }
     }
-
     
-    private func applyFilters() {
-        filteredUsers = userViewModel.filterUsers(
-            roleFilter: selectedRole,
-            activeFilter: isActive,
-            locationFilter: selectedLocation
-        )
+    private func updateTextFieldsData() {
+        textFieldsData = [
+            [.text("North"), .combined(imageSystemName: "person.3.sequence.fill", value: dailyViewModel.numNorthRequested), .combined(imageSystemName: "chair.lounge.fill", value: dailyViewModel.numNorthOffered), .combined(imageSystemName: "figure.seated.seatbelt", value: dailyViewModel.numNorthFilled)],
+            [.text("Rand"), .combined(imageSystemName: "person.3.sequence.fill", value: dailyViewModel.numRandRequested), .combined(imageSystemName: "chair.lounge.fill", value: dailyViewModel.numRandOffered), .combined(imageSystemName: "figure.seated.seatbelt", value: dailyViewModel.numRandFilled)],
+        ]
     }
 }
-
-
 
 struct ButtonShroud: View {
     let title: String

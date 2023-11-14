@@ -5,9 +5,8 @@
 //  Created by Karen Pu on 11/13/23.
 //
 
-import Foundation
 import SwiftUI
-
+import Firebase
 
 class Climber: Identifiable {
     var id: String // Unique identifier for the driver
@@ -25,10 +24,30 @@ class Climber: Identifiable {
 
 class Driver: Climber {
     var locationPreference: String
+    var filledSeats: Int
 
     init(id: String, name: String, location: String, seats: Int, preference: String) {
         self.locationPreference = preference
+        self.filledSeats = 0
         super.init(id: id, name: name, location: location, seats: seats)
+    }
+    
+    public func toggleSeat(at: Int) {
+        if isSeatFilled(at: at) { // tapping a filled seat
+            self.filledSeats -= 1
+        } else {
+            self.filledSeats += 1
+        }
+        let ref = Database.database().reference().child("Daily-Practice").child(self.location).child("filled_seats")
+        ref.setValue(self.filledSeats)
+    }
+    
+    public func isSeatFilled(at: Int) -> Bool {
+        return (at + 1) <= self.filledSeats
+    }
+
+    public func filledSeatCounts() -> Int {
+       return filledSeats
     }
 }
 
