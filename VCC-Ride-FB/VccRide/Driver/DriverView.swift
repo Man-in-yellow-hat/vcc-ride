@@ -1,8 +1,33 @@
 import SwiftUI
 import Firebase
 
-let pickupLocation = "Rand"
-let minSeats = 3
+//let pickupLocation = "Rand"
+//let minSeats = 3
+
+struct LoadDriverView: View {
+    @ObservedObject private var dailyViewModel = DailyViewModel.shared
+    @State private var isViewAppeared = false
+    @ObservedObject private var userViewModel = UserViewModel()
+    
+    var body: some View {
+        NavigationStack {
+            if let driver = dailyViewModel.northDrivers.first(where: { $0.id == userViewModel.userID }) ?? dailyViewModel.randDrivers.first(where: { $0.id == userViewModel.userID }) {
+                DriverView(thisDriver: driver)
+            } else {
+                NextPracticeScreenView()
+            }
+        }
+        .onAppear {
+            userViewModel.fetchUserFeatures()
+            if !dailyViewModel.hasBeenAssigned {
+                dailyViewModel.getRiderList(fromLocation: "north_riders")
+                dailyViewModel.getRiderList(fromLocation: "rand_riders")
+                dailyViewModel.getDriverList(fromLocation: "north_drivers")
+                dailyViewModel.getDriverList(fromLocation: "rand_drivers")
+            }
+        }
+    }
+}
 
 struct DriverView: View {
     
@@ -11,29 +36,7 @@ struct DriverView: View {
     @State private var isActive = "Any"
     @State private var isViewAppeared = false
     @ObservedObject private var userViewModel = UserViewModel() // Assuming you have a UserViewModel to fetch and filter users
-    public let thisDriver: Driver
-    
-    init() {
-        thisDriver = Driver(id: "temp", name: "temp", location: "temp", seats: 4, preference: "temp")
-    }
-    
-//    init() {
-//        let driverID = userViewModel.userID
-//        let location = userViewModel.userLocation.lowercased() + "_drivers"
-//        let northRef = Database.database().reference().child("Daily-Practice").child("north_drivers").child(driverID)
-//
-//        let randRef = Database.database().reference().child("Daily-Practice").child("rand_drivers").child(driverID)
-//        randRef.observeSingleEvent(of: .value) { snapshot, error in
-//            if let data = snapshot.value
-//
-//            if let error = error {
-//                print("Error fetching driver data: \(error)")
-//            }
-//        }
-//
-//        //need to get SEATS and
-//        thisDriver = Driver(id: driverID, name: userViewModel.userName, location: location, seats: 0, preference: String)
-//    }
+    @State public var thisDriver: Driver // Make it an optional
     
     var body: some View {
         VStack {
@@ -43,7 +46,7 @@ struct DriverView: View {
                 .padding(.bottom)
             
             VStack { // Wrap the specific lines in a VStack
-                Text("**Picking up from: \(pickupLocation)**").font(.headline)
+                Text("**Picking up from: \(thisDriver.location)**").font(.headline)
                 Text("Your Seats: Please fill \(thisDriver.seats) seats before you leave!").font(.subheadline)
                 Text("")
                 HStack { // Use HStack here
@@ -136,29 +139,35 @@ struct DriverView: View {
             }
             .padding(.top, 20)  // Adjusted padding for ScrollView
             .padding(.horizontal, 20) // Add horizontal padding to the ScrollView
-            
-//            ScrollView {
-//
-//            }
-//            .padding(.top, 20)  // Adjusted padding for ScrollView
-//            .padding(.horizontal, 20) // Add horizontal padding to the ScrollView
         }
         .padding()
-        .onAppear {
-            userViewModel.fetchUserFeatures()
-            if !dailyViewModel.hasBeenAssigned {
-                dailyViewModel.getRiderList(fromLocation: "north_riders")
-                dailyViewModel.getRiderList(fromLocation: "rand_riders")
-                dailyViewModel.getDriverList(fromLocation: "north_drivers")
-                dailyViewModel.getDriverList(fromLocation: "rand_drivers")
-            }
-        }
+//        .onAppear {
+//            userViewModel.fetchUserFeatures()
+//            if !dailyViewModel.hasBeenAssigned {
+//                dailyViewModel.getRiderList(fromLocation: "north_riders")
+//                dailyViewModel.getRiderList(fromLocation: "rand_riders")
+//                dailyViewModel.getDriverList(fromLocation: "north_drivers")
+//                dailyViewModel.getDriverList(fromLocation: "rand_drivers")
+//
+//            } else {
+//                // TODO: go to nextPractice screen?
+//                print("here")
+//            }
+//        }
     }
 }
 
 struct DriverView_Previews: PreviewProvider {
     static var previews: some View {
-        DriverView()
+        DriverView(thisDriver: Driver(id: "tmp", name: "tmp", location: "tmp", seats: 4, preference: "tmp"))
     }
 }
+
+
+struct NextPracticeScreenView: View {
+    var body: some View {
+        Text("NEXT PRACTICE SCREEN")
+    }
+}
+
 

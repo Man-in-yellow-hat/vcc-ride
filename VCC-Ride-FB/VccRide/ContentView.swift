@@ -38,7 +38,7 @@ struct ContentView: View {
                     }
                     .tag("DASHBOARD")
             } else if viewModel.userRole == "driver" {
-                DriverView()
+                LoadDriverView()
                     .tabItem {
                         Label("DASHBOARD", systemImage: "house")
                     }
@@ -83,7 +83,7 @@ struct AdminDashboardView: View {
 
     var body: some View {
         TabView(selection: $selectedTabIndex) {
-            DriverView()
+            LoadDriverView()
                 .tag(0)
             
             AdminView()
