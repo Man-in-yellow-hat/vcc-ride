@@ -7,6 +7,37 @@
 import XCTest
 @testable import VccRide
 
+class MockDataFetcher: PracticeDataFetching {
+    
+    func checkDriverAssignment(completion: @escaping (Bool) -> Void) {
+        let isAssigned = true
+        completion(isAssigned)
+    }
+    func fetchDriverData(fromLocation: String, assignedLocation: String, completion: @escaping ([VccRide.Driver]) -> Void) {
+        let mockDrivers: [VccRide.Driver] = [
+            VccRide.Driver(id: "1", name: "Mock Driver 1", location: "north_drivers", seats: 3, preference: "NORTH"),
+            VccRide.Driver(id: "2", name: "Mock Driver 2", location: "north_drivers", seats: 2, preference: "NORTH"),
+            VccRide.Driver(id: "5", name: "Mock Driver 5", location: "north_drivers", seats: 3, preference: "NORTH"),
+        ]
+        completion(mockDrivers)
+    }
+    
+    func fetchRiderData(fromLocation: String, assignedLocation: String, completion: @escaping ([VccRide.Climber]) -> Void) {
+        let mockRiders: [VccRide.Climber] = [
+            VccRide.Climber (id: "6", name: "Mock Rider 1", location: "rand_riders", seats: 1),
+            VccRide.Climber (id: "9", name: "Mock Rider 4", location: "rand_riders", seats: 1)
+        ]
+        completion(mockRiders)
+    }
+    
+    func fetchSeatCounts(completion: @escaping (VccRide.SeatCounts) -> Void) {
+        let mockSeatCounts: VccRide.SeatCounts = VccRide.SeatCounts(numNorthRequested: 6, numNorthOffered: 8, numNorthFilled: 10, numRandRequested: 2, numRandOffered: 3, numRandFilled: 5)
+        completion(mockSeatCounts)
+    }
+}
+
+
+
 final class DailyViewModelTests: XCTestCase {
     var sut: DailyViewModel!
     var mockDataFetcher: MockDataFetcher!
@@ -65,10 +96,60 @@ final class DailyViewModelTests: XCTestCase {
                                Driver(id: "5", name: "Mock Driver 5", location: "north_drivers", seats: 3, preference: "NORTH")]
 
         sut.getDriverList(fromLocation: "north_drivers", assignedLocation: "NORTH")
-
+        
         // Assertions
         XCTAssertEqual(sut.northDrivers.count, expectedDrivers.count, "The number of north drivers should match")
         XCTAssertEqual(sut.northDrivers.first?.id, expectedDrivers.first?.id, "The ID of the north driver should match")
         XCTAssertEqual(sut.numNorthSeats, 8, "The number of seats should be 2")
     }
 }
+
+final class UserViewModelTests: XCTestCase {
+    
+    let viewModel = UserViewModel()
+    
+    func testFilterUsersByRole() {
+        viewModel.users = [
+            "user1": ["role": "Driver", "active": true, "default_location": "Rand"],
+            "user2": ["role": "Rider", "active": false, "default_location": "Location2"],
+            "user3": ["role": "Driver", "active": true, "default_location": "Rand"],
+            "user4": ["role": "Rider", "active": false, "default_location": "Location2"],
+        ]
+        
+        let filteredUsers = viewModel.filterUsers(roleFilter: "Driver")
+        // Assert that the filtered users only contain drivers
+        for (_, user) in filteredUsers {
+            XCTAssertEqual(user["role"] as? String, "Driver")
+        }
+    }
+
+    func testFilterUsersByActiveStatus() {
+        viewModel.users = [
+            "user1": ["role": "Driver", "active": true, "default_location": "Rand"],
+            "user2": ["role": "Rider", "active": true, "default_location": "Location2"],
+            "user3": ["role": "Driver", "active": true, "default_location": "Rand"],
+            "user4": ["role": "Rider", "active": false, "default_location": "Location2"],
+            ]
+        let filteredUsers = viewModel.filterUsers(activeFilter: "true")
+        // Assert that the filtered users are only active
+        for (_, user) in filteredUsers {
+            XCTAssertTrue(user["active"] as? Bool ?? false)
+        }
+    }
+    
+    func testFilterUsersByLocation() {
+        viewModel.users = [
+            "user1": ["role": "Driver", "active": true, "default_location": "Rand"],
+            "user2": ["role": "Rider", "active": true, "default_location": "North"],
+            "user3": ["role": "Driver", "active": true, "default_location": "Rand"],
+            "user4": ["role": "Rider", "active": false, "default_location": "Rand"],
+            ]
+        let filteredUsers = viewModel.filterUsers(activeFilter: "Rand")
+        // Assert that the filtered users are only active
+        for (_, user) in filteredUsers {
+            XCTAssertEqual(user["default_location"] as? String, "Rand")
+        }
+    }
+
+}
+
