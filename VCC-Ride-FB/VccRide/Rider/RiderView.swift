@@ -33,7 +33,7 @@ struct RiderView: View {
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
-                        .background(Color(red: 1.0, green: 0.84, blue: 0.3).opacity(0.4))
+                        .background(Color.gray.opacity(0.2))
                         .cornerRadius(10)
                     }
                 }
