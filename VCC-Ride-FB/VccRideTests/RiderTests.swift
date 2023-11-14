@@ -1,84 +1,83 @@
-////
-////  RiderTests.swift
-////  VccRideTests
-////
-////  Created by Karen Pu on 11/13/23.
-////
 //
-//import XCTest
-//@testable import VccRide
+//  RiderTests.swift
+//  VccRideTests
 //
-//class MockFirebaseService: DatabaseServiceProtocol {
-//    var datesToReturn: [String: String] = [:]
-//    var onFetchDates: (() -> Void)?
+//  Created by Karen Pu on 11/13/23.
 //
-//    func fetchDates(completion: @escaping ([String: String]) -> Void) {
-//        completion(datesToReturn)
-//        onFetchDates?()
-//    }
-//}
-//
-//final class RiderTests: XCTestCase {
-//    var sut: PracticeDateViewModel!
-//    var mockFirebaseService: MockFirebaseService!
-//
-//    override func setUp() {
-//        super.setUp()
-//        mockFirebaseService = MockFirebaseService()
-//        sut = PracticeDateViewModel(databaseService: mockFirebaseService)
-//    }
-//
-//    override func tearDown() {
-//        sut = nil
-//        mockFirebaseService = nil
-//        super.tearDown()
-//    }
-//
-//    func testFetchExistingDatesEmptyData() {
-//        // 1. Setup for empty data
-//        mockFirebaseService.datesToReturn = [:]
-//
-//        let expectation = self.expectation(description: "FetchDatesEmpty")
-//
-//        // 2. Act
-//        sut.fetchExistingDates()
-//
-//        // 3. Expectation
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//            expectation.fulfill()
-//        }
-//
-//        waitForExpectations(timeout: 2)
-//
-//        // 4. Assert
-//        XCTAssertTrue(self.sut.practiceDates.isEmpty)
-//        XCTAssertTrue(self.sut.dateID.isEmpty)
-//    }
-//
-//
-//    func testFetchExistingDatesUpdatesPracticeDates() {
-//        // Setup
-//        let expectedDates = ["Nov03": "id1", "Oct10": "id2", "Nov25": "id3", "Nov17": "id4", "Nov13": "id5", "Nov11": "id6"]
-//
-//        mockFirebaseService.datesToReturn = expectedDates
-//
-//        let expectation = XCTestExpectation(description: "fetchDates completes")
-//
-//        // Modify MockFirebaseService to fulfill expectation after calling completion
-//        mockFirebaseService.onFetchDates = {
-//            expectation.fulfill()
-//        }
-//
-//        // Act
-//        sut.fetchExistingDates()
-//
-//        // Wait for the expectations to be fulfilled
-//        wait(for: [expectation], timeout: 2.0)
-//
-//        // Assert
-//        XCTAssertEqual(sut.practiceDates, expectedDates.keys.sorted())
-//        XCTAssertEqual(sut.dateID, expectedDates)
-//    }
-//
-//}
-//
+
+import XCTest
+@testable import VccRide
+
+class MockDateFetcher: DateFetcher {
+    var datesToReturn: [String] = []
+    var onFetchDates: (() -> Void)?
+    
+    func fetchDates(completion: @escaping ([String]?) -> Void) {
+        completion(datesToReturn)
+        onFetchDates?()
+    }
+}
+
+
+final class RiderTests: XCTestCase {
+    var sut: PracticeDateViewModel!
+    var mockDateFetcher: MockDateFetcher!
+
+    override func setUp() {
+        super.setUp()
+        mockDateFetcher = MockDateFetcher()
+        sut = PracticeDateViewModel(dateFetcher: mockDateFetcher)
+    }
+
+    override func tearDown() {
+        sut = nil
+        mockDateFetcher = nil
+        super.tearDown()
+    }
+
+    func testFetchExistingDatesEmptyData() {
+        // Setup
+        mockDateFetcher.datesToReturn = []
+
+        let expectation = XCTestExpectation(description: "FetchDatesEmpty")
+
+        // Modify MockDateFetcher to fulfill expectation after calling completion
+        mockDateFetcher.onFetchDates = {
+            expectation.fulfill()
+        }
+
+        // Act
+        sut.fetchExistingDates()
+
+        // Wait
+        wait(for: [expectation], timeout: 2.0)
+
+        // Assert
+        XCTAssertTrue(sut.practiceDates.isEmpty)
+    }
+    
+    func testFetchExistingDatesUpdatesPracticeDates() {
+        // Setup
+        let expectedDates = ["Oct10", "Nov03", "Nov25", "Nov17", "Nov13", "Nov11"]
+        let orderedDates = ["Oct10", "Nov03", "Nov11", "Nov13", "Nov17", "Nov25",]
+
+        mockDateFetcher.datesToReturn = expectedDates
+
+        let expectation = XCTestExpectation(description: "FetchDatesWithData")
+
+        // Modify MockDateFetcher to fulfill expectation after calling completion
+        mockDateFetcher.onFetchDates = {
+            expectation.fulfill()
+        }
+
+        // Act
+        sut.fetchExistingDates()
+
+        // Wait
+        wait(for: [expectation], timeout: 2.0)
+
+        // Assert
+        XCTAssertEqual(sut.practiceDates, orderedDates)
+    }
+
+}

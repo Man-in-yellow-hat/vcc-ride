@@ -19,7 +19,7 @@ struct AdminView: View {
     @State private var assignDriversSheet = false
     @ObservedObject private var userViewModel = UserViewModel() // Assuming you have a UserViewModel to fetch and filter users
     
-    @StateObject private var practiceDateViewModel = PracticeDateViewModel()
+    @StateObject private var practiceDateViewModel = PracticeDateViewModel(dateFetcher: FirebaseDateFetcher())
 
     @State private var textFieldsData: [[ContentItem]] = [
         [.text("North"), .combined(imageSystemName: "person.3.sequence.fill", value: 0), .combined(imageSystemName: "chair.lounge.fill", value: 0), .combined(imageSystemName: "figure.seated.seatbelt", value: 0)],

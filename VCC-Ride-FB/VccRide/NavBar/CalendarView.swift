@@ -24,7 +24,7 @@ import Firebase
 
 
 struct CalendarView: View {
-    @StateObject var practiceDateViewModel = PracticeDateViewModel()
+    @StateObject var practiceDateViewModel = PracticeDateViewModel(dateFetcher: FirebaseDateFetcher())
     
     @State private var attendingDates = [String:Bool]()
     @State private var autoConfirm = false
