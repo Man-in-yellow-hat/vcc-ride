@@ -26,9 +26,9 @@ class Driver: Climber {
     var locationPreference: String
     var filledSeats: Int
 
-    init(id: String, name: String, location: String, seats: Int, preference: String) {
+    init(id: String, name: String, location: String, seats: Int, filledSeats: Int, preference: String) {
         self.locationPreference = preference
-        self.filledSeats = 0
+        self.filledSeats = filledSeats
         super.init(id: id, name: name, location: location, seats: seats)
     }
     
@@ -59,16 +59,22 @@ class Driver: Climber {
 ////        }
 //    }
     
-    public func toggleSeat(at: Int) {
-        if (self.filledSeats == at + 1) {
+    public func toggleSeat(at: Int) -> Int {
+        var change: Int = self.filledSeats
+        if (at == -1) {
+            self.filledSeats = 0
+            change *= -1
+        } else if (self.filledSeats == at + 1) {
             self.filledSeats -= 1
+            change = -1
         } else {
             self.filledSeats = at + 1
+            change = at + 1
         }
         let dailyRef = Database.database().reference().child("Daily-Practice")
-        let filledRef = dailyRef.child("seat_counts")
         let personalRef = dailyRef.child(self.location).child(self.id).child("filled_seats")
         personalRef.setValue(self.filledSeats)
+        return change
     }
     
     public func isSeatFilled(at: Int) -> Bool {

@@ -53,9 +53,10 @@ class FirebaseDataFetcher: PracticeDataFetching {
                 for (driverID, driverInfo) in listData {
                     if let name = driverInfo["name"] as? String,
                        let seats = driverInfo["seats"] as? Int,
+                       let filledSeats = driverInfo["filled_seats"] as? Int,
                        let pref = driverInfo["preference"] as? String {
                         let newDriver = Driver(id: driverID, name: name, location: fromLocation,
-                                                seats: seats, preference: pref)
+                                                seats: seats, filledSeats: filledSeats, preference: pref)
                         drivers.append(newDriver)
                     }
                 }
@@ -169,12 +170,14 @@ class DailyViewModel: ObservableObject {
     }
     
     
-    private func adjustSeats(isDriver: Bool, isNorth: Bool, deltaSeats: Int) {
+    private func adjustSeats(isDriver: Bool, isNorth: Bool, deltaSeats: Int, deltaFilled: Int = 0) {
         if (isDriver) {
             if (isNorth) {
                 self.numNorthOffered += deltaSeats
+                self.numNorthFilled += deltaFilled
             } else {
                 self.numRandOffered += deltaSeats
+                self.numRandFilled += deltaFilled
             }
         } else {
             if (isNorth) {
@@ -245,10 +248,10 @@ class DailyViewModel: ObservableObject {
                 // Location-specific logic
                 if fromLocation == "north_drivers" && !self.northDrivers.contains(where: { $0.id == newDriver.id }) {
                     self.northDrivers.append(newDriver)
-                    self.adjustSeats(isDriver: true, isNorth: true, deltaSeats: newDriver.seats)
+                    self.adjustSeats(isDriver: true, isNorth: true, deltaSeats: newDriver.seats, deltaFilled: newDriver.filledSeats)
                 } else if fromLocation == "rand_drivers" && !self.randDrivers.contains(where: { $0.id == newDriver.id }) {
                     self.randDrivers.append(newDriver)
-                    self.adjustSeats(isDriver: true, isNorth: false, deltaSeats: newDriver.seats)
+                    self.adjustSeats(isDriver: true, isNorth: false, deltaSeats: newDriver.seats, deltaFilled: newDriver.filledSeats)
                 } else if fromLocation == "no_pref_drivers" {
                     self.assignNoPref(driver: newDriver)
                 }
@@ -351,6 +354,27 @@ class DailyViewModel: ObservableObject {
             }
         }
         objectWillChange.send()
+    }
+    
+    public func updateFilledSeats(forLocation: String, change: Int) {
+        var childToUpdate: String = ""
+        if forLocation.lowercased().contains("north") {
+            childToUpdate = "numNorthFilled"
+        } else if forLocation.lowercased().contains("rand") {
+            childToUpdate = "numRandFilled"
+        }
+        
+        let countRef = Database.database().reference().child("Daily-Practice").child("seat_counts").child(childToUpdate)
+        countRef.observeSingleEvent(of: .value) { snapshot in
+            if let count = snapshot.value as? Int {
+                countRef.setValue(count + change)
+                if forLocation.lowercased().contains("north") {
+                    self.numNorthFilled = count + change
+                } else if forLocation.lowercased().contains("rand") {
+                    self.numRandFilled = count + change
+                }
+            }
+        }
     }
 }
 

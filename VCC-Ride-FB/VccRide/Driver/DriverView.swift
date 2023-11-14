@@ -68,7 +68,8 @@ struct DriverView: View {
                     }
                     
                     Button(action: {
-                        thisDriver.toggleSeat(at: -1)
+                        let change: Int = thisDriver.toggleSeat(at: -1)
+                        dailyViewModel.updateFilledSeats(forLocation: thisDriver.location, change: change)
                     }) {
                         Image(systemName: "clear.fill")
                             .font(.system(size: 20))
@@ -79,7 +80,9 @@ struct DriverView: View {
                             .font(.system(size: 40)) // Adjust the size as needed
                             .foregroundColor(.black) // Change icon color if needed
                             .onTapGesture {
-                                thisDriver.toggleSeat(at: index)
+                                let change: Int = thisDriver.toggleSeat(at: index)
+                                dailyViewModel.updateFilledSeats(forLocation: thisDriver.location, change: change)
+
                             }
                     }
                 }
@@ -173,7 +176,7 @@ struct DriverView: View {
 
 struct DriverView_Previews: PreviewProvider {
     static var previews: some View {
-        DriverView(thisDriver: Driver(id: "tmp", name: "tmp", location: "tmp", seats: 4, preference: "tmp"))
+        DriverView(thisDriver: Driver(id: "tmp", name: "tmp", location: "tmp", seats: 4, filledSeats: 0, preference: "tmp"))
     }
 }
 
