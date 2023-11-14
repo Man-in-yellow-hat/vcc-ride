@@ -14,7 +14,7 @@ struct DriverView: View {
     public let thisDriver: Driver
     
     init() {
-        thisDriver = Driver(id: "temp", name: "temp", location: "temp", seats: 0, preference: "temp")
+        thisDriver = Driver(id: "temp", name: "temp", location: "temp", seats: 4, preference: "temp")
     }
     
 //    init() {
@@ -44,12 +44,27 @@ struct DriverView: View {
             
             VStack { // Wrap the specific lines in a VStack
                 Text("**Picking up from: \(pickupLocation)**").font(.headline)
-                Text("Your Seats: Please fill \(minSeats) seats before you leave!").font(.subheadline)
+                Text("Your Seats: Please fill \(thisDriver.seats) seats before you leave!").font(.subheadline)
                 Text("")
                 HStack { // Use HStack here
-                    ForEach(0..<minSeats, id: \.self) { index in
+                    Image(systemName: thisDriver.isFull() ? "car.side.fill" : "car.side")
+                        .font(.system(size: 30))
+                        .foregroundColor(.black)
+                        .scaleEffect(x: -1, y: 1) // Mirroring the image horizontally
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        // Implement the logic to clear filled seats
+                        thisDriver.toggleSeat(at: -1)
+                    }) {
+                        Image(systemName: "clear.fill")
+                            .font(.system(size: 20))
+                            .foregroundColor(.black)
+                    }
+                    ForEach(0..<thisDriver.seats, id: \.self) { index in
                         Image(systemName: thisDriver.isSeatFilled(at: index) ? "person.fill" : "person")
-                            .font(.system(size: 30)) // Adjust the size as needed
+                            .font(.system(size: 40)) // Adjust the size as needed
                             .foregroundColor(.black) // Change icon color if needed
                             .onTapGesture {
                                 thisDriver.toggleSeat(at: index)
@@ -74,11 +89,9 @@ struct DriverView: View {
                     .background(Color(red: 1.0, green: 0.84, blue: 0.3).opacity(0.4))
                     .cornerRadius(10)
                 }
-            }
-            .padding(.top, 20)  // Adjusted padding for ScrollView
-            .padding(.horizontal, 20) // Add horizontal padding to the ScrollView
-            
-            ScrollView {
+                
+                Spacer()
+                
                 Text("Rand Rider Manifest").font(.subheadline)
                 ForEach(dailyViewModel.randClimbers) { climber in
                     VStack(alignment: .leading, spacing: 10) {
@@ -90,9 +103,45 @@ struct DriverView: View {
                     .background(Color(red: 1.0, green: 0.84, blue: 0.3).opacity(0.4))
                     .cornerRadius(10)
                 }
+                
+                Group {
+                    Spacer()
+                    
+                    Text("North Drivers").font(.subheadline)
+                    ForEach(dailyViewModel.northDrivers) { driver in
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Name: \(driver.name)")
+                            Text("Location: \(driver.location)")
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
+                        .background(Color(red: 1.0, green: 0.84, blue: 0.3).opacity(0.4))
+                        .cornerRadius(10)
+                    }
+                    
+                    Spacer()
+                    
+                    Text("Rand Drivers").font(.subheadline)
+                    ForEach(dailyViewModel.randDrivers) { driver in
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Name: \(driver.name)")
+                            Text("Location: \(driver.location)")
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
+                        .background(Color(red: 1.0, green: 0.84, blue: 0.3).opacity(0.4))
+                        .cornerRadius(10)
+                    }
+                }
             }
             .padding(.top, 20)  // Adjusted padding for ScrollView
             .padding(.horizontal, 20) // Add horizontal padding to the ScrollView
+            
+//            ScrollView {
+//
+//            }
+//            .padding(.top, 20)  // Adjusted padding for ScrollView
+//            .padding(.horizontal, 20) // Add horizontal padding to the ScrollView
         }
         .padding()
         .onAppear {
@@ -100,6 +149,8 @@ struct DriverView: View {
             if !dailyViewModel.hasBeenAssigned {
                 dailyViewModel.getRiderList(fromLocation: "north_riders")
                 dailyViewModel.getRiderList(fromLocation: "rand_riders")
+                dailyViewModel.getDriverList(fromLocation: "north_drivers")
+                dailyViewModel.getDriverList(fromLocation: "rand_drivers")
             }
         }
     }

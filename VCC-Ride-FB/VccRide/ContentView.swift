@@ -30,22 +30,6 @@ struct ContentView: View {
                     .tag("Calendar")
             }
             
-            
-//            if viewModel.userRole == "rider" {
-//                RiderSettingsView()
-//                    .tabItem {
-//                        Label("Calendar", systemImage: "calendar")
-//                    }
-//                    .tag("AdminCalendar")
-//            } else {
-//                // Calendar view
-//                CalendarView()
-//                    .tabItem {
-//                        Label("Calendar", systemImage: "calendar")
-//                    }
-//                    .tag("Calendar")
-//            }
-            
             // DASHBOARD with swipeable views
             if viewModel.userRole == "admin" {
                 AdminDashboardView()
@@ -54,13 +38,13 @@ struct ContentView: View {
                     }
                     .tag("DASHBOARD")
             } else if viewModel.userRole == "driver" {
-                DriverDashboardView()
+                DriverView()
                     .tabItem {
                         Label("DASHBOARD", systemImage: "house")
                     }
                     .tag("DASHBOARD")
             } else {
-                RiderDashboardView()
+                RiderView()
                     .tabItem {
                         Label("DASHBOARD", systemImage: "house")
                     }
@@ -112,27 +96,6 @@ struct AdminDashboardView: View {
     }
 }
 
-struct RiderDashboardView: View {
-    
-    var body: some View {
-        RiderView()
-    }
-}
-
-struct DriverDashboardView: View {
-    @State private var selectedTabIndex = 0 // Start with the Admin dashboard
-
-    var body: some View {
-        TabView(selection: $selectedTabIndex) {
-            DriverView()
-                .tag(0)
-            
-            RiderView()
-                .tag(1)
-        }
-        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
-    }
-}
 
 // Other views like DriverDashboardView, RiderDashboardView, etc. can be similar with navigation links/buttons.
 

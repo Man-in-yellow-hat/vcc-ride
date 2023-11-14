@@ -33,12 +33,12 @@ class Driver: Climber {
     }
     
     public func toggleSeat(at: Int) {
-        if isSeatFilled(at: at) { // tapping a filled seat
+        if (self.filledSeats == at + 1) {
             self.filledSeats -= 1
         } else {
-            self.filledSeats += 1
+            self.filledSeats = at + 1
         }
-        let ref = Database.database().reference().child("Daily-Practice").child(self.location).child("filled_seats")
+        let ref = Database.database().reference().child("Daily-Practice").child(self.location).child(self.id).child("filled_seats")
         ref.setValue(self.filledSeats)
     }
     
@@ -48,6 +48,10 @@ class Driver: Climber {
 
     public func filledSeatCounts() -> Int {
        return filledSeats
+    }
+    
+    public func isFull() -> Bool {
+        return self.filledSeats == self.seats
     }
 }
 
