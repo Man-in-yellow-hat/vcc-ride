@@ -12,8 +12,9 @@ import FirebaseDatabase
 class UserViewModel: ObservableObject {
     private let databaseRef = Database.database().reference().child("Fall23-Users")
     @Published var users: [String: [String: Any]] = [:]
-    @Published var riderName: String = ""
-    @Published var riderLocation: String = ""
+    @Published var userName: String = ""
+    @Published var userLocation: String = ""
+    @Published var userID: String = ""
     
     init() {
         self.fetchUserFeatures()
@@ -41,8 +42,9 @@ class UserViewModel: ObservableObject {
         
         userRef.observeSingleEvent(of: .value) { snapshot in
             if let userData = snapshot.value as? [String: Any] {
-                self.riderName = userData["fname"] as? String ?? ""
-                self.riderLocation = userData["default_location"] as? String ?? ""
+                self.userName = userData["fname"] as? String ?? ""
+                self.userLocation = userData["default_location"] as? String ?? ""
+                self.userID = userID
             }
         }
     }

@@ -8,13 +8,13 @@ struct RiderView: View {
 
     var body: some View {
         VStack {
-            Text("Welcome, \(userViewModel.riderName)").font(.headline)
+            Text("Welcome, \(userViewModel.userName)").font(.headline)
             Text("Next Practice Date: \(dailyViewModel.date)").font(.subheadline)
                 .padding(.bottom)
 
             ScrollView {
                 Text("Drivers").font(.subheadline)
-                if (userViewModel.riderLocation == "North") {
+                if (userViewModel.userLocation == "North") {
                     ForEach(dailyViewModel.northDrivers) { driver in
                         VStack(alignment: .leading, spacing: 10) {
                             Text("Name: \(driver.name)")
@@ -45,12 +45,12 @@ struct RiderView: View {
         .onAppear {
             userViewModel.fetchUserFeatures()
             if !dailyViewModel.hasBeenAssigned {
-                if (userViewModel.riderLocation == "North") {
-                    dailyViewModel.getDriverList(fromLocation: "north_drivers", assignedLocation: "NORTH")
-                    print("location should be north, is: ", userViewModel.riderLocation)
+                if (userViewModel.userLocation == "North") {
+                    dailyViewModel.getDriverList(fromLocation: "north_drivers")
+                    print("location should be north, is: ", userViewModel.userLocation)
                 } else {
-                    dailyViewModel.getDriverList(fromLocation: "rand_drivers", assignedLocation: "RAND")
-                    print("location should be rand, is: ", userViewModel.riderLocation)
+                    dailyViewModel.getDriverList(fromLocation: "rand_drivers")
+                    print("location should be rand, is: ", userViewModel.userLocation)
                 }
             }
         }

@@ -9,19 +9,19 @@ import SwiftUI
 import Firebase
 
 class DriverViewModel: ObservableObject {
-    public var filledSeatsCount: Int = 0
+    private var filledSeatsCount: Int = 0
     
     public func toggleSeat(at: Int) {
-        // toggles a seat from open to filled or vice versa
-    }
-
-    public func isSeatFilled(at: Int) -> Bool {
-        // checks if a seat is filled
-        return false
+        if (at + 1) <= filledSeatsCount { // tapping a filled seat
+            self.filledSeatsCount -= 1
+        
+        } else {
+            self.filledSeatsCount += 1
+        }
     }
 
     public func filledSeatCounts() -> Int {
-       return 0
+       return filledSeatsCount
     }
     
     public func updateNumFilledSeats(forLocation: String, count: Int) {

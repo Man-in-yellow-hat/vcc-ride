@@ -32,7 +32,7 @@ struct ListDriversView: View {
                                 Spacer()
                                 Text(driver.locationPreference)
                                 Button(action: {
-                                    dailyViewModel.moveDriver(dbChild: "Daily-Practice", driverID: driver.id,
+                                    dailyViewModel.moveDriver(dbChild: "Daily-Practice", driver: driver,
                                                               fromList: "north_drivers", toList: "rand_drivers")
                                     dailyViewModel.northDrivers.removeAll(where: { $0.id == driver.id })
                                     driver.location = "RAND"
@@ -52,7 +52,7 @@ struct ListDriversView: View {
                                 Spacer()
                                 Text(driver.locationPreference)
                                 Button(action: {
-                                    dailyViewModel.moveDriver(dbChild: "Daily-Practice", driverID: driver.id,
+                                    dailyViewModel.moveDriver(dbChild: "Daily-Practice", driver: driver,
                                                               fromList: "rand_drivers", toList: "north_drivers")
                                     dailyViewModel.randDrivers.removeAll(where: { $0.id == driver.id })
                                     driver.location = "NORTH"

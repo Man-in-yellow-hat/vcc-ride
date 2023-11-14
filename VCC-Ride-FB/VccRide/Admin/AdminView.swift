@@ -32,7 +32,7 @@ struct AdminView: View {
     var body: some View {
         ScrollView {
             // Title and Subtitle
-            Text("Welcome, \(userViewModel.riderName)").font(.headline)
+            Text("Welcome, \(userViewModel.userName)").font(.headline)
             Text("Next Practice Date: \(dailyViewModel.date)").font(.subheadline)
                 .padding(.bottom)
             
@@ -54,7 +54,7 @@ struct AdminView: View {
                 ButtonShroud(title: "Assign Drivers", action: {
                     print("assigning drivers!")
                     assignDriversSheet.toggle()
-                    dailyViewModel.assignDrivers()
+//                    dailyViewModel.assignDrivers()
                 })
                 .sheet(isPresented: $assignDriversSheet) {
                     ListDriversView()
@@ -84,6 +84,7 @@ struct AdminView: View {
         .onAppear {
             userViewModel.fetchUserFeatures()
             if !isViewAppeared {
+                dailyViewModel.assignDrivers() // TODO: CHECK THIS IF SHOULD BE MOVED
                 isViewAppeared = true
             }
             updateTextFieldsData()

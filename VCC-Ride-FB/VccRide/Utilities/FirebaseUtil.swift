@@ -247,8 +247,8 @@ class PracticeDateViewModel: ObservableObject {
         // Create an empty practice date entry
         let practiceDateEntry: [String: Any] = [
             "date": date,
-            "hasBeenAssigned": false,
-            "seatCounts": [
+            "has_been_assigned": false,
+            "seat_counts": [
                 "numNorthOffered": 0,
                 "numNorthFilled": 0,
                 "numNorthRequested": 0,
