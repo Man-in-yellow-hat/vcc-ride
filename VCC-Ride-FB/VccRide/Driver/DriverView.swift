@@ -5,7 +5,7 @@ let minSeats = 3
 
 struct DriverView: View {
     
-    let dailyViewModel = DailyViewModel.shared
+    @ObservedObject private var dailyViewModel = DailyViewModel.shared
     @State private var selectedLocation = "Any"
     @State private var isActive = "Any"
     @State private var isViewAppeared = false
@@ -24,9 +24,14 @@ struct DriverView: View {
                 Text("")
                 HStack { // Use HStack here
                     ForEach(0..<minSeats, id: \.self) { index in
-                        Image(systemName: "person.fill") // Replace with your icon
+                        Image(systemName: dailyViewModel.isSeatFilled(at: index) ? "person.fill" : "person")
                             .font(.system(size: 30)) // Adjust the size as needed
                             .foregroundColor(.black) // Change icon color if needed
+                            .onTapGesture {
+                                dailyViewModel.toggleSeat(at: index)
+                                // Update the database and dailyViewModel as needed
+                                dailyViewModel.updateNumFilledSeats(forLocation: pickupLocation, count: dailyViewModel.filledSeatsCount)
+                            }
                     }
                 }
             }

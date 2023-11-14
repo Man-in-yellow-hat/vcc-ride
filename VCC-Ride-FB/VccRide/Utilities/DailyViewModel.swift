@@ -173,20 +173,40 @@ class DailyViewModel: ObservableObject {
     private func adjustSeats(isDriver: Bool, isNorth: Bool, deltaSeats: Int) {
         if (isDriver) {
             if (isNorth) {
-                self.numNorthSeats += deltaSeats
+                self.numNorthOffered += deltaSeats
             } else {
-                self.numRandSeats += deltaSeats
+                self.numRandOffered += deltaSeats
             }
         } else {
             if (isNorth) {
-                self.numNorthRiders += deltaSeats
+                self.numNorthRequested += deltaSeats
             } else {
-                self.numRandRiders += deltaSeats
+                self.numRandRequested += deltaSeats
             }
         }
+        syncSeatCounts()
     }
     
     private func getSeatCounts() {
+// <<<<<<< nathan_new
+//         let practiceRef = Database.database().reference().child("Daily-Practice").child("seatCounts")
+//         practiceRef.observeSingleEvent(of: .value) { snapshot, error in
+//             if let data = snapshot.value as? [String: Any] {
+//                 if let numNorthRequested = data["numNorthRequested"] as? Int,
+//                    let numRandRequested = data["numRandRequested"] as? Int,
+//                    let numNorthOffered = data["numNorthOffered"] as? Int,
+//                    let numRandOffered = data["numRandOffered"] as? Int,
+//                    let numNorthFilled = data["numNorthFilled"] as? Int,
+//                    let numRandFilled = data["numRandFilled"] as? Int {
+//                     self.numNorthRequested = numNorthRequested
+//                     self.numRandRequested = numRandRequested
+//                     self.numNorthOffered = numNorthOffered
+//                     self.numRandOffered = numRandOffered
+//                     self.numNorthFilled = numNorthFilled
+//                     self.numRandFilled = numRandFilled
+//                 }
+//             }
+// =======
         dataFetcher.fetchSeatCounts { seatCounts in
             self.numNorthRequested = seatCounts.numNorthRequested
             self.numNorthOffered = seatCounts.numNorthOffered
@@ -194,7 +214,30 @@ class DailyViewModel: ObservableObject {
             self.numRandRequested = seatCounts.numRandRequested
             self.numRandOffered = seatCounts.numRandOffered
             self.numRandFilled = seatCounts.numRandFilled
+// >>>>>>> main
         }
+    }
+    
+    private func syncSeatCounts() {
+        let practiceRef = Database.database().reference().child("Daily-Practice").child("seatCounts")
+
+        let seatCountsData: [String: Any] = [
+            "numNorthRequested": self.numNorthRequested,
+            "numRandRequested": self.numRandRequested,
+            "numNorthOffered": self.numNorthOffered,
+            "numRandOffered": self.numRandOffered,
+            "numNorthFilled": self.numNorthFilled,
+            "numRandFilled": self.numRandFilled
+        ]
+
+        practiceRef.setValue(seatCountsData) { error, _ in
+            if let error = error {
+                print("Failed to update seat counts in the database: \(error.localizedDescription)")
+            } else {
+                print("Seat counts updated successfully in the database.")
+            }
+        }
+        self.objectWillChange.send()
     }
     
     public func getDriverList(fromLocation: String, assignedLocation: String) {
@@ -303,6 +346,5 @@ class DailyViewModel: ObservableObject {
         }
         objectWillChange.send()
     }
-
 }
 

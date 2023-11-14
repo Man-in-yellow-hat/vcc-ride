@@ -76,7 +76,6 @@ class SignIn_withGoogle_VM: ObservableObject {
 
                     guard let user = res?.user else {return}
                     print(user)
-//                    self.loginSucceeded = true
                     let userRole = "JAIL" // Default to rider
                     
                     // Create a reference to your Realtime Database
@@ -185,8 +184,28 @@ class PracticeDateViewModel: ObservableObject {
 
     }
     
-
-
+//    func fetchExistingDates() {
+//        print("fetching dates")
+//        let datesRef = databaseRef.child("Fall23-Practices")
+//
+//        datesRef.observe(.value) { snapshot in
+//            var fetchedDates: [String] = []
+//
+//            for child in snapshot.children {
+//                if let dateSnapshot = child as? DataSnapshot {
+//                    if let date = dateSnapshot.childSnapshot(forPath: "date").value as? String {
+////                        print("date: ", date)
+//                        fetchedDates.append(date)
+//                        self.dateID[date] = dateSnapshot.key
+//                    }
+//                }
+//            }
+//            fetchedDates.sort()
+//
+//            // Update the published property with the new list of dates
+//            self.practiceDates = fetchedDates
+//        }
+//    }
     func fetchExistingDates() {
         print("fetching dates")
         let datesRef = databaseRef.child("Fall23-Practices")
@@ -196,34 +215,51 @@ class PracticeDateViewModel: ObservableObject {
 
             for child in snapshot.children {
                 if let dateSnapshot = child as? DataSnapshot {
-                    if let date = dateSnapshot.childSnapshot(forPath: "date").value as? String {
-//                        print("date: ", date)
-                        fetchedDates.append(date)
-                        self.dateID[date] = dateSnapshot.key
-                    }
+                    let date = dateSnapshot.key
+                    fetchedDates.append(date)
+                    self.dateID[date] = dateSnapshot.key
                 }
             }
-            fetchedDates.sort()
+
+            // Sort the dates chronologically
+            fetchedDates.sort { (dateString1, dateString2) in
+                let formatter = DateFormatter()
+                formatter.dateFormat = "MMMdd" // Update the date format here
+
+                if let date1 = formatter.date(from: dateString1),
+                   let date2 = formatter.date(from: dateString2) {
+                    return date1 < date2
+                }
+                return false
+            }
 
             // Update the published property with the new list of dates
             self.practiceDates = fetchedDates
         }
     }
 
+
     // Function to add a new practice date
     func addPracticeDate(date: String) {
-
-
-        // Generate a unique ID for the new practice date
-        let practiceDateID = databaseRef.child("Fall23-Practices").childByAutoId().key ?? ""
+        // Set the ID of the new date to BE the date
+        let practiceDateRef = databaseRef.child("Fall23-Practices").child(date)
 
         // Create an empty practice date entry
         let practiceDateEntry: [String: Any] = [
-            "date": date
+            "date": date,
+            "hasBeenAssigned": false,
+            "seatCounts": [
+                "numNorthOffered": 0,
+                "numNorthFilled": 0,
+                "numNorthRequested": 0,
+                "numRandOffered": 0,
+                "numRandFilled": 0,
+                "numRandRequested": 0
+            ]
         ]
 
         // Add the new practice date to the database
-        databaseRef.child("Fall23-Practices").child(practiceDateID).setValue(practiceDateEntry) { (error, _) in
+        practiceDateRef.setValue(practiceDateEntry) { (error, _) in
             if let error = error {
                 print("Error adding practice date: \(error.localizedDescription)")
             } else {
