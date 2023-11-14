@@ -86,22 +86,23 @@ class DailyViewModel: ObservableObject {
     private func adjustSeats(isDriver: Bool, isNorth: Bool, deltaSeats: Int) {
         if (isDriver) {
             if (isNorth) {
-                self.numNorthSeats += deltaSeats
+                self.numNorthOffered += deltaSeats
             } else {
-                self.numRandSeats += deltaSeats
+                self.numRandOffered += deltaSeats
             }
         } else {
             if (isNorth) {
-                self.numNorthRiders += deltaSeats
+                self.numNorthRequested += deltaSeats
             } else {
-                self.numRandRiders += deltaSeats
+                self.numRandRequested += deltaSeats
             }
         }
+        syncSeatCounts()
     }
     
     private func getSeatCounts() {
         let practiceRef = Database.database().reference().child("Daily-Practice").child("seatCounts")
-        practiceRef.observe(.value) { snapshot, error in
+        practiceRef.observeSingleEvent(of: .value) { snapshot, error in
             if let data = snapshot.value as? [String: Any] {
                 if let numNorthRequested = data["numNorthRequested"] as? Int,
                    let numRandRequested = data["numRandRequested"] as? Int,
@@ -118,6 +119,28 @@ class DailyViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    private func syncSeatCounts() {
+        let practiceRef = Database.database().reference().child("Daily-Practice").child("seatCounts")
+
+        let seatCountsData: [String: Any] = [
+            "numNorthRequested": self.numNorthRequested,
+            "numRandRequested": self.numRandRequested,
+            "numNorthOffered": self.numNorthOffered,
+            "numRandOffered": self.numRandOffered,
+            "numNorthFilled": self.numNorthFilled,
+            "numRandFilled": self.numRandFilled
+        ]
+
+        practiceRef.setValue(seatCountsData) { error, _ in
+            if let error = error {
+                print("Failed to update seat counts in the database: \(error.localizedDescription)")
+            } else {
+                print("Seat counts updated successfully in the database.")
+            }
+        }
+        self.objectWillChange.send()
     }
     
     public func getDriverList(fromLocation: String, assignedLocation: String) {
@@ -261,6 +284,5 @@ class DailyViewModel: ObservableObject {
         }
         objectWillChange.send()
     }
-
 }
 

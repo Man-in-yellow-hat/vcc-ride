@@ -2,7 +2,7 @@ import SwiftUI
 
 
 struct RiderView: View {
-    let dailyViewModel = DailyViewModel.shared
+    @ObservedObject private var dailyViewModel = DailyViewModel.shared
     @State private var isViewAppeared = false
     @ObservedObject private var userViewModel = UserViewModel()
 
