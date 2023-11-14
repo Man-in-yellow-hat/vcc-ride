@@ -51,36 +51,44 @@ class UserViewModel: ObservableObject {
     
     // Function to filter users based on criteria
     func filterUsers(
-        roleFilter: String? = nil,
-        activeFilter: String? = nil,
-        locationFilter: String? = nil
-    ) -> [String: [String: Any]] {
-        var filteredUsers = users
-        
-        if let role = roleFilter, roleFilter != "Any" {
-            filteredUsers = filteredUsers.filter { (_, user) in
-                guard let userRole = user["role"] as? String else { return false }
-                return userRole == role
+            roleFilter: String? = nil,
+            activeFilter: String? = nil,
+            locationFilter: String? = nil,
+            emailSearchFilter: String? = nil
+        ) -> [String: [String: Any]] {
+            var filteredUsers = users
+            
+            if let role = roleFilter, roleFilter != "Any" {
+                filteredUsers = filteredUsers.filter { (_, user) in
+                    guard let userRole = user["role"] as? String else { return false }
+                    return userRole == role
+                }
             }
-        }
-        
-        if let active = activeFilter, activeFilter != "Any" {
-            let activeBool = active == "true"
-            filteredUsers = filteredUsers.filter { (_, user) in
-                guard let userActive = user["active"] as? Bool else { return false }
-                return userActive == activeBool
+            
+            if let active = activeFilter, activeFilter != "Any" {
+                let activeBool = active == "true"
+                filteredUsers = filteredUsers.filter { (_, user) in
+                    guard let userActive = user["active"] as? Bool else { return false }
+                    return userActive == activeBool
+                }
             }
-        }
-        
-        if let location = locationFilter, locationFilter != "Any" {
-            filteredUsers = filteredUsers.filter { (_, user) in
-                guard let userLocation = user["default_location"] as? String else { return false }
-                return userLocation == location
+            
+            if let location = locationFilter, locationFilter != "Any" {
+                filteredUsers = filteredUsers.filter { (_, user) in
+                    guard let userLocation = user["default_location"] as? String else { return false }
+                    return userLocation == location
+                }
             }
+            
+            if let emailSearch = emailSearchFilter, emailSearchFilter != "" {
+                filteredUsers = filteredUsers.filter { (_, user) in
+                    guard let userEmail = user["email"] as? String else { return false }
+                    return userEmail.localizedStandardContains(emailSearch)
+                }
+            }
+            
+            return filteredUsers
         }
-        
-        return filteredUsers
-    }
 
 }
 
