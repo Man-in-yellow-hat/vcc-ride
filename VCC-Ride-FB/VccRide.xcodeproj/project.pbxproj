@@ -14,6 +14,10 @@
 		873333162B02C4A200418ECB /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 873333152B02C4A200418ECB /* GoogleSignInSwift */; };
 		8739070E2B03422100136E77 /* DriverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8739070D2B03422100136E77 /* DriverTests.swift */; };
 		87401F0D2B02FA7600002639 /* RiderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87401F0C2B02FA7600002639 /* RiderTests.swift */; };
+		95D4B5CF2B03680C00AFAD35 /* DashboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D4B5CE2B03680C00AFAD35 /* DashboardTests.swift */; };
+		95D4B5D12B03684400AFAD35 /* AdminCalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D4B5D02B03684400AFAD35 /* AdminCalendarTests.swift */; };
+		95D4B5D32B036B6700AFAD35 /* AdminPeopleViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D4B5D22B036B6700AFAD35 /* AdminPeopleViewTests.swift */; };
+		95D4B5D52B0372BF00AFAD35 /* AdminSettingsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D4B5D42B0372BF00AFAD35 /* AdminSettingsViewTests.swift */; };
 		A844CE872ACE0A6200EC44C2 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = A844CE862ACE0A6200EC44C2 /* GoogleSignIn */; };
 		A844CE892ACE0A6200EC44C2 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A844CE882ACE0A6200EC44C2 /* GoogleSignInSwift */; };
 		A844CE8E2ACE0EEA00EC44C2 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = A844CE8D2ACE0EEA00EC44C2 /* Application.swift */; };
@@ -90,6 +94,10 @@
 		8733330C2B02BD2300418ECB /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestPlan.xctestplan; sourceTree = "<group>"; };
 		8739070D2B03422100136E77 /* DriverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverTests.swift; sourceTree = "<group>"; };
 		87401F0C2B02FA7600002639 /* RiderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiderTests.swift; sourceTree = "<group>"; };
+		95D4B5CE2B03680C00AFAD35 /* DashboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTests.swift; sourceTree = "<group>"; };
+		95D4B5D02B03684400AFAD35 /* AdminCalendarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminCalendarTests.swift; sourceTree = "<group>"; };
+		95D4B5D22B036B6700AFAD35 /* AdminPeopleViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPeopleViewTests.swift; sourceTree = "<group>"; };
+		95D4B5D42B0372BF00AFAD35 /* AdminSettingsViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminSettingsViewTests.swift; sourceTree = "<group>"; };
 		A844CE8C2ACE0B6700EC44C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A844CE8D2ACE0EEA00EC44C2 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		A858D2842ACDADB500A17CCD /* VccRide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VccRide.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -291,6 +299,10 @@
 				870752332B02B7CD0099CD6D /* DailyViewModelTests.swift */,
 				87401F0C2B02FA7600002639 /* RiderTests.swift */,
 				8739070D2B03422100136E77 /* DriverTests.swift */,
+				95D4B5CE2B03680C00AFAD35 /* DashboardTests.swift */,
+				95D4B5D02B03684400AFAD35 /* AdminCalendarTests.swift */,
+				95D4B5D22B036B6700AFAD35 /* AdminPeopleViewTests.swift */,
+				95D4B5D42B0372BF00AFAD35 /* AdminSettingsViewTests.swift */,
 			);
 			path = VccRideTests;
 			sourceTree = "<group>";
@@ -484,7 +496,11 @@
 				87401F0D2B02FA7600002639 /* RiderTests.swift in Sources */,
 				870752342B02B7CD0099CD6D /* DailyViewModelTests.swift in Sources */,
 				D7C8655B2AF14FFB00DFFE52 /* VccRideTests.swift in Sources */,
+				95D4B5D12B03684400AFAD35 /* AdminCalendarTests.swift in Sources */,
+				95D4B5CF2B03680C00AFAD35 /* DashboardTests.swift in Sources */,
 				8739070E2B03422100136E77 /* DriverTests.swift in Sources */,
+				95D4B5D32B036B6700AFAD35 /* AdminPeopleViewTests.swift in Sources */,
+				95D4B5D52B0372BF00AFAD35 /* AdminSettingsViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
