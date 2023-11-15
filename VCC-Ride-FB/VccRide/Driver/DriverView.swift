@@ -35,6 +35,9 @@ struct DriverView: View {
     @ObservedObject private var userViewModel = UserViewModel() // Assuming you have a UserViewModel to fetch and filter users
     @State public var thisDriver: Driver // Make it an optional
     
+    @State private var carOffset: CGSize = .zero
+    @State private var isDeparted: Bool = false
+    
     var body: some View {
         VStack {
             // Title and Subtitle
@@ -42,55 +45,69 @@ struct DriverView: View {
             Text("Next Practice Date: \(dailyViewModel.date)").font(.subheadline)
                 .padding(.bottom)
             
-            VStack { // Wrap the specific lines in a VStack
-                Text("**Picking up from: \(thisDriver.location)**").font(.headline)
-                Text("Your Seats: Please fill \(thisDriver.seats) seats before you leave!").font(.subheadline)
-                Text("")
-                HStack { // Use HStack here
-                    Image(systemName: thisDriver.isFull() ? "car.side.fill" : "car.side")
-                        .font(.system(size: 30))
-                        .foregroundColor(.black)
-                        .scaleEffect(x: -1, y: 1) // Mirroring the image horizontally
-                        .gesture(DragGesture()
-                            .onEnded { value in
-                                if value.translation.width > 100 && thisDriver.isFull() {
-                                    // Call your departure function here
-                                    handleDeparture()
-                                }
-                            }
-                        )
-                    
-                    if thisDriver.isFull() {
-                        ArrowView()
-                            .padding(.trailing, 10) // Adjust as needed
-                    } else {
-                        Spacer()
-                    }
-                    
-                    Button(action: {
-                        let change: Int = thisDriver.toggleSeat(at: -1)
-                        dailyViewModel.updateFilledSeats(forLocation: thisDriver.location, change: change)
-                    }) {
-                        Image(systemName: "clear.fill")
-                            .font(.system(size: 20))
+            if (!isDeparted) {
+                VStack { // Wrap the specific lines in a VStack
+                    Text("**Picking up from: \(thisDriver.location)**").font(.headline)
+                    Text("Your Seats: Please fill \(thisDriver.seats) seats before you leave!").font(.subheadline)
+                    Text("")
+                
+                    HStack { // Use HStack here
+                        Image(systemName: thisDriver.isFull() ? "car.side.fill" : "car.side")
+                            .font(.system(size: 30))
                             .foregroundColor(.black)
-                    }
-                    ForEach(0..<thisDriver.seats, id: \.self) { index in
-                        Image(systemName: thisDriver.isSeatFilled(at: index) ? "person.fill" : "person")
-                            .font(.system(size: 40)) // Adjust the size as needed
-                            .foregroundColor(.black) // Change icon color if needed
-                            .onTapGesture {
-                                let change: Int = thisDriver.toggleSeat(at: index)
-                                dailyViewModel.updateFilledSeats(forLocation: thisDriver.location, change: change)
-
-                            }
+                            .scaleEffect(x: -1, y: 1) // Mirroring the image horizontally
+                            .offset(carOffset)
+                            .gesture(DragGesture()
+                                .onChanged { value in
+                                    // Update the car's offset based on the drag gesture
+                                    carOffset.width = max(value.translation.width, 0)
+                                }
+                                .onEnded { value in
+                                    if value.translation.width > 250 && thisDriver.isFull() && !isDeparted {
+                                        // Call your departure function here
+                                        handleDeparture()
+                                        isDeparted = true
+                                    } else {
+                                        // Reset the car's position if not departed or not full
+                                        withAnimation {
+                                            carOffset = .zero
+                                        }
+                                    }
+                                }
+                            )
+                        
+                        if thisDriver.isFull() {
+                            ArrowView()
+                                .padding(.trailing, 10) // Adjust as needed
+                        } else {
+                            Spacer()
+                        }
+                        
+                        Button(action: {
+                            let change: Int = thisDriver.toggleSeat(at: -1)
+                            dailyViewModel.updateFilledSeats(forLocation: thisDriver.location, change: change)
+                        }) {
+                            Image(systemName: "clear.fill")
+                                .font(.system(size: 20))
+                                .foregroundColor(.black)
+                        }
+                        ForEach(0..<thisDriver.seats, id: \.self) { index in
+                            Image(systemName: thisDriver.isSeatFilled(at: index) ? "person.fill" : "person")
+                                .font(.system(size: 40)) // Adjust the size as needed
+                                .foregroundColor(.black) // Change icon color if needed
+                                .onTapGesture {
+                                    let change: Int = thisDriver.toggleSeat(at: index)
+                                    dailyViewModel.updateFilledSeats(forLocation: thisDriver.location, change: change)
+                                    
+                                }
+                        }
                     }
                 }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.gray.opacity(0.3)))
             }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.gray.opacity(0.3)))
             
             ScrollView {
                 Text("North Rider Manifest").font(.subheadline)
@@ -154,19 +171,6 @@ struct DriverView: View {
             .padding(.horizontal, 20) // Add horizontal padding to the ScrollView
         }
         .padding()
-//        .onAppear {
-//            userViewModel.fetchUserFeatures()
-//            if !dailyViewModel.hasBeenAssigned {
-//                dailyViewModel.getRiderList(fromLocation: "north_riders")
-//                dailyViewModel.getRiderList(fromLocation: "rand_riders")
-//                dailyViewModel.getDriverList(fromLocation: "north_drivers")
-//                dailyViewModel.getDriverList(fromLocation: "rand_drivers")
-//
-//            } else {
-//                // TODO: go to nextPractice screen?
-//                print("here")
-//            }
-//        }
     }
     
     private func handleDeparture() {

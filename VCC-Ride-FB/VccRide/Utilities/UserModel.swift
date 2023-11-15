@@ -25,39 +25,14 @@ class Climber: Identifiable {
 class Driver: Climber {
     var locationPreference: String
     var filledSeats: Int
+    var isDeparted: Bool
 
     init(id: String, name: String, location: String, seats: Int, filledSeats: Int, preference: String) {
         self.locationPreference = preference
         self.filledSeats = filledSeats
+        self.isDeparted = false
         super.init(id: id, name: name, location: location, seats: seats)
     }
-    
-//    public func toggleSeat(at: Int) {
-//        let delta: Int = (self.filledSeats == at + 1) ? -1 : 1
-//        self.filledSeats += delta
-//
-//        let dailyRef = Database.database().reference().child("Daily-Practice")
-//        let seatCountRef = dailyRef.child("seat_count")
-//
-////        // Fetch the current location data
-////        seatCountRef.observeSingleEvent(of: .value) { [weak self] snapshot in
-////            guard let self = self else { return }
-////
-////            guard let locationData = snapshot.value as? [String: Any] else {
-////                print("Error: Unable to fetch location data.")
-////                return
-////            }
-////
-////            if self.location == "north_drivers" {
-////                seatCountRef.child("numNorthFilled").setValue((locationData["numNorthFilled"] as? Int ?? 0) + delta)
-////            } else if self.location == "rand_drivers" {
-////                seatCountRef.child("numRandFilled").setValue((locationData["numRandFilled"] as? Int ?? 0) + delta)
-////            }
-////
-////            let personalRef = dailyRef.child(self.location).child(self.id).child("filled_seats")
-////            personalRef.setValue(self.filledSeats)
-////        }
-//    }
     
     public func toggleSeat(at: Int) -> Int {
         var change: Int = self.filledSeats
