@@ -83,6 +83,8 @@ struct DriverView: View {
                                     } else if value.translation.width > 250 { //?? TODO: fix hard coding of 250?
                                         carOffset = .zero
                                         showAlert = true
+                                    } else {
+                                        carOffset = .zero
                                     }
                                 }
                             )
