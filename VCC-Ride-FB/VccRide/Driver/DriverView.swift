@@ -41,6 +41,8 @@ struct DriverView: View {
     @State private var squishScale: CGFloat = 1
     @State private var squishOffset: CGFloat = .zero
     
+    @State private var showAlert = false
+    
     var body: some View {
         VStack {
             // Title and Subtitle
@@ -78,15 +80,30 @@ struct DriverView: View {
                                             handleDeparture()
                                             isDeparted = true
                                         }
-                                    } else {
-                                        // Reset the car's position if not departed or not full
-                                        withAnimation {
-                                            carOffset = .zero
-                                            squishScale = 0
-                                        }
+                                    } else if value.translation.width > 250 { //?? TODO: fix hard coding of 250?
+                                        carOffset = .zero
+                                        showAlert = true
                                     }
                                 }
                             )
+                            .alert(isPresented: $showAlert) {
+                                Alert(
+                                    title: Text("Are you sure?"),
+                                    message: Text("The car is not full. Are you sure you want to depart?"),
+                                    primaryButton: .default(Text("Depart")) {
+                                        withAnimation {
+                                            squishScale = 0
+                                            squishOffset = 10
+                                            carOffset.width = UIScreen.main.bounds.width
+                                        }
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // Adjust the delay if needed
+                                            handleDeparture()
+                                            isDeparted = true
+                                        }
+                                    },
+                                    secondaryButton: .cancel()
+                                )
+                            }
                         
                         if thisDriver.isFull() {
                             ArrowView()
