@@ -225,6 +225,9 @@ struct DriverView: View {
     
     private func handleDeparture() {
         print("leaving!")
+        let leftRef = Database.database().reference().child("Daily-Practice").child(thisDriver.location)
+            .child(thisDriver.id).child("isDeparted")
+        leftRef.setValue(true)
     }
 }
 
