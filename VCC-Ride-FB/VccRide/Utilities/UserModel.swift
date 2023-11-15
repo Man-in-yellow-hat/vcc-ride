@@ -26,12 +26,19 @@ class Driver: Climber {
     var locationPreference: String
     var filledSeats: Int
     var isDeparted: Bool
+    var displayLocation: String
 
-    init(id: String, name: String, location: String, seats: Int, filledSeats: Int, preference: String) {
+    init(id: String, name: String, location: String, seats: Int, filledSeats: Int, preference: String, isDeparted: Bool) {
+        self.displayLocation = ""
         self.locationPreference = preference
         self.filledSeats = filledSeats
-        self.isDeparted = false
+        self.isDeparted = isDeparted
         super.init(id: id, name: name, location: location, seats: seats)
+        if (self.location == "north_drivers") {
+            self.displayLocation = "North"
+        } else if self.location == "rand_drivers" {
+            self.displayLocation = "Rand"
+        }
     }
     
     public func toggleSeat(at: Int) -> Int {

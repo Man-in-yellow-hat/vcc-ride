@@ -53,10 +53,11 @@ class FirebaseDataFetcher: PracticeDataFetching {
                 for (driverID, driverInfo) in listData {
                     if let name = driverInfo["name"] as? String,
                        let seats = driverInfo["seats"] as? Int,
-                       let filledSeats = driverInfo["filled_seats"] as? Int,
                        let pref = driverInfo["preference"] as? String {
-                        let newDriver = Driver(id: driverID, name: name, location: fromLocation,
-                                                seats: seats, filledSeats: filledSeats, preference: pref)
+                        let filledSeats = driverInfo["filled_seats"] as? Int ?? 0
+                        let isDeparted = driverInfo["isDeparted"] as? Bool ?? false
+                        let newDriver = Driver(id: driverID, name: name, location: fromLocation, seats: seats,
+                                               filledSeats: filledSeats, preference: pref, isDeparted: isDeparted)
                         drivers.append(newDriver)
                     }
                 }
