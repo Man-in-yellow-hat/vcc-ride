@@ -13,7 +13,8 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:TestPlan.xctestplan">
+            reference = "container:TestPlan.xctestplan"
+            default = "YES">
          </TestPlanReference>
       </TestPlans>
       <Testables>
@@ -25,6 +26,17 @@
                BlueprintIdentifier = "D7C865572AF14FFB00DFFE52"
                BuildableName = "VccRideTests.xctest"
                BlueprintName = "VccRideTests"
+               ReferencedContainer = "container:VccRide.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "874BCB342B09C348009758A6"
+               BuildableName = "VccRideUITests.xctest"
+               BlueprintName = "VccRideUITests"
                ReferencedContainer = "container:VccRide.xcodeproj">
             </BuildableReference>
          </TestableReference>

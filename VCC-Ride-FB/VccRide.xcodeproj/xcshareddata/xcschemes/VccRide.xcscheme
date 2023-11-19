@@ -26,8 +26,13 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      shouldAutocreateTestPlan = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
+      <TestPlans>
+         <TestPlanReference
+            reference = "container:TestPlan.xctestplan"
+            default = "YES">
+         </TestPlanReference>
+      </TestPlans>
       <Testables>
          <TestableReference
             skipped = "NO"
@@ -48,6 +53,17 @@
                BlueprintIdentifier = "D7C865642AF152FF00DFFE52"
                BuildableName = "VccRideTests2.xctest"
                BlueprintName = "VccRideTests2"
+               ReferencedContainer = "container:VccRide.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "874BCB342B09C348009758A6"
+               BuildableName = "VccRideUITests.xctest"
+               BlueprintName = "VccRideUITests"
                ReferencedContainer = "container:VccRide.xcodeproj">
             </BuildableReference>
          </TestableReference>

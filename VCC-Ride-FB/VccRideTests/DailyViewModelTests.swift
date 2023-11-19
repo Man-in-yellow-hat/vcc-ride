@@ -15,9 +15,9 @@ class MockDataFetcher: PracticeDataFetching {
     }
     func fetchDriverData(fromLocation: String, completion: @escaping ([VccRide.Driver]) -> Void) {
         let mockDrivers: [VccRide.Driver] = [
-            VccRide.Driver(id: "1", name: "Mock Driver 1", location: "north_drivers", seats: 3, preference: "NORTH"),
-            VccRide.Driver(id: "2", name: "Mock Driver 2", location: "north_drivers", seats: 2, preference: "NORTH"),
-            VccRide.Driver(id: "5", name: "Mock Driver 5", location: "north_drivers", seats: 3, preference: "NORTH"),
+            VccRide.Driver(id: "1", name: "Mock Driver 1", location: "north_drivers", seats: 3, filledSeats: 4, preference: "NORTH", isDeparted: false),
+            VccRide.Driver(id: "2", name: "Mock Driver 2", location: "north_drivers", seats: 2, filledSeats: 4, preference: "NORTH", isDeparted: false),
+            VccRide.Driver(id: "5", name: "Mock Driver 5", location: "north_drivers", seats: 3, filledSeats: 4, preference: "NORTH", isDeparted: false),
         ]
         completion(mockDrivers)
     }
@@ -91,9 +91,9 @@ final class DailyViewModelTests: XCTestCase {
     func testGetDriverListNorthDrivers() {
 
         // Mock response for north_drivers
-        let expectedDrivers = [Driver(id: "1", name: "Mock Driver 1", location: "north_drivers", seats: 3,                           preference: "NORTH"),
-                               Driver(id: "2", name: "Mock Driver 2", location: "north_drivers", seats: 2, preference: "NORTH"),
-                               Driver(id: "5", name: "Mock Driver 5", location: "north_drivers", seats: 3, preference: "NORTH")]
+        let expectedDrivers = [Driver(id: "1", name: "Mock Driver 1", location: "north_drivers", seats: 3, filledSeats: 4, preference: "NORTH", isDeparted: false),
+                               Driver(id: "2", name: "Mock Driver 2", location: "north_drivers", seats: 2, filledSeats: 4, preference: "NORTH", isDeparted: false),
+                               Driver(id: "5", name: "Mock Driver 5", location: "north_drivers", seats: 3, filledSeats: 4, preference: "NORTH", isDeparted: false)]
 
         sut.getDriverList(fromLocation: "north_drivers")
         

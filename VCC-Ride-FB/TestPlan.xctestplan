@@ -12,7 +12,20 @@
     "testTimeoutsEnabled" : true
   },
   "testTargets" : [
-
+    {
+      "target" : {
+        "containerPath" : "container:VccRide.xcodeproj",
+        "identifier" : "D7C865572AF14FFB00DFFE52",
+        "name" : "VccRideTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:VccRide.xcodeproj",
+        "identifier" : "874BCB342B09C348009758A6",
+        "name" : "VccRideUITests"
+      }
+    }
   ],
   "version" : 1
 }
