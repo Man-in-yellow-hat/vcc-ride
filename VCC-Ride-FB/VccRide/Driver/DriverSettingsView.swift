@@ -30,7 +30,7 @@ struct DriverSettingsView: View {
             Section(header: Text("Driver Settings")) {
                 
                 TextField("First Name", text: $fname).padding()
-                TextField("Last name", text:$lname).padding()
+                TextField("Last Name", text:$lname).padding()
                 
                 // Dropdown menu for selecting default pickup location
                 Picker("Default Pickup Location", selection: $selectedLocation) {

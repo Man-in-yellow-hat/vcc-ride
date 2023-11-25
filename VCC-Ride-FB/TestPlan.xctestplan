@@ -1,7 +1,7 @@
 {
   "configurations" : [
     {
-      "id" : "D3B71C8C-F8B4-416A-9622-C7BCB44BBB4F",
+      "id" : "3CE634F2-5B72-4712-9103-BF48D46DFB62",
       "name" : "Configuration 1",
       "options" : {
 
@@ -17,6 +17,13 @@
         "containerPath" : "container:VccRide.xcodeproj",
         "identifier" : "D7C865572AF14FFB00DFFE52",
         "name" : "VccRideTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:VccRide.xcodeproj",
+        "identifier" : "874BCB342B09C348009758A6",
+        "name" : "VccRideUITests"
       }
     }
   ],

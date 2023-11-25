@@ -29,7 +29,7 @@ struct AdminSettingsView: View {
                     ForEach(locations, id: \.self) { location in
                         Text(location)
                     }
-                }
+                }.accessibilityIdentifier("LocationPicker")
                 .pickerStyle(MenuPickerStyle())
 
                 Toggle("Automatic Attendance Confirmation", isOn: $autoConfirm)
