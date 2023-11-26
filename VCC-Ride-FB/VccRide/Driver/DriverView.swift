@@ -3,24 +3,27 @@ import Firebase
 
 struct LoadDriverView: View {
     @ObservedObject private var dailyViewModel = DailyViewModel.shared
-    @State private var isViewAppeared = false
+    @State private var isLoaded = false
     @ObservedObject private var userViewModel = UserViewModel()
     
     var body: some View {
-        NavigationStack {
+        Group {
             if let driver = dailyViewModel.northDrivers.first(where: { $0.id == userViewModel.userID }) ?? dailyViewModel.randDrivers.first(where: { $0.id == userViewModel.userID }) {
                 DriverView(thisDriver: driver)
             } else {
                 NextPracticeScreenView()
             }
         }
-        .onAppear {
-            userViewModel.fetchUserFeatures()
-            if !dailyViewModel.hasBeenAssigned {
-                dailyViewModel.getRiderList(fromLocation: "north_riders")
-                dailyViewModel.getRiderList(fromLocation: "rand_riders")
-                dailyViewModel.getDriverList(fromLocation: "north_drivers")
-                dailyViewModel.getDriverList(fromLocation: "rand_drivers")
+        .task {
+            if (!isLoaded) {
+                userViewModel.fetchUserFeatures()
+                if !dailyViewModel.hasBeenAssigned {
+                    dailyViewModel.getRiderList(fromLocation: "north_riders")
+                    dailyViewModel.getRiderList(fromLocation: "rand_riders")
+                    dailyViewModel.getDriverList(fromLocation: "north_drivers")
+                    dailyViewModel.getDriverList(fromLocation: "rand_drivers")
+                }
+                isLoaded = true
             }
         }
     }
@@ -31,9 +34,7 @@ struct DriverView: View {
     @ObservedObject private var dailyViewModel = DailyViewModel.shared
     @State private var selectedLocation = "Any"
     @State private var isActive = "Any"
-    @State private var isViewAppeared = false
-    @ObservedObject private var userViewModel = UserViewModel() // Assuming you have a UserViewModel to fetch and filter users
-    @State public var thisDriver: Driver // Make it an optional
+    @State public var thisDriver: Driver
     
     @State private var carOffset: CGSize = .zero
     @State private var isDeparted: Bool = false
