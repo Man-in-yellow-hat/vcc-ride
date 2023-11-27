@@ -9,20 +9,14 @@ import SwiftUI
 import Firebase
 
 struct SignInJailView: View {
-    @EnvironmentObject var viewModel: MainViewModel
+    @ObservedObject private var viewModel = MainViewModel.shared
+
     @State private var selectedConfirm: Bool = false
 
     @State var selectedRole: String = "rider"
     @State private var selectedLocation: String = "North"
     @State private var firstName: String = ""
     @State private var lastName: String = ""
-    
-//    var fullName: String {
-//        // Combine first name and last name with a space and remove extra whitespace
-//        let trimmedFirstName = firstName.trimmingCharacters(in: .whitespaces)
-//        let trimmedLastName = lastName.trimmingCharacters(in: .whitespaces)
-//        return "\(trimmedFirstName) \(trimmedLastName)"
-//    }
     
     var fname: String {
         return firstName.trimmingCharacters(in: .whitespaces)
@@ -70,7 +64,6 @@ struct SignInJailView: View {
                     Picker("Role", selection: $selectedRole) {
                         Text("Rider").tag("rider")
                         Text("Driver").tag("driver")
-                        Text("Admin").tag("admin") // TODO: REMOVE AFTER BLACK BOX TESTING
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     .onChange(of: selectedRole) { newValue in

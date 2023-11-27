@@ -12,7 +12,6 @@ import GoogleSignIn
 class FirebaseUtil: NSObject {
     let auth: Auth
     let db: Database
-    var viewModel: MainViewModel?
     
     let WHITELISTED: [String] = ["nate.k788@gmail.com", "nathan@algernon.com", "vccride@gmail.com", "vccride.test@gmail.com"]
 
@@ -35,7 +34,7 @@ class FirebaseUtil: NSObject {
 }
 
 class SignIn_withGoogle_VM: ObservableObject {
-    var viewModel: MainViewModel?
+    @ObservedObject public var viewModel = MainViewModel.shared
 
     func signInWithGoogle(completion: @escaping (String?) -> Void) {
         guard let clientID = FirebaseApp.app()?.options.clientID else {return}
@@ -90,7 +89,8 @@ class SignIn_withGoogle_VM: ObservableObject {
                                let userRole = userData["role"] as? String {
                                 if userData["active"] is Bool {
                                     completion(nil)
-                                    self.viewModel?.handleLoginSuccess(withRole: userRole, userID: user.uid)
+                                    self.viewModel.handleLoginSuccess(withRole: userRole, userID: user.uid)
+
                                 } else {
                                     completion("User is not active! Please contact an admin.")
                                 }
@@ -120,8 +120,9 @@ class SignIn_withGoogle_VM: ObservableObject {
 
                                 print("User data created successfully in 'Fall23-Users' node in Realtime Database")
                                 completion(nil)
+                                
+                                self.viewModel.handleLoginSuccess(withRole: userRole, userID: user.uid)
 
-                                self.viewModel?.handleLoginSuccess(withRole: userRole, userID: user.uid)
                             }
                         }
                     }

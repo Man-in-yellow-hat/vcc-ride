@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject var viewModel: MainViewModel
-//    @Environment(\.colorScheme) var colorScheme
+    @ObservedObject private var viewModel = MainViewModel.shared
+
     @State private var isVandyTextVisible = false
     @State private var isLogoVisible = false
     @State private var isTextVisible = false
@@ -59,7 +59,6 @@ struct LoginView: View {
 
                     if isButtonVisible {
                         Button(action: {
-                            vm.viewModel = viewModel
                             vm.signInWithGoogle { errMessage in
                                 if let message = errMessage {
                                     errorMessage = message
@@ -108,6 +107,6 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView().environmentObject(MainViewModel())
+        LoginView()
     }
 }

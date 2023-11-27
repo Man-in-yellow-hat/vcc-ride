@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var viewModel: MainViewModel
+    @ObservedObject private var viewModel = MainViewModel.shared
+
     @State private var selectedNavBarTab = "DASHBOARD" // Start with the "DASHBOARD" tab selected
 
     var body: some View {
@@ -54,7 +55,6 @@ struct ContentView: View {
             
             // Settings View
             SettingsMainView()
-                .environmentObject(viewModel)
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }
@@ -106,6 +106,6 @@ struct AdminDashboardView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(MainViewModel())
+        ContentView()
     }
 }

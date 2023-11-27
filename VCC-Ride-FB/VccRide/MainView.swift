@@ -9,6 +9,7 @@ import SwiftUI
 import FirebaseDatabase
 
 class MainViewModel: ObservableObject {
+    static let shared = MainViewModel()
 //    @State var isLoggedIn: Bool = false
     @Published var isLoggedIn: Bool = false
     @Published var userRole: String? // Add the role field
@@ -70,17 +71,18 @@ class MainViewModel: ObservableObject {
 }
 
 struct MainView: View {
-    @EnvironmentObject var viewModel: MainViewModel
+    @ObservedObject private var viewModel = MainViewModel.shared
+
     
     var body: some View {
         Group {
             if viewModel.userRole == nil || !viewModel.isLoggedIn {
-                LoginView().environmentObject(viewModel)
+                LoginView()
             } else {
                 if viewModel.userRole == "JAIL" {
-                    SignInJailView().environmentObject(viewModel)
+                    SignInJailView()
                 } else {
-                    ContentView().environmentObject(viewModel)
+                    ContentView()
                 }
             }
         }
@@ -89,7 +91,7 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView().environmentObject(MainViewModel())
+        MainView()
     }
 }
 

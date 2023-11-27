@@ -12,15 +12,14 @@ import GoogleSignIn
 @main
 struct FirebaseTestApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @StateObject var viewModel = MainViewModel() // Create an instance of MainViewModel
+//    @StateObject var viewModel = MainViewModel() // Create an instance of MainViewModel
+    @ObservedObject private var viewModel = MainViewModel.shared
     @State private var isMainViewVisible = false // Add a boolean for the startup screen
 
     var body: some Scene {
         WindowGroup {
             if self.isMainViewVisible {
                 MainView()
-                    .environmentObject(viewModel)
-                
             } else {
                 StartupScreen()
                     .onAppear() {

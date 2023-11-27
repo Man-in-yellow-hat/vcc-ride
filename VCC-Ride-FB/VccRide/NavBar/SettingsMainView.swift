@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct SettingsMainView: View {
-    @EnvironmentObject var viewModel: MainViewModel
+    @ObservedObject private var viewModel = MainViewModel.shared
+
     var body: some View {
         NavigationStack {
             if viewModel.userRole == "rider" {
-                RiderSettingsView().environmentObject(viewModel)
+                RiderSettingsView()
                     .tag(0)
             } else {
-                DriverSettingsView().environmentObject(viewModel)
+                DriverSettingsView()
                     .tag(1)
             }
         }

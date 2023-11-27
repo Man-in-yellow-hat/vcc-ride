@@ -191,25 +191,6 @@ class DailyViewModel: ObservableObject {
     }
     
     private func getSeatCounts() {
-// <<<<<<< nathan_new
-//         let practiceRef = Database.database().reference().child("Daily-Practice").child("seatCounts")
-//         practiceRef.observeSingleEvent(of: .value) { snapshot, error in
-//             if let data = snapshot.value as? [String: Any] {
-//                 if let numNorthRequested = data["numNorthRequested"] as? Int,
-//                    let numRandRequested = data["numRandRequested"] as? Int,
-//                    let numNorthOffered = data["numNorthOffered"] as? Int,
-//                    let numRandOffered = data["numRandOffered"] as? Int,
-//                    let numNorthFilled = data["numNorthFilled"] as? Int,
-//                    let numRandFilled = data["numRandFilled"] as? Int {
-//                     self.numNorthRequested = numNorthRequested
-//                     self.numRandRequested = numRandRequested
-//                     self.numNorthOffered = numNorthOffered
-//                     self.numRandOffered = numRandOffered
-//                     self.numNorthFilled = numNorthFilled
-//                     self.numRandFilled = numRandFilled
-//                 }
-//             }
-// =======
         dataFetcher.fetchSeatCounts { seatCounts in
             self.numNorthRequested = seatCounts.numNorthRequested
             self.numNorthOffered = seatCounts.numNorthOffered
@@ -217,7 +198,6 @@ class DailyViewModel: ObservableObject {
             self.numRandRequested = seatCounts.numRandRequested
             self.numRandOffered = seatCounts.numRandOffered
             self.numRandFilled = seatCounts.numRandFilled
-// >>>>>>> main
         }
     }
     

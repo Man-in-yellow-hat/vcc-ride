@@ -10,7 +10,8 @@ import Firebase
 
 
 struct RiderSettingsView: View {
-    @EnvironmentObject var viewModel: MainViewModel
+    @ObservedObject private var viewModel = MainViewModel.shared
+
 
     
     @State private var selectedLocation = "North"

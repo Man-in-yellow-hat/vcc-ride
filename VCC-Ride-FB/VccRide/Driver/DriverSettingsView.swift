@@ -14,7 +14,8 @@ struct DriverSettingsView: View {
     @State private var availableSeats = 1
     @State private var fname: String = ""
     @State private var lname: String = ""
-    @EnvironmentObject var viewModel: MainViewModel
+    @ObservedObject private var viewModel = MainViewModel.shared
+
 
 
     let locations = ["North", "Rand", "No Preference"]

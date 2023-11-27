@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AppSettingsView: View {
-    @EnvironmentObject var viewModel: MainViewModel
+    @ObservedObject private var viewModel = MainViewModel.shared
     
     var body: some View {
         VStack {
