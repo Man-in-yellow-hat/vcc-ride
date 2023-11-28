@@ -39,6 +39,9 @@ struct DriverView: View {
     @State private var carOffset: CGSize = .zero
     @State private var isDeparted: Bool = false
     
+    @State private var isReturning: Bool = false
+    @State private var availableSeatsInput: Int = 0
+    
     @State private var squishScale: CGFloat = 1
     @State private var squishOffset: CGFloat = .zero
     
@@ -92,7 +95,7 @@ struct DriverView: View {
                             .alert(isPresented: $showAlert) {
                                 Alert(
                                     title: Text("Are you sure?"),
-                                    message: Text("The car is not full. Are you sure you want to depart?"),
+                                    message: Text("The car is not full. Do you still want to depart?"),
                                     primaryButton: .default(Text("Depart")) {
                                         withAnimation {
                                             squishScale = 0
@@ -154,9 +157,41 @@ struct DriverView: View {
                         .fill(Color.gray.opacity(0.3)))
             } else {
                 HStack(spacing: 5) {
-                    ForEach(0..<10) { _ in
+                    ForEach(0..<12) { _ in
                         SmokeParticle()
                     }
+                }
+                if (!isReturning) {
+                    VStack {
+                        Text("Departed.")
+                        Button(action: {
+                            isReturning = true
+                        }) {
+                            Text("Return")
+                        }
+                    }
+                } else {
+                    VStack {
+                        Stepper("Available Seats: \(availableSeatsInput)", value: $availableSeatsInput, in: 0...6)
+                                            .padding()
+
+                        HStack {
+                            Button(action: {
+                                isReturning = false
+                                
+                            }) {
+                                Text("Cancel")
+                            }
+                            
+                            Button(action: {
+                                // Handle the return and available seats input here
+                                handleReturn(availableSeats: availableSeatsInput)
+                            }) {
+                                Text("Confirm Return")
+                            }
+                        }
+                    }
+                    .padding()
                 }
             }
             
@@ -224,6 +259,19 @@ struct DriverView: View {
         .padding()
     }
     
+    private func handleReturn(availableSeats: Int) {
+        print("returning!")
+        carOffset = .zero
+        isReturning = false
+        isDeparted = false
+        squishScale = 1
+        squishOffset = .zero
+        
+        let leftRef = Database.database().reference().child("Daily-Practice").child(thisDriver.location)
+            .child(thisDriver.id).child("isDeparted")
+        leftRef.setValue(false)
+    }
+    
     private func handleDeparture() {
         print("leaving!")
         let leftRef = Database.database().reference().child("Daily-Practice").child(thisDriver.location)
@@ -278,7 +326,7 @@ struct SmokeParticle: View {
     var body: some View {
         Circle()
             .foregroundColor(Color.gray.opacity(opacity))
-            .frame(width: 10, height: 10)
+            .frame(width: CGFloat.random(in: 5...15), height: CGFloat.random(in: 5...15))
             .offset(offset)
             .onAppear {
                 withAnimation(Animation.easeOut(duration: 0.5)) {
