@@ -42,17 +42,15 @@ class Driver: Climber {
     }
     
     public func toggleSeat(at: Int) -> Int {
-        var change: Int = self.filledSeats
+        var before: Int = self.filledSeats
         if (at == -1) {
             self.filledSeats = 0
-            change *= -1
         } else if (self.filledSeats == at + 1) {
             self.filledSeats -= 1
-            change = -1
         } else {
             self.filledSeats = at + 1
-            change = at + 1
         }
+        var change: Int = self.filledSeats - before
         let dailyRef = Database.database().reference().child("Daily-Practice")
         let personalRef = dailyRef.child(self.location).child(self.id).child("filled_seats")
         personalRef.setValue(self.filledSeats)
