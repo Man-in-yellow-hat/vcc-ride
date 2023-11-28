@@ -258,8 +258,15 @@ struct ArrowView: View {
 
 
 struct NextPracticeScreenView: View {
+    @ObservedObject private var dailyViewModel = DailyViewModel.shared
+    
     var body: some View {
-        Text("NEXT PRACTICE SCREEN")
+        VStack {
+            if (dailyViewModel.practiceToday) {
+                Text("You are currently marked as not attending today. If you can drive, fill out the form below!")
+            }
+            Text("NEXT PRACTICE SCREEN")
+        }
     }
 }
 

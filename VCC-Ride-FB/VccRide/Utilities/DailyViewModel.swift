@@ -22,6 +22,7 @@ protocol PracticeDataFetching {
     func fetchDriverData(fromLocation: String, completion: @escaping ([Driver]) -> Void)
     func fetchRiderData(fromLocation: String, completion: @escaping ([Climber]) -> Void)
     func fetchSeatCounts(completion: @escaping (SeatCounts) -> Void)
+    func fetchDate(completion: @escaping (String) -> Void)
 }
 
 class FirebaseDataFetcher: PracticeDataFetching {
@@ -36,6 +37,19 @@ class FirebaseDataFetcher: PracticeDataFetching {
             }
         }
     }
+    
+    func fetchDate(completion: @escaping (String) -> Void) {
+        let ref = Database.database().reference().child("Daily-Practice").child("date")
+        ref.observeSingleEvent(of: .value) { snapshot in
+            if let fetchedDate = snapshot.value as? String {
+                print("fetched:", fetchedDate)
+                completion(fetchedDate)
+            } else {
+                completion("ERR")
+            }
+        }
+    }
+    
     func fetchDriverData(fromLocation: String, completion: @escaping ([Driver]) -> Void) {
         let practiceRef = Database.database().reference().child("Daily-Practice")
 
@@ -125,6 +139,7 @@ class DailyViewModel: ObservableObject {
     static func setSharedInstance(forTesting dataFetcher: PracticeDataFetching) {
         test = DailyViewModel(dataFetcher: dataFetcher)
     }
+    public var practiceToday: Bool = false
     
 //    @Published var drivers: [Driver] = []
 //    @Published var riders: [Climber] = []
@@ -160,6 +175,7 @@ class DailyViewModel: ObservableObject {
         dataFetcher.checkDriverAssignment { [weak self] isAssigned in
             self?.hasBeenAssigned = isAssigned
         }
+        getDate()
     }
     
     private func getDate() {
@@ -168,6 +184,11 @@ class DailyViewModel: ObservableObject {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMdd" // TODO: decide on date format
         self.date = dateFormatter.string(from: today)
+        
+        dataFetcher.fetchDate { fetchedDate in
+            print("checking equality:", self.date, fetchedDate, self.date==fetchedDate)
+            self.practiceToday = (fetchedDate == self.date)
+        }
     }
     
     
@@ -264,7 +285,7 @@ class DailyViewModel: ObservableObject {
         }
 
         print("getting lists from DAILY")
-        getDate()
+//        getDate()
         getDriverList(fromLocation: "north_drivers")
         getDriverList(fromLocation: "rand_drivers")
         getDriverList(fromLocation: "no_pref_drivers")
