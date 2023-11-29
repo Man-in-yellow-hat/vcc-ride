@@ -8,6 +8,7 @@ import SwiftUI
 import Firebase
 import FirebaseDatabase
 import GoogleSignIn
+import AuthenticationServices
 
 class FirebaseUtil: NSObject {
     let auth: Auth

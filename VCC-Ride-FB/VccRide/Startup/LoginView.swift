@@ -6,15 +6,18 @@
 //
 
 import SwiftUI
+import _AuthenticationServices_SwiftUI
 
 struct LoginView: View {
     @ObservedObject private var viewModel = MainViewModel.shared
+    @Environment(\.colorScheme) var colorScheme
 
     @State private var isVandyTextVisible = false
     @State private var isLogoVisible = false
     @State private var isTextVisible = false
     @State private var isButtonVisible = false
     @State private var isGradientVisible = false
+    @State private var isAppleVisible = false
     @State private var errorMessage: String?
 
     @ObservedObject var vm = SignIn_withGoogle_VM()
@@ -72,17 +75,39 @@ struct LoginView: View {
                                     .resizable()
                                     .frame(width: 20, height: 20)
                                     .foregroundColor(.white)
-                                    .offset(x: 30)
-                                Text("Sign In with Google")
-                                    .font(.headline)
+                                    .offset(x: 45)
+                                Text("Sign in with Google")
+                                    .font(.system(size: 19, weight: .semibold))
                                     .foregroundColor(.white)
                                     .frame(maxWidth: .infinity)
                             }
                             .padding(.vertical)
                         }
                         .background(Color.blue)
+                        .frame(width: 280, height: 50)
                         .cornerRadius(50)
-                        .frame(width: 280)
+                    }
+                    
+                    if isAppleVisible {
+                        SignInWithAppleButton {request in
+                            // TODO: IMPLEMENT SIGNIN LOGIC
+                        } onCompletion: { result in
+                            // TODO: IMPLEMENT SIGNIN LOGIC
+                        }
+                        .signInWithAppleButtonStyle(colorScheme == .light ? .black : .white)
+                        .frame(width: 280, height: 50)
+                        .cornerRadius(50)
+                    }
+                    if isButtonVisible {
+                        Button(action: {
+                            withAnimation {
+                                isAppleVisible.toggle()
+                            }
+                        }) {
+                            Image(systemName: isAppleVisible ? "chevron.up" : "chevron.down.circle.fill")
+                                .offset(y: 12)
+                                .foregroundColor(.black)
+                        }
                     }
                 }
             }

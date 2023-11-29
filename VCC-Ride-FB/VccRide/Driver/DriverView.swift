@@ -181,6 +181,10 @@ struct DriverView: View {
                                 
                             }) {
                                 Text("Cancel")
+                                    .padding()
+                                    .background(Color.gray) // Set your desired background color
+                                    .foregroundColor(.white) // Set text color for better contrast
+                                    .cornerRadius(10) // Apply corner radius for rounded corners
                             }
                             
                             Button(action: {
@@ -188,7 +192,12 @@ struct DriverView: View {
                                 handleReturn(availableSeats: availableSeatsInput)
                             }) {
                                 Text("Confirm Return")
+                                    .padding()
+                                    .background(Color.green) // Set your desired background color
+                                    .foregroundColor(.white) // Set text color for better contrast
+                                    .cornerRadius(10) // Apply corner radius for rounded corners
                             }
+
                         }
                     }
                     .padding()
