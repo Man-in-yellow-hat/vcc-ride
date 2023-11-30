@@ -9,7 +9,7 @@ struct LoadRiderView: View {
         Group {
             if (dailyViewModel.practiceToday) {
                 
-                if dailyViewModel.riders.values.contains(where: { $0["id"] as? String == userViewModel.userID }) {
+                if dailyViewModel.riders.keys.contains(where: { $0 == userViewModel.userID }) {
                     RiderView()
                 } else {
                     RiderNotAttendingView()
