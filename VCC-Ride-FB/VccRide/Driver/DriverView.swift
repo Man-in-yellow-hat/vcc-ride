@@ -19,7 +19,7 @@ struct LoadDriverView: View {
                                                           preference: driverObj["preference"] as! String,
                                                           isDeparted: driverObj["isDeparted"] as! Bool))
                 } else {
-                    DriverNotAttendingView()
+                    DriverFormView()
                 }
             } else {
                 NoPracticeView()
@@ -317,18 +317,6 @@ struct ArrowView: View {
             }
     }
 }
-
-
-struct DriverNotAttendingView: View {
-    @ObservedObject private var dailyViewModel = DailyViewModel.shared
-    
-    var body: some View {
-        VStack {
-            Text("You are currently marked as not attending today. If you can drive, fill out the form below!")
-        }
-    }
-}
-
 
 struct SmokeParticle: View {
     @State private var opacity: Double = 1.0

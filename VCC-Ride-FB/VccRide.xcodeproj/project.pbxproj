@@ -63,6 +63,8 @@
 		D71B9E212AD05C4C00144928 /* PeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E202AD05C4C00144928 /* PeopleView.swift */; };
 		D71B9E232AD0732800144928 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E222AD0732800144928 /* LoginView.swift */; };
 		D71B9E252AD09C5400144928 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D71B9E242AD09C5400144928 /* GoogleService-Info.plist */; };
+		D72538A42B186E4700CE1B73 /* DriverFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72538A32B186E4700CE1B73 /* DriverFormView.swift */; };
+		D72538A62B186E5500CE1B73 /* RiderFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72538A52B186E5500CE1B73 /* RiderFormView.swift */; };
 		D73273B32ADE1C6600F5DA44 /* DailyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73273B22ADE1C6600F5DA44 /* DailyViewModel.swift */; };
 		D771DECC2ACF561400E79153 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858D2972ACDAFFD00A17CCD /* ContentView.swift */; };
 		D771DED22ACF575C00E79153 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D771DED12ACF575C00E79153 /* MainView.swift */; };
@@ -127,6 +129,8 @@
 		D71B9E202AD05C4C00144928 /* PeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleView.swift; sourceTree = "<group>"; };
 		D71B9E222AD0732800144928 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		D71B9E242AD09C5400144928 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D72538A32B186E4700CE1B73 /* DriverFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverFormView.swift; sourceTree = "<group>"; };
+		D72538A52B186E5500CE1B73 /* RiderFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiderFormView.swift; sourceTree = "<group>"; };
 		D73273B22ADE1C6600F5DA44 /* DailyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewModel.swift; sourceTree = "<group>"; };
 		D771DED12ACF575C00E79153 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		D792DB212AF3F78A003D2E8E /* VccRide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VccRide.entitlements; sourceTree = "<group>"; };
@@ -287,6 +291,7 @@
 			children = (
 				D7B65D9F2AD476F100D2701B /* RiderSettingsView.swift */,
 				D71B9E172AD058E100144928 /* RiderView.swift */,
+				D72538A52B186E5500CE1B73 /* RiderFormView.swift */,
 			);
 			path = Rider;
 			sourceTree = "<group>";
@@ -296,6 +301,7 @@
 			children = (
 				D7B65D9D2AD476D300D2701B /* DriverSettingsView.swift */,
 				D71B9E152AD058DA00144928 /* DriverView.swift */,
+				D72538A32B186E4700CE1B73 /* DriverFormView.swift */,
 			);
 			path = Driver;
 			sourceTree = "<group>";
@@ -529,6 +535,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D771DECC2ACF561400E79153 /* ContentView.swift in Sources */,
+				D72538A62B186E5500CE1B73 /* RiderFormView.swift in Sources */,
 				D7C99FB62B17F38A0056C5A9 /* NoPracticeView.swift in Sources */,
 				D7A1EAFC2AD2569C0075A4B2 /* AdminCalendar.swift in Sources */,
 				D71B9E162AD058DA00144928 /* DriverView.swift in Sources */,
@@ -539,6 +546,7 @@
 				D71B9E182AD058E100144928 /* RiderView.swift in Sources */,
 				D7B65DA82AD5A5F200D2701B /* AdminPeopleView.swift in Sources */,
 				A844CE8E2ACE0EEA00EC44C2 /* Application.swift in Sources */,
+				D72538A42B186E4700CE1B73 /* DriverFormView.swift in Sources */,
 				D73273B32ADE1C6600F5DA44 /* DailyViewModel.swift in Sources */,
 				D71B9E112AD053FF00144928 /* AdminView.swift in Sources */,
 				A858D2D52ACDC73F00A17CCD /* FirebaseUtil.swift in Sources */,
