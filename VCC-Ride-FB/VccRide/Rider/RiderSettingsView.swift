@@ -8,19 +8,18 @@
 import SwiftUI
 import Firebase
 
-
 struct RiderSettingsView: View {
     @ObservedObject private var viewModel = MainViewModel.shared
-
-    @State private var deleteAlert = false
-    @State private var deleteConfirmationText = ""
-    @State private var flashColor: Color = Color(UIColor.systemGray5)
     
     @State private var selectedLocation = "North"
     @State private var autoConfirm = true
     @State private var availableSeats = 1
     @State private var fname: String = ""
     @State private var lname: String = ""
+
+    @State private var deleteAlert = false
+    @State private var deleteConfirmationText = ""
+    @State private var flashColor: Color = Color(UIColor.systemGray5)
 
     let locations = ["North", "Rand", "No Preference"]
 
@@ -101,7 +100,7 @@ struct RiderSettingsView: View {
                         
                         Button(action: {
                             if deleteConfirmationText.lowercased() == "delete" && deleteAlert {
-                                //                                deleteAccount()
+                                deleteAccount()
                                 print("DELETING")
                             } else {
                                 // Flash the button background red

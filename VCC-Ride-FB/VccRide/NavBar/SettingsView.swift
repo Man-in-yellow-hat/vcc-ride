@@ -1,5 +1,5 @@
 //
-//  UserSettingsView.swift
+//  SettingsView.swift
 //  VccRide
 //
 //  Created by Nathan King on 10/9/23.
@@ -8,9 +8,9 @@
 import SwiftUI
 import Firebase
 
-struct DriverSettingsView: View {
+struct SettingsView: View {
     @ObservedObject private var viewModel = MainViewModel.shared
-    
+
     @State private var selectedLocation = "North"
     @State private var autoConfirm = true
     @State private var availableSeats = 1
@@ -22,114 +22,120 @@ struct DriverSettingsView: View {
     @State private var flashColor: Color = Color(UIColor.systemGray5)
 
     let locations = ["North", "Rand", "No Preference"]
-    
+
     @State private var dbLocation = ""
     @State private var dbAutoConfirm = true
     @State private var dbAvailableSeats = 4
     @State private var dbFirstName = ""
     @State private var dbLastName = ""
 
+    var role: String
+
     var body: some View {
-        Form {
-            Section(header: Text("Driver Settings")) {
-                
-                TextField("First Name", text: $fname).padding()
-                TextField("Last Name", text:$lname).padding()
-                
-                // Dropdown menu for selecting default pickup location
-                Picker("Default Pickup Location", selection: $selectedLocation) {
-                    ForEach(locations, id: \.self) { location in
-                        Text(location)
+        NavigationView {
+            Form {
+                Section(header: Text("Settings")) {
+                    
+                    TextField("First Name", text: $fname).padding()
+                    TextField("Last Name", text:$lname).padding()
+                    
+                    // Dropdown menu for selecting default pickup location
+                    Picker("Default Pickup Location", selection: $selectedLocation) {
+                        ForEach(locations, id: \.self) { location in
+                            Text(location)
+                        }
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    
+                    // Toggle for default attendance confirmation
+                    Toggle("Automatic Attendance Confirmation", isOn: $autoConfirm)
+                    
+                    // Stepper for selecting available seats (for drivers or admins)
+                    if role == "driver" || role == "admin" {
+                        Stepper("Available Seats: \(availableSeats)", value: $availableSeats, in: 1...5)
                     }
                 }
-                .pickerStyle(MenuPickerStyle())
-
-                // Toggle for default attendance confirmation
-                Toggle("Automatic Attendance Confirmation", isOn: $autoConfirm)
-
-                // Stepper for selecting available seats (for drivers or admins)
-                Stepper("Available Seats: \(availableSeats)", value: $availableSeats, in: 1...5)
-            }
-            
-            Section {
-                Button(action: {
-                    // Save the updated preferences to the Realtime Database
-                    savePreferences()
-                }) {
-                    Text("Save Preferences")
-                        .foregroundColor(.blue)
-                }
-            }
-
-            Section {
-                Button(action: signOut) {
-                    Text("Sign Out")
-                        .foregroundColor(.red)
-                }
-            }
-            
-            Section {
-                if (!deleteAlert) {
+                
+                Section {
                     Button(action: {
-                        deleteAlert = true
+                        // Save the updated preferences to the Realtime Database
+                        savePreferences()
                     }) {
-                        Text("Delete Account")
+                        Text("Save Preferences")
+                            .foregroundColor(.blue)
+                    }
+                }
+                
+                Section {
+                    Button(action: signOut) {
+                        Text("Sign Out")
                             .foregroundColor(.red)
                     }
-                } else {
-                    Text("Are you sure you want to delete your account? This action cannot be undone.")
-                    TextField("Type 'delete'", text: $deleteConfirmationText)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                    
-                    HStack {
+                }
+                
+                Section {
+                    if (!deleteAlert) {
                         Button(action: {
-                            deleteAlert = false
-                            print("CANCELLING")
+                            deleteAlert = true
                         }) {
-                            Text("Cancel")
-                                .foregroundColor(.black)
-                                .padding()
-                                .background(Color(UIColor.systemGray5))
-                                .cornerRadius(8)
+                            Text("Delete Account")
+                                .foregroundColor(.red)
                         }
-                        .buttonStyle(.plain) // Add this modifier to the Cancel button
+                    } else {
+                        Text("Are you sure you want to delete your account? This action cannot be undone.")
+                        TextField("Type 'delete'", text: $deleteConfirmationText)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding()
                         
-                        Spacer()
-                        
-                        Button(action: {
-                            if deleteConfirmationText.lowercased() == "delete" && deleteAlert {
-                                deleteAccount()
-                                print("DELETING")
-                            } else {
-                                // Flash the button background red
-                                withAnimation {
-                                    flashColor = .red
-                                }
-                                // Reset the button background color after a short delay
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        HStack {
+                            Button(action: {
+                                deleteAlert = false
+                                print("CANCELLING")
+                            }) {
+                                Text("Cancel")
+                                    .foregroundColor(.black)
+                                    .padding()
+                                    .background(Color(UIColor.systemGray5))
+                                    .cornerRadius(8)
+                            }
+                            .buttonStyle(.plain) // Add this modifier to the Cancel button
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                if deleteConfirmationText.lowercased() == "delete" && deleteAlert {
+                                    deleteAccount()
+                                    print("DELETING")
+                                } else {
+                                    // Flash the button background red
                                     withAnimation {
-                                        flashColor = Color(UIColor.systemGray5) // Lighter gray
+                                        flashColor = .red
+                                    }
+                                    // Reset the button background color after a short delay
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        withAnimation {
+                                            flashColor = Color(UIColor.systemGray5) // Lighter gray
+                                        }
                                     }
                                 }
+                            }) {
+                                Text("Confirm Delete")
+                                    .foregroundColor(.red)
+                                    .padding()
+                                    .background(flashColor)
+                                    .cornerRadius(8)
                             }
-                        }) {
-                            Text("Confirm Delete")
-                                .foregroundColor(.red)
-                                .padding()
-                                .background(flashColor)
-                                .cornerRadius(8)
+                            .buttonStyle(.plain) // Add this modifier to the Confirm Delete button
+                            
                         }
-                        .buttonStyle(.plain) // Add this modifier to the Cancel button
-
                     }
                 }
             }
-        }
-        .navigationBarTitle("Driver Settings")
-        .onAppear {
-            // Fetch user preferences from the Realtime Database when the view appears
-            fetchDriverPreferences()
+            .navigationBarTitle("\(role.capitalized) Settings")
+            .onAppear {
+                // Fetch user preferences from the Realtime Database when the view appears
+                fetchPreferences()
+            }
         }
     }
     
@@ -141,7 +147,7 @@ struct DriverSettingsView: View {
 
         // Save the user ID before deleting the user
         let userID = user.uid
-        
+
         // Remove the user's data from Fall23-Users
         let usersRef = Database.database().reference().child("Fall23-Users").child(userID)
         usersRef.removeValue { error, _ in
@@ -156,11 +162,11 @@ struct DriverSettingsView: View {
 
         // Delete user from Auth as well
         user.delete { error in
-          if let error = error {
-            // An error happened.
-          } else {
-              viewModel.handleSignOut()
-          }
+            if let error = error {
+                print(error)
+            } else {
+                viewModel.handleSignOut()
+            }
         }
     }
 
@@ -174,8 +180,8 @@ struct DriverSettingsView: View {
             print("Error signing out: \(signOutError.localizedDescription)")
         }
     }
-    
-    private func fetchDriverPreferences() {
+
+    private func fetchPreferences() {
         guard let userID = Auth.auth().currentUser?.uid else {
             //TODO: Handle the case when there is no logged-in user
             return
@@ -200,7 +206,7 @@ struct DriverSettingsView: View {
             }
         }
     }
-    
+
     private func savePreferences() {
         guard let userID = Auth.auth().currentUser?.uid else {
             //TODO: Handle the case when there is no logged-in user
@@ -233,9 +239,6 @@ struct DriverSettingsView: View {
     }
 }
 
-struct DriverSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        DriverSettingsView()
-    }
+#Preview {
+    SettingsView(role: "rider")
 }
-

@@ -54,7 +54,7 @@ struct ContentView: View {
             
             
             // Settings View
-            SettingsMainView()
+            SettingsView(role: viewModel.userRole ?? "rider")
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }
