@@ -151,13 +151,15 @@ struct CalendarView: View {
                         "name": self.fname + " " + self.lname,
                         "preference": self.location,
                         "seats": seats,
-                        "isDeparted": false
+                        "isDeparted": false,
+                        "location": self.location
                     ]
                 } else { // role == "rider"
                     setUserData = [
                         "in_car": false,
                         "name": self.fname + " " + self.lname,
-                        "seats": seats
+                        "seats": seats,
+                        "location": self.location
                     ]
                 }
                 
@@ -166,7 +168,7 @@ struct CalendarView: View {
                 }
                 
                 print(location, role, seats)
-                let childList = location.lowercased() + "_" + role + "s"
+                let childList = role + "s"
                 
                 for date in attendingDates {
                     print("attending: \(date.key)")
