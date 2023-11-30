@@ -89,7 +89,7 @@ struct AdminDashboardView: View {
             LoadAdminView()
                 .tag(1) // Admin dashboard comes second and is selected by default
             
-            LoadRiderView()
+            RiderView() // Let's just look at all drivers, if we are an admin we are also a driver but can't be a rider.
                 .tag(2)
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))

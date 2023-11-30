@@ -22,7 +22,7 @@ class UserViewModel: ObservableObject {
     
 
     func fetchUsers(completion: @escaping () -> Void) {
-        print("Fetching users. Shouldn't do this too often..")
+        print("Observing users.")
         databaseRef.observe(.value) { snapshot in
             if let values = snapshot.value as? [String: [String: Any]] {
                 self.users = values

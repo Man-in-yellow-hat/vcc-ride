@@ -28,7 +28,8 @@ struct CalendarView: View {
     
     @State private var attendingDates = [String:Bool]()
     @State private var autoConfirm = false
-    @State private var name: String = ""
+    @State private var fname: String = ""
+    @State private var lname: String = ""
     @State private var location: String = ""
     let locations = ["North", "Rand"]
 
@@ -95,7 +96,8 @@ struct CalendarView: View {
             if let userData = snapshot.value as? [String: Any] {
                 dbAttendingDates = userData["attending_dates"] as? Dictionary ?? [String:Bool]()
                 dbAutoConfirm = userData["default_attendance_confirmation"] as? Bool ?? true
-                name = userData["name"] as? String ?? ""
+                fname = userData["fname"] as? String ?? ""
+                lname = userData["lname"] as? String ?? ""
                 location = userData["default_location"] as? String ?? ""
                 // Set the current values to the fetched values
                 attendingDates = dbAttendingDates
@@ -146,14 +148,15 @@ struct CalendarView: View {
                 if role == "driver" {
                     setUserData = [
                         "filled_seats": 0,
-                        "name": self.name,
+                        "name": self.fname + " " + self.lname,
                         "preference": self.location,
-                        "seats": seats
+                        "seats": seats,
+                        "isDeparted": false
                     ]
                 } else { // role == "rider"
                     setUserData = [
                         "in_car": false,
-                        "name": self.name,
+                        "name": self.fname + " " + self.lname,
                         "seats": seats
                     ]
                 }
@@ -171,7 +174,6 @@ struct CalendarView: View {
                     
                     practiceRef.child(childList).child(userID).setValue(setUserData)
                 }
-                
 
                 // Remove the user from the appropriate list when unselecting a practice
                 for date in practiceDateViewModel.practiceDates {

@@ -16,12 +16,10 @@ struct LoadAdminView: View {
     @ObservedObject private var userViewModel = UserViewModel()
     
     var body: some View {
-        Group {
-            if (dailyViewModel.practiceToday) {
-                AdminView()
-            } else {
-                AdminNoPracticeView()
-            }
+        if (dailyViewModel.practiceToday) {
+            AdminView()
+        } else {
+            AdminNoPracticeView()
         }
     }
 }

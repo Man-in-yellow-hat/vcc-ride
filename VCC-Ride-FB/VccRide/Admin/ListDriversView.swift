@@ -8,12 +8,8 @@
 import SwiftUI
 
 struct ListDriversView: View {
-//    @Binding var selectedDriver: Driver?
-//    let assignmentAction: (Driver, String) -> Void
-
     @ObservedObject var dailyViewModel = DailyViewModel.shared
     @State private var isLoading = true // Add a state variable
-
     
     var body: some View {
         VStack {
@@ -21,41 +17,33 @@ struct ListDriversView: View {
                 .font(.title)
                 .padding()
             
-            if (!isLoading) {
+            if !isLoading {
                 List {
                     Section(header: Text("NORTH Drivers").foregroundColor(.green)) {
-                        ForEach(dailyViewModel.northDrivers) { driver in
+                        ForEach(Array(dailyViewModel.filterDrivers(locationFilter: "north")), id: \.key) { (userID, userData) in
                             HStack {
-                                Text(driver.name)
+                                Text(userData["name"] as? String ?? "Unknown Name")
                                 Spacer()
-                                Text(String(driver.seats))
+                                Text("\(userData["seats"] as? Int ?? 0) Seats")
                                 Spacer()
-                                Text(driver.locationPreference)
                                 Button(action: {
-                                    dailyViewModel.moveDriver(dbChild: "Daily-Practice", driver: driver,
-                                                              fromList: "north_drivers", toList: "rand_drivers")
-                                    dailyViewModel.northDrivers.removeAll(where: { $0.id == driver.id })
-                                    driver.location = "RAND"
+                                    dailyViewModel.moveUser(userID: userID, to: "rand")
                                 }) {
                                     Image(systemName: "arrow.down.circle.fill")
                                 }
                             }
                         }
                     }
-
+                    
                     Section(header: Text("RAND Drivers").foregroundColor(.blue)) {
-                        ForEach(dailyViewModel.randDrivers) { driver in
+                        ForEach(Array(dailyViewModel.filterDrivers(locationFilter: "rand")), id: \.key) { (userID, userData) in
                             HStack {
-                                Text(driver.name)
+                                Text(userData["name"] as? String ?? "Unknown Name")
                                 Spacer()
-                                Text(String(driver.seats))
+                                Text("\(userData["seats"] as? Int ?? 0) Seats")
                                 Spacer()
-                                Text(driver.locationPreference)
                                 Button(action: {
-                                    dailyViewModel.moveDriver(dbChild: "Daily-Practice", driver: driver,
-                                                              fromList: "rand_drivers", toList: "north_drivers")
-                                    dailyViewModel.randDrivers.removeAll(where: { $0.id == driver.id })
-                                    driver.location = "NORTH"
+                                    dailyViewModel.moveUser(userID: userID, to: "north")
                                 }) {
                                     Image(systemName: "arrow.up.circle.fill")
                                 }
@@ -64,6 +52,7 @@ struct ListDriversView: View {
                     }
                 }
             } else {
+                // Loading view
                 ZStack {
                     Color(.systemBackground)
                         .ignoresSafeArea()
@@ -72,20 +61,15 @@ struct ListDriversView: View {
                         .progressViewStyle(CircularProgressViewStyle(tint: .red))
                         .scaleEffect(2)
                 }
-                
             }
         }
         .onAppear {
-            // When the view appears, call assignNoPref with a slight delay
-            // to ensure that the data is updated before showing the updated view
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // Adjust the delay as needed
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 isLoading = false
             }
         }
     }
 }
-
-
 
 struct ListDriversView_Previews: PreviewProvider {
     static var previews: some View {

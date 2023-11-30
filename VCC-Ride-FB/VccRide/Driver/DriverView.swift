@@ -9,8 +9,15 @@ struct LoadDriverView: View {
     var body: some View {
         Group {
             if (dailyViewModel.practiceToday) {
-                if let driver = dailyViewModel.northDrivers.first(where: { $0.id == userViewModel.userID }) ?? dailyViewModel.randDrivers.first(where: { $0.id == userViewModel.userID }) {
-                    DriverView(thisDriver: driver)
+                if let driverID = dailyViewModel.drivers.keys.first(where: { $0 == userViewModel.userID }),
+                   let driverObj = dailyViewModel.drivers[driverID] {
+                    DriverView(thisDriver: Driver(id: userViewModel.userID,
+                                                          name: driverObj["name"] as! String,
+                                                          location: driverObj["location"] as! String,
+                                                          seats: driverObj["seats"] as! Int,
+                                                          filledSeats: driverObj["filled_seats"] as! Int,
+                                                          preference: driverObj["preference"] as! String,
+                                                          isDeparted: driverObj["isDeparted"] as! Bool))
                 } else {
                     DriverNotAttendingView()
                 }
@@ -19,18 +26,10 @@ struct LoadDriverView: View {
             }
         }
         .task {
-            print("1,", isLoaded)
             if (!isLoaded) {
                 userViewModel.fetchUserFeatures()
-                if !dailyViewModel.hasBeenAssigned {
-                    dailyViewModel.getRiderList(fromLocation: "north_riders")
-                    dailyViewModel.getRiderList(fromLocation: "rand_riders")
-                    dailyViewModel.getDriverList(fromLocation: "north_drivers")
-                    dailyViewModel.getDriverList(fromLocation: "rand_drivers")
-                }
-                print("hi", dailyViewModel.practiceToday)
-
                 isLoaded = true
+                print(dailyViewModel.drivers, userViewModel.userID)
             }
         }
     }
@@ -64,7 +63,7 @@ struct DriverView: View {
             
             if (!isDeparted) {
                 VStack { // Wrap the specific lines in a VStack
-                    Text("**Picking up from: \(thisDriver.displayLocation)**").font(.headline)
+                    Text("**Picking up from: \(thisDriver.location)**").font(.headline)
                     Text("Your Seats: Please fill \(thisDriver.seats) seats before you leave!").font(.subheadline)
                     Text("")
                 
@@ -213,10 +212,10 @@ struct DriverView: View {
             
             ScrollView {
                 Text("North Rider Manifest").font(.subheadline)
-                ForEach(dailyViewModel.northClimbers) { climber in
+                ForEach(Array(dailyViewModel.filterRiders(locationFilter: "north")), id: \.key) { (userID, userData) in
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("Name: \(climber.name)")
-                        Text("Location: \(climber.location)")
+                        Text("Name: \(userData["name"] as? String ?? "?")")
+                        Text("Location: \(userData["location"] as? String ?? "?")")
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
@@ -227,10 +226,10 @@ struct DriverView: View {
                 Spacer()
                 
                 Text("Rand Rider Manifest").font(.subheadline)
-                ForEach(dailyViewModel.randClimbers) { climber in
+                ForEach(Array(dailyViewModel.filterRiders(locationFilter: "rand")), id: \.key) { (userID, userData) in
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("Name: \(climber.name)")
-                        Text("Location: \(climber.location)")
+                        Text("Name: \(userData["name"] as? String ?? "?")")
+                        Text("Location: \(userData["location"] as? String ?? "?")")
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
@@ -242,10 +241,10 @@ struct DriverView: View {
                     Spacer()
                     
                     Text("North Drivers").font(.subheadline)
-                    ForEach(dailyViewModel.northDrivers) { driver in
+                    ForEach(Array(dailyViewModel.filterDrivers(locationFilter: "north")), id: \.key) { (userID, userData) in
                         VStack(alignment: .leading, spacing: 10) {
-                            Text("Name: \(driver.name)")
-                            Text("Location: \(driver.location)")
+                            Text("Name: \(userData["name"] as? String ?? "?")")
+                            Text("Location: \(userData["location"] as? String ?? "?")")
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
@@ -255,12 +254,11 @@ struct DriverView: View {
                     
                     Spacer()
                     
-                    
                     Text("Rand Drivers").font(.subheadline)
-                    ForEach(dailyViewModel.randDrivers) { driver in
+                    ForEach(Array(dailyViewModel.filterDrivers(locationFilter: "rand")), id: \.key) { (userID, userData) in
                         VStack(alignment: .leading, spacing: 10) {
-                            Text("Name: \(driver.name)")
-                            Text("Location: \(driver.location)")
+                            Text("Name: \(userData["name"] as? String ?? "?")")
+                            Text("Location: \(userData["location"] as? String ?? "?")")
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()

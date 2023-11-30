@@ -9,7 +9,7 @@ struct LoadRiderView: View {
         Group {
             if (dailyViewModel.practiceToday) {
                 
-                if (dailyViewModel.northClimbers.first(where: { $0.id == userViewModel.userID }) ?? dailyViewModel.randClimbers.first(where: { $0.id == userViewModel.userID })) != nil {
+                if dailyViewModel.riders.values.contains(where: { $0["id"] as? String == userViewModel.userID }) {
                     RiderView()
                 } else {
                     RiderNotAttendingView()
@@ -21,12 +21,6 @@ struct LoadRiderView: View {
         .task {
             if (!isLoaded) {
                 userViewModel.fetchUserFeatures()
-                if !dailyViewModel.hasBeenAssigned {
-                    dailyViewModel.getRiderList(fromLocation: "north_riders")
-                    dailyViewModel.getRiderList(fromLocation: "rand_riders")
-                    dailyViewModel.getDriverList(fromLocation: "north_drivers")
-                    dailyViewModel.getDriverList(fromLocation: "rand_drivers")
-                }
                 isLoaded = true
             }
         }
@@ -47,10 +41,11 @@ struct RiderView: View {
             ScrollView {
                 Text("Drivers").font(.subheadline)
                 if (userViewModel.userLocation == "North") {
-                    ForEach(dailyViewModel.northDrivers) { driver in
+                    ForEach(Array(dailyViewModel.filterDrivers(locationFilter: "north", isDepartedFilter: false)), id: \.key) { (userID, userData) in
+                        // TODO: see filled seats
                         VStack(alignment: .leading, spacing: 10) {
-                            Text("Name: \(driver.name)")
-                            Text("Location: \(driver.location)")
+                            Text("Name: \(userData["name"] as? String ?? "Unknown Name")")
+                            Text("Location: \(userData["location"] as? String ?? "Unknown Location")")
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
@@ -58,10 +53,10 @@ struct RiderView: View {
                         .cornerRadius(10)
                     }
                 } else {
-                    ForEach(dailyViewModel.randDrivers) { driver in
+                    ForEach(Array(dailyViewModel.filterDrivers(locationFilter: "rand", isDepartedFilter: false)), id: \.key) { (userID, userData) in
                         VStack(alignment: .leading, spacing: 10) {
-                            Text("Name: \(driver.name)")
-                            Text("Location: \(driver.location)")
+                            Text("Name: \(userData["name"] as? String ?? "Unknown Name")")
+                            Text("Location: \(userData["location"] as? String ?? "Unknown Location")")
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
@@ -69,6 +64,7 @@ struct RiderView: View {
                         .cornerRadius(10)
                     }
                 }
+
             }
             .padding(.top, 20)
             .padding(.horizontal, 20)
@@ -76,15 +72,6 @@ struct RiderView: View {
         .padding()
         .onAppear {
             userViewModel.fetchUserFeatures()
-            if !dailyViewModel.hasBeenAssigned {
-                if (userViewModel.userLocation == "North") {
-                    dailyViewModel.getDriverList(fromLocation: "north_drivers")
-                    print("location should be north, is: ", userViewModel.userLocation)
-                } else {
-                    dailyViewModel.getDriverList(fromLocation: "rand_drivers")
-                    print("location should be rand, is: ", userViewModel.userLocation)
-                }
-            }
         }
     }
 }

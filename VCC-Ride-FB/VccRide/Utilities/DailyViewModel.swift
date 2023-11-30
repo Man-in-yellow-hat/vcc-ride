@@ -20,7 +20,7 @@ struct SeatCounts {
 protocol PracticeDataFetching {
     func checkDriverAssignment(completion: @escaping (Bool) -> Void)
     func fetchDriverData(fromLocation: String, completion: @escaping ([Driver]) -> Void)
-    func fetchRiderData(fromLocation: String, completion: @escaping ([Climber]) -> Void)
+//    func fetchRiderData(fromLocation: String, completion: @escaping ([Climber]) -> Void)
     func fetchSeatCounts(completion: @escaping (SeatCounts) -> Void)
     func fetchDate(completion: @escaping (String) -> Void)
 }
@@ -80,31 +80,31 @@ class FirebaseDataFetcher: PracticeDataFetching {
         }
     }
     
-    func fetchRiderData(fromLocation: String, completion: @escaping ([Climber]) -> Void) {
-            let practiceRef = Database.database().reference().child("Daily-Practice").child(fromLocation)
-
-            practiceRef.observeSingleEvent(of: .value) { snapshot, error in
-                var climbers: [Climber] = []
-
-                if let error = error {
-                    print("Error fetching rider data: \(error)")
-                    completion([])
-                    return
-                }
-
-                if let listData = snapshot.value as? [String: [String: Any]] {
-                    for (climberID, climberInfo) in listData {
-                        if let name = climberInfo["name"] as? String,
-                           let seats = climberInfo["seats"] as? Int {
-                            let newClimber = Climber(id: climberID, name: name, location: fromLocation, seats: seats)
-                            climbers.append(newClimber)
-                        }
-                    }
-                }
-                completion(climbers)
-            }
-        }
-    
+//    func fetchRiderData(fromLocation: String, completion: @escaping ([Climber]) -> Void) {
+//            let practiceRef = Database.database().reference().child("Daily-Practice").child(fromLocation)
+//
+//            practiceRef.observeSingleEvent(of: .value) { snapshot, error in
+//                var climbers: [Climber] = []
+//
+//                if let error = error {
+//                    print("Error fetching rider data: \(error)")
+//                    completion([])
+//                    return
+//                }
+//
+//                if let listData = snapshot.value as? [String: [String: Any]] {
+//                    for (climberID, climberInfo) in listData {
+//                        if let name = climberInfo["name"] as? String,
+//                           let seats = climberInfo["seats"] as? Int {
+//                            let newClimber = Climber(id: climberID, name: name, location: fromLocation, seats: seats)
+//                            climbers.append(newClimber)
+//                        }
+//                    }
+//                }
+//                completion(climbers)
+//            }
+//        }
+//    
     func fetchSeatCounts(completion: @escaping (SeatCounts) -> Void) {
             let practiceRef = Database.database().reference().child("Daily-Practice").child("seat_counts")
             practiceRef.observe(.value) { snapshot, error in
@@ -129,8 +129,6 @@ class FirebaseDataFetcher: PracticeDataFetching {
 
 
 
-// could have some sort of class allowing friends of android users to do stuff for them??
-
 class DailyViewModel: ObservableObject {
     static let shared = DailyViewModel() // SINGLETON
     
@@ -140,14 +138,12 @@ class DailyViewModel: ObservableObject {
         test = DailyViewModel(dataFetcher: dataFetcher)
     }
     public var practiceToday: Bool = false
+    public var hasBeenAssigned: Bool = false
+    public var isDriversListPopulated: Bool = false
+
     
-//    @Published var drivers: [Driver] = []
-//    @Published var riders: [Climber] = []
-    
-    @Published var northDrivers: [Driver] = []
-    @Published var randDrivers: [Driver] = []
-    @Published var northClimbers: [Climber] = []
-    @Published var randClimbers: [Climber] = []
+    @Published var riders: [String: [String: Any]] = [:] // TESTING
+    @Published var drivers: [String: [String: Any]] = [:] // TESTING
     
     @Published var numNorthRequested: Int = 0
     @Published var numNorthOffered: Int = 0
@@ -156,14 +152,10 @@ class DailyViewModel: ObservableObject {
     @Published var numRandOffered: Int = 0
     @Published var numRandFilled: Int = 0
     
-    public var hasBeenAssigned: Bool = false // TODO: RESET EACH DAY
-    public var isDriversListPopulated: Bool = false
-
     var numRandSeats = 0
     var numNorthSeats = 0
     var numRandRiders = 0
     var numNorthRiders = 0
-    
     var difNorth = 0
     var difRand = 0
     
@@ -172,8 +164,12 @@ class DailyViewModel: ObservableObject {
     private init(dataFetcher: PracticeDataFetching = FirebaseDataFetcher()) {
         self.dataFetcher = dataFetcher
         // all we have to do is check if drivers have already been assigned that day
-        dataFetcher.checkDriverAssignment { [weak self] isAssigned in
-            self?.hasBeenAssigned = isAssigned
+        var driverDone = false
+        var riderDone = false
+        fetchDrivers() {driverDone = true}
+        fetchRiders() {riderDone = true}
+        if (driverDone && riderDone) {
+            adjustSeats()
         }
         getDate()
     }
@@ -186,7 +182,6 @@ class DailyViewModel: ObservableObject {
         self.date = dateFormatter.string(from: today)
         
         dataFetcher.fetchDate { fetchedDate in
-            print("checking equality:", self.date, fetchedDate, self.date==fetchedDate)
             self.practiceToday = (fetchedDate == self.date)
             if (fetchedDate == "none") {
                 self.practiceToday = false
@@ -194,26 +189,25 @@ class DailyViewModel: ObservableObject {
         }
     }
     
-    
-    private func adjustSeats(isDriver: Bool, isNorth: Bool, deltaSeats: Int, deltaFilled: Int = 0) {
-        if (isDriver) {
-            if (isNorth) {
-                self.numNorthOffered += deltaSeats
-                self.numNorthFilled += deltaFilled
-            } else {
-                self.numRandOffered += deltaSeats
-                self.numRandFilled += deltaFilled
-            }
-        } else {
-            if (isNorth) {
-                self.numNorthRequested += deltaSeats
-            } else {
-                self.numRandRequested += deltaSeats
-            }
-        }
+    private func adjustSeats() {
+        let northRiders = filterRiders(locationFilter: "north")
+        let randRiders = filterRiders(locationFilter: "rand")
+        
+        let northDrivers = filterDrivers(locationFilter: "north")
+        let randDrivers = filterDrivers(locationFilter: "rand")
+        
+        numNorthRequested = northRiders.count
+        numRandRequested = randRiders.count
+        
+        numNorthOffered = northDrivers.reduce(0) { $0 + ($1.value["seats"] as? Int ?? 0) }
+        numRandOffered = randDrivers.reduce(0) { $0 + ($1.value["seats"] as? Int ?? 0) }
+        
+        numNorthFilled = northDrivers.reduce(0) { $0 + ($1.value["filled_seats"] as? Int ?? 0) }
+        numRandFilled = randDrivers.reduce(0) { $0 + ($1.value["filled_seats"] as? Int ?? 0) }
+        
         syncSeatCounts()
     }
-    
+
     private func getSeatCounts() {
         dataFetcher.fetchSeatCounts { seatCounts in
             self.numNorthRequested = seatCounts.numNorthRequested
@@ -247,38 +241,6 @@ class DailyViewModel: ObservableObject {
         self.objectWillChange.send()
     }
     
-    public func getDriverList(fromLocation: String) {
-        dataFetcher.fetchDriverData(fromLocation: fromLocation) { drivers in
-            for newDriver in drivers {
-                // Location-specific logic
-                if fromLocation == "north_drivers" && !self.northDrivers.contains(where: { $0.id == newDriver.id }) {
-                    self.northDrivers.append(newDriver)
-                    self.adjustSeats(isDriver: true, isNorth: true, deltaSeats: newDriver.seats, deltaFilled: newDriver.filledSeats)
-                } else if fromLocation == "rand_drivers" && !self.randDrivers.contains(where: { $0.id == newDriver.id }) {
-                    self.randDrivers.append(newDriver)
-                    self.adjustSeats(isDriver: true, isNorth: false, deltaSeats: newDriver.seats, deltaFilled: newDriver.filledSeats)
-                } else if fromLocation == "no_pref_drivers" {
-                    self.assignNoPref(driver: newDriver)
-                }
-            }
-            self.objectWillChange.send()
-        }
-    }
-
-    public func getRiderList(fromLocation: String) {
-        dataFetcher.fetchRiderData(fromLocation: fromLocation) { climbers in
-            for newClimber in climbers {
-                if fromLocation == "north_riders" && !self.northClimbers.contains(where: { $0.id == newClimber.id }) {
-                    self.northClimbers.append(newClimber)
-                } else if fromLocation == "rand_riders" && !self.randClimbers.contains(where: { $0.id == newClimber.id }) {
-                        self.randClimbers.append(newClimber)
-                }
-
-                self.adjustSeats(isDriver: false, isNorth: fromLocation == "north_riders", deltaSeats: newClimber.seats)
-            }
-            self.objectWillChange.send()
-        }
-    }
 
     //if hasBeenAssigned, get drivers list from daily
     //if not hasBeenAssigned, getList from Fall23, assignNoPrefDrivers, mark hasBeenAssigned true
@@ -286,14 +248,6 @@ class DailyViewModel: ObservableObject {
         if (self.isDriversListPopulated) {
             return
         }
-
-        print("getting lists from DAILY")
-//        getDate()
-        getDriverList(fromLocation: "north_drivers")
-        getDriverList(fromLocation: "rand_drivers")
-        getDriverList(fromLocation: "no_pref_drivers")
-        getRiderList(fromLocation: "north_riders")
-        getRiderList(fromLocation: "rand_riders")
         
         self.difRand = self.numRandSeats - self.numRandRiders // keep as var to change later
         self.difNorth = self.numNorthSeats - self.numNorthRiders // keep as var to change later
@@ -306,59 +260,113 @@ class DailyViewModel: ObservableObject {
         self.isDriversListPopulated = true
     }
     
-    public func assignNoPref(driver: Driver) {
-        print("assigning nopref")
-        if difNorth < difRand {
-            moveDriver(dbChild: "Daily-Practice", driver: driver, fromList: "no_pref_drivers", toList: "north_drivers")
-            difNorth += driver.seats
-            driver.location = "NORTH"
-            self.northDrivers.append(driver)
-        } else {
-            moveDriver(dbChild: "Daily-Practice", driver: driver, fromList: "no_pref_drivers", toList: "rand_drivers")
-            difRand += driver.seats
-            driver.location = "RAND"
-            self.randDrivers.append(driver)
+    func fetchDrivers(completion: @escaping () -> Void) {
+        let drivers = Database.database().reference().child("Daily-Practice").child("drivers")
+        drivers.observe(.value) { snapshot in
+            if let values = snapshot.value as? [String: [String: Any]] {
+                self.drivers = values
+            }
+            completion() // Call the completion handler when data is fetched
         }
-        objectWillChange.send()
     }
     
-    // TESTING: demonstrate black box testing, show in database that driver got moved
-    public func moveDriver(dbChild: String, driver: Driver, fromList: String, toList: String) {
-        let databaseRef = Database.database().reference().child(dbChild)
-        var practiceRef = databaseRef
-        if (dbChild == "Fall23-Pratices") {
-            practiceRef = practiceRef.child(self.date)
+    func fetchRiders(completion: @escaping () -> Void) {
+        let riders = Database.database().reference().child("Daily-Practice").child("riders")
+        print("Observing users.")
+        riders.observe(.value) { snapshot in
+            if let values = snapshot.value as? [String: [String: Any]] {
+                self.riders = values
+            }
+            completion() // Call the completion handler when data is fetched
         }
         
-        let fromListRef = practiceRef.child(fromList)
-        let toListRef = practiceRef.child(toList)
-        
-//        print("moving", dbChild, driverID, fromList, toList)
-        fromListRef.child(driver.id).observeSingleEvent(of: .value) { snapshot in
-            if let data = snapshot.value as? [String: Any] {
-                // Delete the entire node and its subnodes from the source location
-                fromListRef.child(driver.id).removeValue { (error, _) in
-                    if let error = error {
-                        print("Error removing driver from source list: \(error.localizedDescription)")
-                    } else {
-                        // Write the entire node and its subnodes to the destination location
-                        toListRef.child(driver.id).setValue(data) { (error, _) in
-                            if let error = error {
-                                print("Error moving driver to target list: \(error.localizedDescription)")
-                            } else {
-                                print("MOVING DRIVER: \(driver.id)/\(driver.name) FROM \(fromList) TO: \(toList)")
-                                self.adjustSeats(isDriver: true, isNorth: fromList == "north_drivers", deltaSeats: -driver.seats) // decrement old list
-                                // we don't need to increment the new list because when the observer sees the new one it will increment it
-//                                self.adjustSeats(isDriver: true, isNorth: toList == "north_drivers", deltaSeats: driver.seats) // increment new list
-                            }
-                        }
-                    }
-                }
-            } else {
-                print("here, shouldn't be")
+    }
+    
+    func filterRiders(locationFilter: String? = nil) -> [String: [String: Any]] {
+        var filteredRiders = riders
+        if let location = locationFilter {
+            filteredRiders = filteredRiders.filter { (_, rider) in
+                guard let userLocation = rider["location"] as? String else {return false}
+                return userLocation == location
             }
         }
-        objectWillChange.send()
+        return filteredRiders
+    }
+    
+    func filterDrivers(locationFilter: String? = nil, isDepartedFilter: Bool? = false) -> [String: [String: Any]] {
+        var filteredDrivers = drivers
+        if let location = locationFilter {
+            filteredDrivers = filteredDrivers.filter { (_, driver) in
+                guard let userLocation = driver["location"] as? String else {return false}
+                return userLocation == location
+            }
+        }
+        if isDepartedFilter != nil {
+            filteredDrivers = filteredDrivers.filter { (_, driver) in
+                guard let driverDeparted = driver["isDeparted"] as? Bool else { return false }
+                return driverDeparted == isDepartedFilter
+            }
+        }
+        return filteredDrivers
+    }
+    
+    func assignNoPref() {
+        // Filter drivers with location "no_pref"
+        let noPrefDrivers = filterDrivers(locationFilter: "no_pref")
+        
+        // Loop through each no_pref driver and assign to either "north" or "rand"
+        for (driverID, driverInfo) in noPrefDrivers {
+            // Extract the number of seats from the driver's information
+            guard let seats = driverInfo["seats"] as? Int else {
+                print("Error: Unable to retrieve the number of seats for driver \(driverID)")
+                continue
+            }
+            
+            // Decide the new location based on difNorth and difRand, incrementing the number of seats
+            var newLocation: String = ""
+            if (difNorth < difRand) {
+                newLocation = "north"
+                difNorth += seats
+            } else {
+                newLocation = "rand"
+                difRand += seats
+            }
+            
+            // Move the driver to the new location
+            moveUser(userID: driverID, to: newLocation)
+            
+            // Print the information for demonstration purposes
+            print("Driver \(driverID) moved to \(newLocation) with \(seats) seats.")
+        }
+    }
+    
+    func moveUser(userID: String, to newLocation: String) {
+        // Identify whether the user is a rider or a driver
+        var userType: String?
+        
+        if riders[userID] != nil {
+            userType = "riders"
+        }
+        if drivers[userID] != nil {
+            userType = "drivers"
+        } else {
+            // Handle the case when the user is not found
+            return
+        }
+        
+        // Update the location in the database
+        let usersRef = Database.database().reference().child("Daily-Practice").child(userType!)
+        let userLocationRef = usersRef.child(userID).child("location")
+        
+        userLocationRef.setValue(newLocation) { (error, _) in
+            if let error = error {
+                print("Error updating location: \(error.localizedDescription)")
+            } else {
+                // We are observing, so hopefully we should see it change
+                
+                print("User \(userID) moved successfully to \(newLocation)")
+            }
+        }
     }
     
     public func updateFilledSeats(forLocation: String, change: Int) {
@@ -382,4 +390,3 @@ class DailyViewModel: ObservableObject {
         }
     }
 }
-
