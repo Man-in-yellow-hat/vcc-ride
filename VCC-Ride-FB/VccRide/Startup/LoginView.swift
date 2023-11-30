@@ -7,6 +7,7 @@
 
 import SwiftUI
 import _AuthenticationServices_SwiftUI
+import FirebaseAuth
 
 struct LoginView: View {
     @ObservedObject private var viewModel = MainViewModel.shared
@@ -89,15 +90,41 @@ struct LoginView: View {
                     }
                     
                     if isAppleVisible {
-                        SignInWithAppleButton {request in
-                            // TODO: IMPLEMENT SIGNIN LOGIC
+                        SignInWithAppleButton { request in
+                            // Request desired user details
+                            request.requestedScopes = [.fullName, .email]
                         } onCompletion: { result in
-                            // TODO: IMPLEMENT SIGNIN LOGIC
+                            switch result {
+                            case .success(let authResults):
+                                // Handle authentication success
+                                switch authResults.credential {
+                                case let appleIDCredential as ASAuthorizationAppleIDCredential:
+                                    // Extract token and user details
+                                    let userID = appleIDCredential.user
+                                    guard let identityToken = appleIDCredential.identityToken,
+                                          let tokenString = String(data: identityToken, encoding: .utf8) else { return }
+
+                                    // Create Apple credential
+                                    let credential = OAuthProvider.credential(withProviderID: "apple.com",
+                                                                              idToken: tokenString,
+                                                                              rawNonce: nil)
+
+                                    // Firebase sign in with credential
+                                    signInWithFirebase(credential: credential)
+                                default: break
+                                }
+                            case .failure(let error):
+                                // Handle error
+                                print("Authentication error: \(error.localizedDescription)")
+                            }
                         }
                         .signInWithAppleButtonStyle(colorScheme == .light ? .black : .white)
                         .frame(width: 280, height: 50)
                         .cornerRadius(50)
                     }
+                    
+
+                    
                     if isButtonVisible {
                         Button(action: {
                             withAnimation {
@@ -128,7 +155,18 @@ struct LoginView: View {
             }
         }
     }
+    func signInWithFirebase(credential: AuthCredential) {
+        vm.signInWithApple(credential: credential) { errMessage in
+            if let message = errMessage {
+                errorMessage = message
+            } else {
+                print("Apple sign-in successful!")
+                // Handle successful sign-in, such as navigating to another view
+            }
+        }
+    }
 }
+
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {

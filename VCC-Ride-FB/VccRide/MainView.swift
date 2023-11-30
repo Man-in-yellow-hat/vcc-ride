@@ -10,25 +10,28 @@ import FirebaseDatabase
 
 class MainViewModel: ObservableObject {
     static let shared = MainViewModel()
-//    @State var isLoggedIn: Bool = false
     @Published var isLoggedIn: Bool = false
-    @Published var userRole: String? // Add the role field
+    @Published var userRole: String?
     @Published var userID: String?
 
+    // Handle successful login for any method (Google or Apple)
     func handleLoginSuccess(withRole role: String, userID uid: String) {
         self.isLoggedIn = true
         self.userRole = role
         self.userID = uid
-        UserDefaults.standard.set(uid, forKey: "googleUserID")
+        UserDefaults.standard.set(uid, forKey: "userID") // Generic user ID
         UserDefaults.standard.set(role, forKey: "userRole")
         UserDefaults.standard.set(true, forKey: "isLoggedIn")
-//        print(self.userRole)
     }
     
+    // Handle sign-out
     func handleSignOut() {
         self.isLoggedIn = false
+        UserDefaults.standard.removeObject(forKey: "userID")
+        UserDefaults.standard.removeObject(forKey: "userRole")
         UserDefaults.standard.set(false, forKey: "isLoggedIn")
     }
+    
     
     func getOutOfJail(newRole: String, newLocation: String, newConfirm: Bool, first: String, last: String) {
         let ref = Database.database().reference()

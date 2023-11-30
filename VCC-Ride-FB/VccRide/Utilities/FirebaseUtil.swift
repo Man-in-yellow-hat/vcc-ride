@@ -135,6 +135,71 @@ class SignIn_withGoogle_VM: ObservableObject {
             }
         }
     }
+    func signInWithApple(credential: AuthCredential, completion: @escaping (String?) -> Void) {
+        Auth.auth().signIn(with: credential) { authResult, error in
+            if let error = error {
+                print("Apple sign-in error: \(error.localizedDescription)")
+                completion("Apple sign-in failed, please try again or contact support.")
+                return
+            }
+
+            guard let user = authResult?.user else {
+                completion("Failed to get user data from Apple sign-in.")
+                return
+            }
+
+            // Get user email
+            let userEmail = user.email ?? ""
+
+            let userRole = "JAIL" // Default to a specific role
+
+                // Create a reference to your Realtime Database
+            let databaseRef = Database.database().reference()
+
+                // Check if the user's data already exists
+            let userRef = databaseRef.child("Fall23-Users").child(user.uid)
+                userRef.observeSingleEvent(of: .value) { snapshot in
+                if snapshot.exists() {
+                    // User data already exists, fetch the userRole from the database
+                    if let userData = snapshot.value as? [String: Any],
+                       let userRole = userData["role"] as? String {
+                        if userData["active"] is Bool {
+                            completion(nil)
+                            self.viewModel.handleLoginSuccess(withRole: userRole, userID: user.uid)
+                        } else {
+                            completion("User is not active! Please contact an admin.")
+                        }
+                    } else {
+                        completion("Failed to fetch user data.")
+                    }
+            } else {
+                    // User data does not exist, create it
+                    let userData: [String: Any] = [
+                        "email": user.email ?? "",
+                        "role": userRole,
+                        "fname": "",
+                        "lname": "",
+                        "active": false,
+                        "default_location": "",
+                        "default_attendance_confirmation": false
+                    ]
+
+                    // Set the user data in the Realtime Database
+                    userRef.setValue(userData) { error, _ in
+                        if let error = error {
+                            print("Error creating user data: \(error.localizedDescription)")
+                            completion("Failed sign-in, please try again or contact support.")
+                            return
+                        }
+
+                        print("User data created successfully in 'Fall23-Users' node in Realtime Database")
+                        completion(nil)
+                        self.viewModel.handleLoginSuccess(withRole: userRole, userID: user.uid)
+                    }
+                }
+            }
+        }
+    }
 }
 
 protocol DateFetcher {

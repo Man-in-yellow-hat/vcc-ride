@@ -8,11 +8,11 @@
 import SwiftUI
 import Firebase
 import GoogleSignIn
+import AuthenticationServices
 
 @main
 struct FirebaseTestApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-//    @StateObject var viewModel = MainViewModel() // Create an instance of MainViewModel
     @ObservedObject private var viewModel = MainViewModel.shared
     @State private var isMainViewVisible = false // Add a boolean for the startup screen
 
@@ -23,18 +23,7 @@ struct FirebaseTestApp: App {
             } else {
                 StartupScreen()
                     .onAppear() {
-                        if(GIDSignIn.sharedInstance.hasPreviousSignIn() && GIDSignIn.sharedInstance.currentUser == nil) {
-                            GIDSignIn.sharedInstance.restorePreviousSignIn() { user, error in
-                                if let user = Auth.auth().currentUser {
-                                    print(user.uid)
-                                    viewModel.isLoggedIn = true
-                                    viewModel.userID = user.uid
-                                    viewModel.fetchUserRole(forUserID: user.uid)
-                                } else {
-                                    print(error ?? "unknown error")
-                                }
-                            }
-                        }
+                        checkPreviousSignIn()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                              withAnimation(.easeInOut(duration: 0.5)) {
                                  self.isMainViewVisible = true
@@ -44,7 +33,36 @@ struct FirebaseTestApp: App {
             }
         }
     }
+
+    private func checkPreviousSignIn() {
+        // Check for Google Sign-In
+        if GIDSignIn.sharedInstance.hasPreviousSignIn() && GIDSignIn.sharedInstance.currentUser == nil {
+            GIDSignIn.sharedInstance.restorePreviousSignIn() { user, error in
+                handleSignIn(user: Auth.auth().currentUser, error: error)
+            }
+        }
+        // Check for Apple Sign-In
+        else if let appleID = UserDefaults.standard.string(forKey: "appleAuthorizedUserIdKey"), Auth.auth().currentUser == nil {
+            let appleIDProvider = OAuthProvider(providerID: "apple.com")
+            let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: appleID, rawNonce: nil)
+            Auth.auth().signIn(with: credential) { authResult, error in
+                handleSignIn(user: authResult?.user, error: error)
+            }
+        }
+    }
+
+    private func handleSignIn(user: User?, error: Error?) {
+        if let user = user {
+            print(user.uid)
+            viewModel.isLoggedIn = true
+            viewModel.userID = user.uid
+            viewModel.fetchUserRole(forUserID: user.uid)
+        } else {
+            print(error ?? "Unknown error during sign-in")
+        }
+    }
 }
+
 
 
 
