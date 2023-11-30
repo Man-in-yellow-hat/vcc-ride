@@ -57,7 +57,6 @@
 		D71B9E112AD053FF00144928 /* AdminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E102AD053FF00144928 /* AdminView.swift */; };
 		D71B9E162AD058DA00144928 /* DriverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E152AD058DA00144928 /* DriverView.swift */; };
 		D71B9E182AD058E100144928 /* RiderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E172AD058E100144928 /* RiderView.swift */; };
-		D71B9E1B2AD05C2F00144928 /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E1A2AD05C2F00144928 /* AppSettingsView.swift */; };
 		D71B9E1D2AD05C3A00144928 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E1C2AD05C3A00144928 /* CalendarView.swift */; };
 		D71B9E1F2AD05C4100144928 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E1E2AD05C4100144928 /* StatsView.swift */; };
 		D71B9E212AD05C4C00144928 /* PeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E202AD05C4C00144928 /* PeopleView.swift */; };
@@ -65,6 +64,7 @@
 		D71B9E252AD09C5400144928 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D71B9E242AD09C5400144928 /* GoogleService-Info.plist */; };
 		D72538A42B186E4700CE1B73 /* DriverFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72538A32B186E4700CE1B73 /* DriverFormView.swift */; };
 		D72538A62B186E5500CE1B73 /* RiderFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72538A52B186E5500CE1B73 /* RiderFormView.swift */; };
+		D72538AA2B19233E00CE1B73 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72538A92B19233E00CE1B73 /* SettingsView.swift */; };
 		D73273B32ADE1C6600F5DA44 /* DailyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73273B22ADE1C6600F5DA44 /* DailyViewModel.swift */; };
 		D771DECC2ACF561400E79153 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858D2972ACDAFFD00A17CCD /* ContentView.swift */; };
 		D771DED22ACF575C00E79153 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D771DED12ACF575C00E79153 /* MainView.swift */; };
@@ -73,10 +73,6 @@
 		D7A0B1272AD7252500FC5AAC /* SignInJailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A0B1262AD7252500FC5AAC /* SignInJailView.swift */; };
 		D7A1EAFC2AD2569C0075A4B2 /* AdminCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */; };
 		D7B65D982AD25BCE00D2701B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65D972AD25BCE00D2701B /* UserViewModel.swift */; };
-		D7B65D9C2AD476C400D2701B /* SettingsMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65D9B2AD476C400D2701B /* SettingsMainView.swift */; };
-		D7B65D9E2AD476D300D2701B /* DriverSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65D9D2AD476D300D2701B /* DriverSettingsView.swift */; };
-		D7B65DA02AD476F100D2701B /* RiderSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65D9F2AD476F100D2701B /* RiderSettingsView.swift */; };
-		D7B65DA22AD476FB00D2701B /* AdminSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65DA12AD476FB00D2701B /* AdminSettingsView.swift */; };
 		D7B65DA82AD5A5F200D2701B /* AdminPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65DA72AD5A5F200D2701B /* AdminPeopleView.swift */; };
 		D7C8655B2AF14FFB00DFFE52 /* VccRideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8655A2AF14FFB00DFFE52 /* VccRideTests.swift */; };
 		D7C99FB62B17F38A0056C5A9 /* NoPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C99FB52B17F38A0056C5A9 /* NoPracticeView.swift */; };
@@ -123,7 +119,6 @@
 		D71B9E102AD053FF00144928 /* AdminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminView.swift; sourceTree = "<group>"; };
 		D71B9E152AD058DA00144928 /* DriverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverView.swift; sourceTree = "<group>"; };
 		D71B9E172AD058E100144928 /* RiderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiderView.swift; sourceTree = "<group>"; };
-		D71B9E1A2AD05C2F00144928 /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
 		D71B9E1C2AD05C3A00144928 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		D71B9E1E2AD05C4100144928 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		D71B9E202AD05C4C00144928 /* PeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleView.swift; sourceTree = "<group>"; };
@@ -131,6 +126,7 @@
 		D71B9E242AD09C5400144928 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D72538A32B186E4700CE1B73 /* DriverFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverFormView.swift; sourceTree = "<group>"; };
 		D72538A52B186E5500CE1B73 /* RiderFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiderFormView.swift; sourceTree = "<group>"; };
+		D72538A92B19233E00CE1B73 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D73273B22ADE1C6600F5DA44 /* DailyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewModel.swift; sourceTree = "<group>"; };
 		D771DED12ACF575C00E79153 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		D792DB212AF3F78A003D2E8E /* VccRide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VccRide.entitlements; sourceTree = "<group>"; };
@@ -139,10 +135,6 @@
 		D7A0B1262AD7252500FC5AAC /* SignInJailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInJailView.swift; sourceTree = "<group>"; };
 		D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminCalendar.swift; sourceTree = "<group>"; };
 		D7B65D972AD25BCE00D2701B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
-		D7B65D9B2AD476C400D2701B /* SettingsMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMainView.swift; sourceTree = "<group>"; };
-		D7B65D9D2AD476D300D2701B /* DriverSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverSettingsView.swift; sourceTree = "<group>"; };
-		D7B65D9F2AD476F100D2701B /* RiderSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiderSettingsView.swift; sourceTree = "<group>"; };
-		D7B65DA12AD476FB00D2701B /* AdminSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminSettingsView.swift; sourceTree = "<group>"; };
 		D7B65DA72AD5A5F200D2701B /* AdminPeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPeopleView.swift; sourceTree = "<group>"; };
 		D7C865582AF14FFB00DFFE52 /* VccRideTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VccRideTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7C8655A2AF14FFB00DFFE52 /* VccRideTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VccRideTests.swift; sourceTree = "<group>"; };
@@ -289,7 +281,6 @@
 		D71B9E132AD0586800144928 /* Rider */ = {
 			isa = PBXGroup;
 			children = (
-				D7B65D9F2AD476F100D2701B /* RiderSettingsView.swift */,
 				D71B9E172AD058E100144928 /* RiderView.swift */,
 				D72538A52B186E5500CE1B73 /* RiderFormView.swift */,
 			);
@@ -299,7 +290,6 @@
 		D71B9E142AD058CD00144928 /* Driver */ = {
 			isa = PBXGroup;
 			children = (
-				D7B65D9D2AD476D300D2701B /* DriverSettingsView.swift */,
 				D71B9E152AD058DA00144928 /* DriverView.swift */,
 				D72538A32B186E4700CE1B73 /* DriverFormView.swift */,
 			);
@@ -309,11 +299,10 @@
 		D71B9E192AD05C0D00144928 /* NavBar */ = {
 			isa = PBXGroup;
 			children = (
-				D71B9E1A2AD05C2F00144928 /* AppSettingsView.swift */,
 				D71B9E1C2AD05C3A00144928 /* CalendarView.swift */,
 				D71B9E1E2AD05C4100144928 /* StatsView.swift */,
 				D71B9E202AD05C4C00144928 /* PeopleView.swift */,
-				D7B65D9B2AD476C400D2701B /* SettingsMainView.swift */,
+				D72538A92B19233E00CE1B73 /* SettingsView.swift */,
 			);
 			path = NavBar;
 			sourceTree = "<group>";
@@ -348,7 +337,6 @@
 			children = (
 				D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */,
 				D71B9E102AD053FF00144928 /* AdminView.swift */,
-				D7B65DA12AD476FB00D2701B /* AdminSettingsView.swift */,
 				D7B65DA72AD5A5F200D2701B /* AdminPeopleView.swift */,
 				D792DB242AF42769003D2E8E /* ListDriversView.swift */,
 			);
@@ -540,7 +528,6 @@
 				D7A1EAFC2AD2569C0075A4B2 /* AdminCalendar.swift in Sources */,
 				D71B9E162AD058DA00144928 /* DriverView.swift in Sources */,
 				D71B9E1D2AD05C3A00144928 /* CalendarView.swift in Sources */,
-				D7B65DA02AD476F100D2701B /* RiderSettingsView.swift in Sources */,
 				D71B9E232AD0732800144928 /* LoginView.swift in Sources */,
 				D771DED22ACF575C00E79153 /* MainView.swift in Sources */,
 				D71B9E182AD058E100144928 /* RiderView.swift in Sources */,
@@ -556,13 +543,10 @@
 				D71B9E1F2AD05C4100144928 /* StatsView.swift in Sources */,
 				A858D2D72ACDCD5F00A17CCD /* ImagePickerView.swift in Sources */,
 				D792DB252AF42769003D2E8E /* ListDriversView.swift in Sources */,
-				D7B65D9C2AD476C400D2701B /* SettingsMainView.swift in Sources */,
-				D7B65D9E2AD476D300D2701B /* DriverSettingsView.swift in Sources */,
-				D7B65DA22AD476FB00D2701B /* AdminSettingsView.swift in Sources */,
 				D7B65D982AD25BCE00D2701B /* UserViewModel.swift in Sources */,
 				A858D2882ACDADB500A17CCD /* VccRideApp.swift in Sources */,
 				D7A0B1272AD7252500FC5AAC /* SignInJailView.swift in Sources */,
-				D71B9E1B2AD05C2F00144928 /* AppSettingsView.swift in Sources */,
+				D72538AA2B19233E00CE1B73 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -768,12 +752,10 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = VccRide/VccRide.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VccRide/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = H22V7CR7C4;
+				DEVELOPMENT_TEAM = H22V7CR7C4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VccRide/Info.plist;
@@ -791,7 +773,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = vccride.vanderbilt.apple.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Prov Prof 3";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -806,12 +787,10 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = VccRide/VccRide.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VccRide/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = H22V7CR7C4;
+				DEVELOPMENT_TEAM = H22V7CR7C4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VccRide/Info.plist;
@@ -829,7 +808,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = vccride.vanderbilt.apple.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Prov Prof 3";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
