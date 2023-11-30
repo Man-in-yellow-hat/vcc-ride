@@ -22,19 +22,16 @@ struct DriverFormView: View {
                 handleNotComing()
             }) {
                 Text("I am not coming :(")
+                    .foregroundColor(.white)
+                    .padding()
             }
+            .background(Color.green)
+            .cornerRadius(10)
             
             Button(action: {
                 isAttending = true
             }) {
                 Text("I am coming!")
-            }
-            .sheet(isPresented: $isAttending, onDismiss: {
-                // Perform actions when sheet is dismissed
-                handleComing()
-            }) {
-                // Additional options for coming
-                ComingOptionsView(numPassengers: $numPassengers, pickupLocation: $pickupLocation)
             }
         }
     }

@@ -16,7 +16,9 @@ struct DriverSettingsView: View {
     @State private var lname: String = ""
     @ObservedObject private var viewModel = MainViewModel.shared
 
-
+    @State private var deleteAlert = false
+    @State private var deleteConfirmationText = ""
+    @State private var flashColor: Color = Color(UIColor.systemGray5)
 
     let locations = ["North", "Rand", "No Preference"]
     
@@ -64,11 +66,100 @@ struct DriverSettingsView: View {
                         .foregroundColor(.red)
                 }
             }
+            
+            Section {
+                if (!deleteAlert) {
+                    Button(action: {
+                        deleteAlert = true
+                    }) {
+                        Text("Delete Account")
+                            .foregroundColor(.red)
+                    }
+                } else {
+                    Text("Are you sure you want to delete your account? This action cannot be undone.")
+                    TextField("Type 'delete'", text: $deleteConfirmationText)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                    
+                    HStack {
+                        Button(action: {
+                            deleteAlert = false
+                            print("CANCELLING")
+                        }) {
+                            Text("Cancel")
+                                .foregroundColor(.black)
+                                .padding()
+                                .background(Color(UIColor.systemGray5))
+                                .cornerRadius(8)
+                        }
+                        .buttonStyle(.plain) // Add this modifier to the Cancel button
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            if deleteConfirmationText.lowercased() == "delete" && deleteAlert {
+                                //                                deleteAccount()
+                                print("DELETING")
+                            } else {
+                                // Flash the button background red
+                                withAnimation {
+                                    flashColor = .red
+                                }
+                                // Reset the button background color after a short delay
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    withAnimation {
+                                        flashColor = Color(UIColor.systemGray5) // Lighter gray
+                                    }
+                                }
+                            }
+                        }) {
+                            Text("Confirm Delete")
+                                .foregroundColor(.red)
+                                .padding()
+                                .background(flashColor)
+                                .cornerRadius(8)
+                        }
+                        .buttonStyle(.plain) // Add this modifier to the Cancel button
+
+                    }
+                }
+            }
         }
         .navigationBarTitle("Driver Settings")
         .onAppear {
             // Fetch user preferences from the Realtime Database when the view appears
             fetchDriverPreferences()
+        }
+    }
+    
+    func deleteAccount() {
+        guard let user = Auth.auth().currentUser else {
+            // User is not logged in or doesn't exist
+            return
+        }
+
+        // Save the user ID before deleting the user
+        let userID = user.uid
+        
+        // Remove the user's data from Fall23-Users
+        let usersRef = Database.database().reference().child("Fall23-Users").child(userID)
+        usersRef.removeValue { error, _ in
+            if let error = error {
+                // Error deleting user from the "Fall23-Users" list
+                print("Error deleting user from Fall23-Users: \(error.localizedDescription)")
+            } else {
+                // User deleted from "Fall23-Users" list successfully
+                print("User deleted from Fall23-Users successfully")
+            }
+        }
+
+        // Delete user from Auth as well
+        user.delete { error in
+          if let error = error {
+            // An error happened.
+          } else {
+              viewModel.handleSignOut()
+          }
         }
     }
 
