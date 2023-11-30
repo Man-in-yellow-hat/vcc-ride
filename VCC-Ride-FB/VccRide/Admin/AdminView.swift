@@ -10,6 +10,22 @@ enum Status {
     case extra, ok, warn, bad, fail
 }
 
+struct LoadAdminView: View {
+    @ObservedObject private var dailyViewModel = DailyViewModel.shared
+    @State private var isLoaded = false
+    @ObservedObject private var userViewModel = UserViewModel()
+    
+    var body: some View {
+        Group {
+            if (dailyViewModel.practiceToday) {
+                AdminView()
+            } else {
+                AdminNoPracticeView()
+            }
+        }
+    }
+}
+
 struct AdminView: View {
     @ObservedObject private var dailyViewModel = DailyViewModel.shared
     @State private var selectedRole = "Any"
@@ -70,17 +86,13 @@ struct AdminView: View {
             }
             .padding(.horizontal, 20)
 
-            
-            
-            ButtonShroud(title: "Update Daily Practice", action: {
-                print("updating daily practice!")
-                practiceDateViewModel.transferPracticeDates()
-            })
-            .padding(.horizontal, 20)
+//            ButtonShroud(title: "Update Daily Practice", action: {
+//                print("updating daily practice!")
+//                practiceDateViewModel.transferPracticeDates()
+//            })
+//            .padding(.horizontal, 20)
         }
-            .padding(EdgeInsets(top: 0, leading: 7, bottom: 0, trailing: 7)) // Add margins on the sides
-            .onAppear {
-        }
+        .padding(EdgeInsets(top: 0, leading: 7, bottom: 0, trailing: 7)) // Add margins on the sides
         .onAppear {
             userViewModel.fetchUserFeatures()
             if !isViewAppeared {
@@ -191,9 +203,6 @@ struct BoxWithTexts: View {
     }
 }
 
-
-
-
 extension View {
     @ViewBuilder
     func bold(if condition: Bool) -> some View {
@@ -201,6 +210,16 @@ extension View {
             self.bold()
         } else {
             self
+        }
+    }
+}
+
+struct AdminNoPracticeView: View {
+    @ObservedObject private var dailyViewModel = DailyViewModel.shared
+    
+    var body: some View {
+        VStack {
+            Text("Dear admin, is no practice today.")
         }
     }
 }

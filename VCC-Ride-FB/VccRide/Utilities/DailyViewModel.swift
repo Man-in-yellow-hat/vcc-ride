@@ -188,6 +188,9 @@ class DailyViewModel: ObservableObject {
         dataFetcher.fetchDate { fetchedDate in
             print("checking equality:", self.date, fetchedDate, self.date==fetchedDate)
             self.practiceToday = (fetchedDate == self.date)
+            if (fetchedDate == "none") {
+                self.practiceToday = false
+            }
         }
     }
     

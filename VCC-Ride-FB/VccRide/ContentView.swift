@@ -45,7 +45,7 @@ struct ContentView: View {
                     }
                     .tag("DASHBOARD")
             } else {
-                RiderView()
+                LoadRiderView()
                     .tabItem {
                         Label("DASHBOARD", systemImage: "house")
                     }
@@ -86,10 +86,10 @@ struct AdminDashboardView: View {
             LoadDriverView()
                 .tag(0)
             
-            AdminView()
+            LoadAdminView()
                 .tag(1) // Admin dashboard comes second and is selected by default
             
-            RiderView()
+            LoadRiderView()
                 .tag(2)
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))

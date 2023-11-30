@@ -8,13 +8,18 @@ struct LoadDriverView: View {
     
     var body: some View {
         Group {
-            if let driver = dailyViewModel.northDrivers.first(where: { $0.id == userViewModel.userID }) ?? dailyViewModel.randDrivers.first(where: { $0.id == userViewModel.userID }) {
-                DriverView(thisDriver: driver)
+            if (dailyViewModel.practiceToday) {
+                if let driver = dailyViewModel.northDrivers.first(where: { $0.id == userViewModel.userID }) ?? dailyViewModel.randDrivers.first(where: { $0.id == userViewModel.userID }) {
+                    DriverView(thisDriver: driver)
+                } else {
+                    DriverNotAttendingView()
+                }
             } else {
-                NextPracticeScreenView()
+                NoPracticeView()
             }
         }
         .task {
+            print("1,", isLoaded)
             if (!isLoaded) {
                 userViewModel.fetchUserFeatures()
                 if !dailyViewModel.hasBeenAssigned {
@@ -23,6 +28,8 @@ struct LoadDriverView: View {
                     dailyViewModel.getDriverList(fromLocation: "north_drivers")
                     dailyViewModel.getDriverList(fromLocation: "rand_drivers")
                 }
+                print("hi", dailyViewModel.practiceToday)
+
                 isLoaded = true
             }
         }
@@ -314,15 +321,12 @@ struct ArrowView: View {
 }
 
 
-struct NextPracticeScreenView: View {
+struct DriverNotAttendingView: View {
     @ObservedObject private var dailyViewModel = DailyViewModel.shared
     
     var body: some View {
         VStack {
-            if (dailyViewModel.practiceToday) {
-                Text("You are currently marked as not attending today. If you can drive, fill out the form below!")
-            }
-            Text("NEXT PRACTICE SCREEN")
+            Text("You are currently marked as not attending today. If you can drive, fill out the form below!")
         }
     }
 }

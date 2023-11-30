@@ -1,5 +1,37 @@
 import SwiftUI
 
+struct LoadRiderView: View {
+    @ObservedObject private var dailyViewModel = DailyViewModel.shared
+    @State private var isLoaded = false
+    @ObservedObject private var userViewModel = UserViewModel()
+    
+    var body: some View {
+        Group {
+            if (dailyViewModel.practiceToday) {
+                
+                if (dailyViewModel.northClimbers.first(where: { $0.id == userViewModel.userID }) ?? dailyViewModel.randClimbers.first(where: { $0.id == userViewModel.userID })) != nil {
+                    RiderView()
+                } else {
+                    RiderNotAttendingView()
+                }
+            } else {
+                NoPracticeView()
+            }
+        }
+        .task {
+            if (!isLoaded) {
+                userViewModel.fetchUserFeatures()
+                if !dailyViewModel.hasBeenAssigned {
+                    dailyViewModel.getRiderList(fromLocation: "north_riders")
+                    dailyViewModel.getRiderList(fromLocation: "rand_riders")
+                    dailyViewModel.getDriverList(fromLocation: "north_drivers")
+                    dailyViewModel.getDriverList(fromLocation: "rand_drivers")
+                }
+                isLoaded = true
+            }
+        }
+    }
+}
 
 struct RiderView: View {
     @ObservedObject private var dailyViewModel = DailyViewModel.shared
@@ -53,6 +85,16 @@ struct RiderView: View {
                     print("location should be rand, is: ", userViewModel.userLocation)
                 }
             }
+        }
+    }
+}
+
+struct RiderNotAttendingView: View {
+    @ObservedObject private var dailyViewModel = DailyViewModel.shared
+    
+    var body: some View {
+        VStack {
+            Text("You are currently marked as not attending today. If you would like to come, fill out the form below!")
         }
     }
 }

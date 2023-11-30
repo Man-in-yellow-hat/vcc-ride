@@ -77,6 +77,7 @@
 		D7B65DA22AD476FB00D2701B /* AdminSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65DA12AD476FB00D2701B /* AdminSettingsView.swift */; };
 		D7B65DA82AD5A5F200D2701B /* AdminPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65DA72AD5A5F200D2701B /* AdminPeopleView.swift */; };
 		D7C8655B2AF14FFB00DFFE52 /* VccRideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8655A2AF14FFB00DFFE52 /* VccRideTests.swift */; };
+		D7C99FB62B17F38A0056C5A9 /* NoPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C99FB52B17F38A0056C5A9 /* NoPracticeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,7 @@
 		D7B65DA72AD5A5F200D2701B /* AdminPeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPeopleView.swift; sourceTree = "<group>"; };
 		D7C865582AF14FFB00DFFE52 /* VccRideTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VccRideTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7C8655A2AF14FFB00DFFE52 /* VccRideTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VccRideTests.swift; sourceTree = "<group>"; };
+		D7C99FB52B17F38A0056C5A9 /* NoPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPracticeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,6 +277,7 @@
 				A844CE8D2ACE0EEA00EC44C2 /* Application.swift */,
 				D7B65D972AD25BCE00D2701B /* UserViewModel.swift */,
 				870752312B02A9280099CD6D /* UserModel.swift */,
+				D7C99FB52B17F38A0056C5A9 /* NoPracticeView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D771DECC2ACF561400E79153 /* ContentView.swift in Sources */,
+				D7C99FB62B17F38A0056C5A9 /* NoPracticeView.swift in Sources */,
 				D7A1EAFC2AD2569C0075A4B2 /* AdminCalendar.swift in Sources */,
 				D71B9E162AD058DA00144928 /* DriverView.swift in Sources */,
 				D71B9E1D2AD05C3A00144928 /* CalendarView.swift in Sources */,
