@@ -135,7 +135,7 @@ class SignIn_withGoogle_VM: ObservableObject {
             }
         }
     }
-    func signInWithApple(credential: AuthCredential, completion: @escaping (String?) -> Void) {
+    func signInWithApple(credential: AuthCredential, fname: String, lname: String, completion: @escaping (String?) -> Void) {
         Auth.auth().signIn(with: credential) { authResult, error in
             if let error = error {
                 print("Apple sign-in error: \(error.localizedDescription)")
@@ -174,18 +174,18 @@ class SignIn_withGoogle_VM: ObservableObject {
                     }
             } else {
                     // User data does not exist, create it
-                    let userData: [String: Any] = [
+                    let newUserData: [String: Any] = [
                         "email": user.email ?? "",
                         "role": userRole,
-                        "fname": "",
-                        "lname": "",
+                        "fname": fname,
+                        "lname": lname,
                         "active": false,
                         "default_location": "",
                         "default_attendance_confirmation": false
                     ]
-
+                
                     // Set the user data in the Realtime Database
-                    userRef.setValue(userData) { error, _ in
+                    userRef.setValue(newUserData) { error, _ in
                         if let error = error {
                             print("Error creating user data: \(error.localizedDescription)")
                             completion("Failed sign-in, please try again or contact support.")

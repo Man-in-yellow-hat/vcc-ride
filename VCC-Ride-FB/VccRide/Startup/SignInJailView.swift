@@ -15,6 +15,7 @@ struct SignInJailView: View {
 
     @State var selectedRole: String = "rider"
     @State private var selectedLocation: String = "North"
+    
     @State private var firstName: String = ""
     @State private var lastName: String = ""
     

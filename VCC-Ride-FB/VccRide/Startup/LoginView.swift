@@ -100,7 +100,13 @@ struct LoginView: View {
                                 switch authResults.credential {
                                 case let appleIDCredential as ASAuthorizationAppleIDCredential:
                                     // Extract token and user details
+                                    
+                                    //extract user name
                                     let userID = appleIDCredential.user
+                                    let fullName = appleIDCredential.fullName
+                                    let givenName = fullName?.givenName ?? ""
+                                    let lastName = fullName?.familyName ?? ""
+                                    
                                     guard let identityToken = appleIDCredential.identityToken,
                                           let tokenString = String(data: identityToken, encoding: .utf8) else { return }
 
@@ -110,7 +116,7 @@ struct LoginView: View {
                                                                               rawNonce: nil)
 
                                     // Firebase sign in with credential
-                                    signInWithFirebase(credential: credential)
+                                    signInWithFirebase(credential: credential, fname: givenName, lname: lastName)
                                 default: break
                                 }
                             case .failure(let error):
@@ -123,7 +129,6 @@ struct LoginView: View {
                         .cornerRadius(50)
                     }
                     
-
                     
                     if isButtonVisible {
                         Button(action: {
@@ -155,8 +160,8 @@ struct LoginView: View {
             }
         }
     }
-    func signInWithFirebase(credential: AuthCredential) {
-        vm.signInWithApple(credential: credential) { errMessage in
+    func signInWithFirebase(credential: AuthCredential, fname: String, lname: String) {
+        vm.signInWithApple(credential: credential, fname: fname, lname: lname) { errMessage in
             if let message = errMessage {
                 errorMessage = message
             } else {
