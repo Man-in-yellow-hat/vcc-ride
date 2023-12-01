@@ -12,7 +12,7 @@ struct LoadRiderView: View {
                 if dailyViewModel.riders.keys.contains(where: { $0 == userViewModel.userID }) {
                     RiderView()
                 } else {
-                    RiderNotAttendingView()
+                    AttendanceFormView(role: "rider")
                 }
             } else {
                 NoPracticeView()

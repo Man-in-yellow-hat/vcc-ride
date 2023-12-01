@@ -19,7 +19,7 @@ struct LoadDriverView: View {
                                                       preference: driverObj["preference"] as! String,
                                                       isDeparted: driverObj["isDeparted"] as! Bool))
                 } else {
-                    DriverFormView()
+                    AttendanceFormView(role: "driver")
                 }
             } else {
                 NoPracticeView()
