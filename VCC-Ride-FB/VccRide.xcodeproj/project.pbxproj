@@ -65,6 +65,7 @@
 		D72538A42B186E4700CE1B73 /* DriverFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72538A32B186E4700CE1B73 /* DriverFormView.swift */; };
 		D72538A62B186E5500CE1B73 /* RiderFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72538A52B186E5500CE1B73 /* RiderFormView.swift */; };
 		D72538AA2B19233E00CE1B73 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72538A92B19233E00CE1B73 /* SettingsView.swift */; };
+		D72538AC2B1A697D00CE1B73 /* AttendanceFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72538AB2B1A697D00CE1B73 /* AttendanceFormView.swift */; };
 		D73273B32ADE1C6600F5DA44 /* DailyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73273B22ADE1C6600F5DA44 /* DailyViewModel.swift */; };
 		D771DECC2ACF561400E79153 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858D2972ACDAFFD00A17CCD /* ContentView.swift */; };
 		D771DED22ACF575C00E79153 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D771DED12ACF575C00E79153 /* MainView.swift */; };
@@ -127,6 +128,7 @@
 		D72538A32B186E4700CE1B73 /* DriverFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverFormView.swift; sourceTree = "<group>"; };
 		D72538A52B186E5500CE1B73 /* RiderFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiderFormView.swift; sourceTree = "<group>"; };
 		D72538A92B19233E00CE1B73 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D72538AB2B1A697D00CE1B73 /* AttendanceFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendanceFormView.swift; sourceTree = "<group>"; };
 		D73273B22ADE1C6600F5DA44 /* DailyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewModel.swift; sourceTree = "<group>"; };
 		D771DED12ACF575C00E79153 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		D792DB212AF3F78A003D2E8E /* VccRide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VccRide.entitlements; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				D7B65D972AD25BCE00D2701B /* UserViewModel.swift */,
 				870752312B02A9280099CD6D /* UserModel.swift */,
 				D7C99FB52B17F38A0056C5A9 /* NoPracticeView.swift */,
+				D72538AB2B1A697D00CE1B73 /* AttendanceFormView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -533,6 +536,7 @@
 				D71B9E182AD058E100144928 /* RiderView.swift in Sources */,
 				D7B65DA82AD5A5F200D2701B /* AdminPeopleView.swift in Sources */,
 				A844CE8E2ACE0EEA00EC44C2 /* Application.swift in Sources */,
+				D72538AC2B1A697D00CE1B73 /* AttendanceFormView.swift in Sources */,
 				D72538A42B186E4700CE1B73 /* DriverFormView.swift in Sources */,
 				D73273B32ADE1C6600F5DA44 /* DailyViewModel.swift in Sources */,
 				D71B9E112AD053FF00144928 /* AdminView.swift in Sources */,

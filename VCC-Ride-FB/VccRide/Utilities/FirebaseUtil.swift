@@ -334,7 +334,7 @@ class PracticeDateViewModel: ObservableObject {
     //Function to delete practice date
     func deletePracticeDate(date: String) {
         // Delete practice date from database
-        databaseRef.child("Fall23-Practices").child(self.dateID[date]!).removeValue { (error, _) in
+        databaseRef.child("Fall23-Practices").child(date).removeValue { (error, _) in
             if let error = error {
                 print("Error deleting practice date: \(error.localizedDescription)")
             } else {

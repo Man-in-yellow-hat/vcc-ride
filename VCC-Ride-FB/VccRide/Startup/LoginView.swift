@@ -143,8 +143,8 @@ struct LoginView: View {
                     }
                 }
             }
-            .frame(width: 400, height: 900)
-            .cornerRadius(50)
+            
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .onAppear() {
                 withAnimation(.easeInOut(duration: 1.0)) {
                     isGradientVisible = true

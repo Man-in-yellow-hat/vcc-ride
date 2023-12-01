@@ -159,7 +159,7 @@ class DailyViewModel: ObservableObject {
         }
     }
     
-    private func adjustSeats() {
+    public func adjustSeats() {
 //        print("adjustSeats called")
         let northRiders = filterRiders(locationFilter: "north")
         let randRiders = filterRiders(locationFilter: "rand")

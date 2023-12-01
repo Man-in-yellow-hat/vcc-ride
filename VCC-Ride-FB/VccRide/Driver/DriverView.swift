@@ -19,13 +19,14 @@ struct LoadDriverView: View {
                                                       preference: driverObj["preference"] as! String,
                                                       isDeparted: driverObj["isDeparted"] as! Bool))
                 } else {
-                    DriverFormView()
+                    AttendanceFormView(role: "driver")
                 }
             } else {
                 NoPracticeView()
             }
         }
         .task {
+            dailyViewModel.adjustSeats()
             if (!isLoaded) {
                 userViewModel.fetchUserFeatures()
                 isLoaded = true
@@ -281,14 +282,14 @@ struct DriverView: View {
         squishScale = 1
         squishOffset = .zero
         
-        let leftRef = Database.database().reference().child("Daily-Practice").child(thisDriver.location)
+        let leftRef = Database.database().reference().child("Daily-Practice").child("drivers")
             .child(thisDriver.id).child("isDeparted")
         leftRef.setValue(false)
     }
     
     private func handleDeparture() {
         print("leaving!")
-        let leftRef = Database.database().reference().child("Daily-Practice").child(thisDriver.location)
+        let leftRef = Database.database().reference().child("Daily-Practice").child("drivers")
             .child(thisDriver.id).child("isDeparted")
         leftRef.setValue(true)
     }
