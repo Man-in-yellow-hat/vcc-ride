@@ -39,6 +39,7 @@ struct DriverFormView: View {
     func handleNotComing() {
         // TODO: Handle logic
         print("nah not today")
+        
 //        dailyViewModel.updateFilledSeats(forLocation: pickupLocation, change: 1)
         // Go to the NextPracticeScreen or implement your navigation logic
     }

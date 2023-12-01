@@ -12,12 +12,12 @@ struct LoadDriverView: View {
                 if let driverID = dailyViewModel.drivers.keys.first(where: { $0 == userViewModel.userID }),
                    let driverObj = dailyViewModel.drivers[driverID] {
                     DriverView(thisDriver: Driver(id: userViewModel.userID,
-                                                          name: driverObj["name"] as! String,
-                                                          location: driverObj["location"] as! String,
-                                                          seats: driverObj["seats"] as! Int,
-                                                          filledSeats: driverObj["filled_seats"] as! Int,
-                                                          preference: driverObj["preference"] as! String,
-                                                          isDeparted: driverObj["isDeparted"] as! Bool))
+                                                      name: driverObj["name"] as! String,
+                                                      location: driverObj["location"] as! String,
+                                                      seats: driverObj["seats"] as! Int,
+                                                      filledSeats: driverObj["filled_seats"] as! Int,
+                                                      preference: driverObj["preference"] as! String,
+                                                      isDeparted: driverObj["isDeparted"] as! Bool))
                 } else {
                     DriverFormView()
                 }

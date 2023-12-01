@@ -80,31 +80,6 @@ class FirebaseDataFetcher: PracticeDataFetching {
         }
     }
     
-//    func fetchRiderData(fromLocation: String, completion: @escaping ([Climber]) -> Void) {
-//            let practiceRef = Database.database().reference().child("Daily-Practice").child(fromLocation)
-//
-//            practiceRef.observeSingleEvent(of: .value) { snapshot, error in
-//                var climbers: [Climber] = []
-//
-//                if let error = error {
-//                    print("Error fetching rider data: \(error)")
-//                    completion([])
-//                    return
-//                }
-//
-//                if let listData = snapshot.value as? [String: [String: Any]] {
-//                    for (climberID, climberInfo) in listData {
-//                        if let name = climberInfo["name"] as? String,
-//                           let seats = climberInfo["seats"] as? Int {
-//                            let newClimber = Climber(id: climberID, name: name, location: fromLocation, seats: seats)
-//                            climbers.append(newClimber)
-//                        }
-//                    }
-//                }
-//                completion(climbers)
-//            }
-//        }
-//    
     func fetchSeatCounts(completion: @escaping (SeatCounts) -> Void) {
             let practiceRef = Database.database().reference().child("Daily-Practice").child("seat_counts")
             practiceRef.observe(.value) { snapshot, error in
@@ -164,13 +139,8 @@ class DailyViewModel: ObservableObject {
     private init(dataFetcher: PracticeDataFetching = FirebaseDataFetcher()) {
         self.dataFetcher = dataFetcher
         // all we have to do is check if drivers have already been assigned that day
-        var driverDone = false
-        var riderDone = false
-        fetchDrivers() {driverDone = true}
-        fetchRiders() {riderDone = true}
-        if (driverDone && riderDone) {
-            adjustSeats()
-        }
+        fetchDrivers() {}
+        fetchRiders() {self.adjustSeats()}
         getDate()
     }
     
@@ -190,6 +160,7 @@ class DailyViewModel: ObservableObject {
     }
     
     private func adjustSeats() {
+//        print("adjustSeats called")
         let northRiders = filterRiders(locationFilter: "north")
         let randRiders = filterRiders(locationFilter: "rand")
         
@@ -205,6 +176,7 @@ class DailyViewModel: ObservableObject {
         numNorthFilled = northDrivers.reduce(0) { $0 + ($1.value["filled_seats"] as? Int ?? 0) }
         numRandFilled = randDrivers.reduce(0) { $0 + ($1.value["filled_seats"] as? Int ?? 0) }
         
+//        print(numNorthRequested, numRandRequested, numNorthOffered, numRandOffered, numNorthFilled, numRandFilled)
         syncSeatCounts()
     }
 
@@ -370,6 +342,7 @@ class DailyViewModel: ObservableObject {
     }
     
     public func updateFilledSeats(forLocation: String, change: Int) {
+        print("updating by: \(change)")
         var childToUpdate: String = ""
         if forLocation.lowercased().contains("north") {
             childToUpdate = "numNorthFilled"

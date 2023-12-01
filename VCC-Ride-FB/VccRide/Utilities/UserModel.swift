@@ -40,6 +40,7 @@ class Driver {
         let dailyRef = Database.database().reference().child("Daily-Practice")
         let personalRef = dailyRef.child("drivers").child(self.id).child("filled_seats")
         personalRef.setValue(self.filledSeats)
+        print("changing by: \(change)")
         return change
     }
     
