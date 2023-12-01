@@ -36,8 +36,14 @@ struct AdminView: View {
     @StateObject private var practiceDateViewModel = PracticeDateViewModel(dateFetcher: FirebaseDateFetcher())
 
     @State private var textFieldsData: [[ContentItem]] = [
-        [.text("North"), .combined(imageSystemName: "person.3.sequence.fill", value: 0), .combined(imageSystemName: "chair.lounge.fill", value: 0), .combined(imageSystemName: "figure.seated.seatbelt", value: 0)],
-        [.text("Rand"), .combined(imageSystemName: "person.3.sequence.fill", value: 0), .combined(imageSystemName: "chair.lounge.fill", value: 0), .combined(imageSystemName: "figure.seated.seatbelt", value: 0)],
+        [.text("North"), 
+            .combined(imageSystemName: "person.3.sequence.fill", value: 0),
+            .combined(imageSystemName: "chair.lounge.fill", value: 0),
+            .combined(imageSystemName: "figure.seated.seatbelt", value: 0)],
+        [.text("Rand"), 
+            .combined(imageSystemName: "person.3.sequence.fill", value: 0),
+            .combined(imageSystemName: "chair.lounge.fill", value: 0),
+            .combined(imageSystemName: "figure.seated.seatbelt", value: 0)],
     ]
     
     @State public var randStatus: Status = Status.ok

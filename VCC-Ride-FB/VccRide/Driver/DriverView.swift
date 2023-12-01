@@ -26,6 +26,7 @@ struct LoadDriverView: View {
             }
         }
         .task {
+            dailyViewModel.adjustSeats()
             if (!isLoaded) {
                 userViewModel.fetchUserFeatures()
                 isLoaded = true
