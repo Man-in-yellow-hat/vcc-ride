@@ -25,7 +25,11 @@ struct AttendanceFormView: View {
     
     var body: some View {
         if (navigating) {
-            LoadDriverView()
+            if (role == "rider") {
+                LoadRiderView()
+            } else {
+                LoadDriverView()
+            }
         }
         VStack {
             if (!responded) {
