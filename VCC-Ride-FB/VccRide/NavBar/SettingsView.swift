@@ -239,6 +239,6 @@ struct SettingsView: View {
     }
 }
 
-#Preview {
-    SettingsView(role: "rider")
-}
+//Preview {
+//    SettingsView(role: "rider")
+//}

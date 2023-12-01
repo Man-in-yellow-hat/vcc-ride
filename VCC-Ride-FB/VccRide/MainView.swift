@@ -13,7 +13,6 @@ class MainViewModel: ObservableObject {
     @Published var isLoggedIn: Bool = false
     @Published var userRole: String?
     @Published var userID: String?
-
     // Handle successful login for any method (Google or Apple)
     func handleLoginSuccess(withRole role: String, userID uid: String) {
         self.isLoggedIn = true
