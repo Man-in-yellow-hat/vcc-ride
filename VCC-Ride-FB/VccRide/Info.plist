@@ -4,7 +4,7 @@
 <dict>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
-	<key>NUserActivityTypes</key>
+	<key>NSUserActivityTypes</key>
 	<string>INSendMessageIntent</string>
 	<key>UISupportedInterfaceOrientations~iphone</key>
 	<array>
