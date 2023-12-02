@@ -19,14 +19,6 @@ struct SignInJailView: View {
     @State private var firstName: String = ""
     @State private var lastName: String = ""
     
-    var fname: String {
-        return firstName.trimmingCharacters(in: .whitespaces)
-    }
-    
-    var lname: String {
-        return lastName.trimmingCharacters(in: .whitespaces)
-    }
-    
 
     var body: some View {
         ScrollView {
@@ -108,7 +100,7 @@ struct SignInJailView: View {
                 ZStack {
                     Button(action: {
                         // Save the selected role to the database
-                        viewModel.getOutOfJail(newRole: selectedRole, newLocation: selectedLocation, newConfirm: selectedConfirm, first: fname, last: lname)
+                        viewModel.getOutOfJail(newRole: selectedRole, newLocation: selectedLocation, newConfirm: selectedConfirm, first: firstName, last: lastName)
                     }) {
                         Text("Continue")
                             .foregroundColor(.white)
@@ -143,9 +135,13 @@ struct SignInJailView: View {
                     .font(.footnote)
             }
             .padding() // Add margins to the entire content
+            .onAppear {
+                // Initialize firstName and lastName with values from viewModel
+                firstName = viewModel.fname ?? ""
+                lastName = viewModel.lname ?? ""
+            }
         }
         .scrollDismissesKeyboard(.immediately)
-
     }
 }
 

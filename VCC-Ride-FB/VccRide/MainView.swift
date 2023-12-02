@@ -13,11 +13,14 @@ class MainViewModel: ObservableObject {
     @Published var isLoggedIn: Bool = false
     @Published var userRole: String?
     @Published var userID: String?
+    @Published var fname: String?
+    @Published var lname: String?
     // Handle successful login for any method (Google or Apple)
-    func handleLoginSuccess(withRole role: String, userID uid: String) {
+    func handleLoginSuccess(withRole role: String, userID uid: String, completion: @escaping () -> Void) {
         self.isLoggedIn = true
         self.userRole = role
         self.userID = uid
+        
         UserDefaults.standard.set(uid, forKey: "userID") // Generic user ID
         UserDefaults.standard.set(role, forKey: "userRole")
         UserDefaults.standard.set(true, forKey: "isLoggedIn")
@@ -61,12 +64,37 @@ class MainViewModel: ObservableObject {
         print("fetching...", userID)
         let ref = Database.database().reference()
         let userRef = ref.child("Fall23-Users").child(userID) // Adjust the database path as needed
-
+        
         userRef.observeSingleEvent(of: .value) { snapshot in
             if let userData = snapshot.value as? [String: Any],
                let role = userData["role"] as? String {
                 self.userRole = role
-                print("role: ", self.userRole)
+            }
+        }
+    }
+    
+    func setName(first: String, last: String) {
+        print("setting names")
+        self.fname = first
+        self.lname = last
+    }
+        
+    func fetchUserNames(forUserID userID: String, completion: @escaping () -> Void) {
+        print("fetching names", userID)
+        let ref = Database.database().reference()
+        let userRef = ref.child("Fall23-Users").child(userID)
+            
+        userRef.observeSingleEvent(of: .value) { snapshot in
+                if let userData = snapshot.value as? [String: Any],
+                   let first = userData["fname"] as? String {
+                    self.fname = first
+                }
+            }
+            
+        userRef.observeSingleEvent(of: .value) { snapshot in
+                if let userData = snapshot.value as? [String: Any],
+                   let second = userData["lname"] as? String {
+                    self.lname = second
             }
         }
     }

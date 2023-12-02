@@ -161,8 +161,8 @@ struct AttendanceFormView: View {
 }
 
 
-#Preview {
-    AttendanceFormView(role: "rider")
-}
+//#Preview {
+//    AttendanceFormView(role: "rider")
+//}
 
 

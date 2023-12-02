@@ -90,7 +90,9 @@ class SignIn_withGoogle_VM: ObservableObject {
                                let userRole = userData["role"] as? String {
                                 if userData["active"] is Bool {
                                     completion(nil)
-                                    self.viewModel.handleLoginSuccess(withRole: userRole, userID: user.uid)
+                                    self.viewModel.handleLoginSuccess(withRole: userRole, userID: user.uid) {
+                                        print("Login process completed")
+                                    }
 
                                 } else {
                                     completion("User is not active! Please contact an admin.")
@@ -122,7 +124,9 @@ class SignIn_withGoogle_VM: ObservableObject {
                                 print("User data created successfully in 'Fall23-Users' node in Realtime Database")
                                 completion(nil)
                                 
-                                self.viewModel.handleLoginSuccess(withRole: userRole, userID: user.uid)
+                                self.viewModel.handleLoginSuccess(withRole: userRole, userID: user.uid) {
+                                    print("ok")
+                                }
 
                             }
                         }
@@ -165,7 +169,9 @@ class SignIn_withGoogle_VM: ObservableObject {
                        let userRole = userData["role"] as? String {
                         if userData["active"] is Bool {
                             completion(nil)
-                            self.viewModel.handleLoginSuccess(withRole: userRole, userID: user.uid)
+                            self.viewModel.handleLoginSuccess(withRole: userRole, userID: user.uid) {
+                                print("Checking active user process completed")
+                            }
                         } else {
                             completion("User is not active! Please contact an admin.")
                         }
@@ -184,6 +190,8 @@ class SignIn_withGoogle_VM: ObservableObject {
                         "default_attendance_confirmation": false
                     ]
                 
+                    print(newUserData)
+                
                     // Set the user data in the Realtime Database
                     userRef.setValue(newUserData) { error, _ in
                         if let error = error {
@@ -191,10 +199,15 @@ class SignIn_withGoogle_VM: ObservableObject {
                             completion("Failed sign-in, please try again or contact support.")
                             return
                         }
+                        
+                        self.viewModel.setName(first: fname, last: lname)
 
                         print("User data created successfully in 'Fall23-Users' node in Realtime Database")
                         completion(nil)
-                        self.viewModel.handleLoginSuccess(withRole: userRole, userID: user.uid)
+
+                        self.viewModel.handleLoginSuccess(withRole: userRole, userID: user.uid) {
+                            print("ok")
+                        }
                     }
                 }
             }

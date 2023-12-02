@@ -57,6 +57,9 @@ struct FirebaseTestApp: App {
             viewModel.isLoggedIn = true
             viewModel.userID = user.uid
             viewModel.fetchUserRole(forUserID: user.uid)
+            viewModel.fetchUserNames(forUserID: user.uid) {
+                print("finished getting name")
+            }
         } else {
             print(error ?? "Unknown error during sign-in")
         }

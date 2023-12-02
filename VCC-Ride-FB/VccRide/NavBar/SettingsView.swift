@@ -14,8 +14,8 @@ struct SettingsView: View {
     @State private var selectedLocation = "North"
     @State private var autoConfirm = true
     @State private var availableSeats = 1
-    @State private var fname: String = ""
-    @State private var lname: String = ""
+    @State private var firstname: String = ""
+    @State private var lastname: String = ""
 
     @State private var deleteAlert = false
     @State private var deleteConfirmationText = ""
@@ -36,8 +36,8 @@ struct SettingsView: View {
             Form {
                 Section(header: Text("Settings")) {
                     
-                    TextField("First Name", text: $fname).padding()
-                    TextField("Last Name", text:$lname).padding()
+                    TextField("First Name", text: $firstname).padding()
+                    TextField("Last Name", text:$lastname).padding()
                     
                     // Dropdown menu for selecting default pickup location
                     Picker("Default Pickup Location", selection: $selectedLocation) {
@@ -201,8 +201,8 @@ struct SettingsView: View {
                 selectedLocation = dbLocation
                 autoConfirm = dbAutoConfirm
                 availableSeats = dbAvailableSeats
-                fname = dbFirstName
-                lname = dbLastName
+                firstname = dbFirstName
+                lastname = dbLastName
             }
         }
     }
@@ -216,8 +216,8 @@ struct SettingsView: View {
         let userRef = Database.database().reference().child("Fall23-Users").child(userID)
 
         let updatedPreferences: [String: Any] = [
-            "fname": fname,
-            "lname": lname,
+            "fname": firstname,
+            "lname": lastname,
             "default_location": selectedLocation,
             "default_attendance_confirmation": autoConfirm,
             "default_seats": availableSeats
