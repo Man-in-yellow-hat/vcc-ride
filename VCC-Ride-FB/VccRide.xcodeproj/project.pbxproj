@@ -12,6 +12,8 @@
 		873333122B02C45B00418ECB /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 873333112B02C45B00418ECB /* FirebaseDatabase */; };
 		873333142B02C46E00418ECB /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 873333132B02C46E00418ECB /* GoogleSignIn */; };
 		873333162B02C4A200418ECB /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 873333152B02C4A200418ECB /* GoogleSignInSwift */; };
+		873437CF2B1AB67C003C267E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 873437CE2B1AB67C003C267E /* FirebaseAuth */; };
+		873437D12B1AB680003C267E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 873437D02B1AB680003C267E /* FirebaseAuth */; };
 		8739070E2B03422100136E77 /* DriverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8739070D2B03422100136E77 /* DriverTests.swift */; };
 		87401F0D2B02FA7600002639 /* RiderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87401F0C2B02FA7600002639 /* RiderTests.swift */; };
 		874BCB432B09C612009758A6 /* AdminViewUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874BCB422B09C612009758A6 /* AdminViewUI.swift */; };
@@ -146,6 +148,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				873437D12B1AB680003C267E /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,6 +195,7 @@
 				873333162B02C4A200418ECB /* GoogleSignInSwift in Frameworks */,
 				873333122B02C45B00418ECB /* FirebaseDatabase in Frameworks */,
 				873333142B02C46E00418ECB /* GoogleSignIn in Frameworks */,
+				873437CF2B1AB67C003C267E /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +364,9 @@
 				874BCB3C2B09C348009758A6 /* PBXTargetDependency */,
 			);
 			name = VccRideUITests;
+			packageProductDependencies = (
+				873437D02B1AB680003C267E /* FirebaseAuth */,
+			);
 			productName = VccRideUITests;
 			productReference = 874BCB352B09C348009758A6 /* VccRideUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -430,6 +437,7 @@
 				873333112B02C45B00418ECB /* FirebaseDatabase */,
 				873333132B02C46E00418ECB /* GoogleSignIn */,
 				873333152B02C4A200418ECB /* GoogleSignInSwift */,
+				873437CE2B1AB67C003C267E /* FirebaseAuth */,
 			);
 			productName = VccRideTests;
 			productReference = D7C865582AF14FFB00DFFE52 /* VccRideTests.xctest */;
@@ -752,10 +760,12 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = VccRide/VccRide.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VccRide/Preview Content\"";
-				DEVELOPMENT_TEAM = H22V7CR7C4;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = H22V7CR7C4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VccRide/Info.plist;
@@ -773,6 +783,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = vccride.vanderbilt.apple.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Prov Prof 3";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -787,10 +798,12 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = VccRide/VccRide.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VccRide/Preview Content\"";
-				DEVELOPMENT_TEAM = H22V7CR7C4;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = H22V7CR7C4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VccRide/Info.plist;
@@ -808,6 +821,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = vccride.vanderbilt.apple.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Prov Prof 3";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -943,6 +957,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A844CE852ACE0A6200EC44C2 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		873437CE2B1AB67C003C267E /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A858D29D2ACDC6C000A17CCD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		873437D02B1AB680003C267E /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A858D29D2ACDC6C000A17CCD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
 		A844CE862ACE0A6200EC44C2 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;

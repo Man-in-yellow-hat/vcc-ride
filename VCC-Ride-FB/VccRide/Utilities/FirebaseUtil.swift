@@ -80,7 +80,7 @@ class SignIn_withGoogle_VM: ObservableObject {
                     
                     // Create a reference to your Realtime Database
                     let databaseRef = Database.database().reference()
-
+                    
                     // Check if the user's data already exists
                     let userRef = databaseRef.child("Fall23-Users").child(user.uid)
                     userRef.observeSingleEvent(of: .value) { snapshot in
@@ -101,34 +101,46 @@ class SignIn_withGoogle_VM: ObservableObject {
                                 completion("Failed to fetch user data.")
                             }
                         } else {
-                            // User data does not exist, create it
-                            var userData: [String: Any] = [:]
-                            userData = [
-                                "email": user.email ?? "",
-                                "role": userRole,
-                                "fname": "",
-                                "lname": "",
-                                "active": false,
-                                "default_location": "",
-                                "default_attendance_confirmation": false
-                            ]
-
-                            // Set the user data in the Realtime Database under the "Fall23-Users" node using the user's UID as the key
-                            userRef.setValue(userData) { error, _ in
-                                if let error = error {
-                                    print("Error creating user data: \(error.localizedDescription)")
-                                    completion("Failed sign-in, please try again or contact support.")
-                                    return
+                            
+                            let dateRef = databaseRef.child("Fall23-Practices")
+                            dateRef.observeSingleEvent(of: .value, with: { snapshot in
+                                var dateDict: [String: Bool] = [:]
+                                for child in snapshot.children {
+                                    if let childSnapshot = child as? DataSnapshot {
+                                        // Assuming each key is a date string
+                                        dateDict[childSnapshot.key] = false
+                                    }
                                 }
-
-                                print("User data created successfully in 'Fall23-Users' node in Realtime Database")
-                                completion(nil)
                                 
-                                self.viewModel.handleLoginSuccess(withRole: userRole, userID: user.uid) {
-                                    print("ok")
+                                // Now 'dateDict' is populated, proceed with user creation
+                                var userData: [String: Any] = [
+                                    "email": user.email ?? "",
+                                    "role": userRole,
+                                    "fname": "",
+                                    "lname": "",
+                                    "active": false,
+                                    "default_location": "",
+                                    "default_attendance_confirmation": false,
+                                    "attending_dates": dateDict,
+                                ]
+                                
+                                // Set the user data in the Realtime Database under the "Fall23-Users" node using the user's UID as the key
+                                userRef.setValue(userData) { error, _ in
+                                    if let error = error {
+                                        print("Error creating user data: \(error.localizedDescription)")
+                                        completion("Failed sign-in, please try again or contact support.")
+                                        return
+                                    }
+                                    
+                                    print("User data created successfully in 'Fall23-Users' node in Realtime Database")
+                                    completion(nil)
+                                    
+                                    self.viewModel.handleLoginSuccess(withRole: userRole, userID: user.uid) {
+                                        print("ok")
+                                    }
+                                    
                                 }
-
-                            }
+                            })
                         }
                     }
                 }
@@ -178,7 +190,17 @@ class SignIn_withGoogle_VM: ObservableObject {
                     } else {
                         completion("Failed to fetch user data.")
                     }
-            } else {
+                } else {
+                    let dateRef = databaseRef.child("Fall23-Practices")
+                    dateRef.observeSingleEvent(of: .value, with: { snapshot in
+                        var dateDict: [String: Bool] = [:]
+                        for child in snapshot.children {
+                            if let childSnapshot = child as? DataSnapshot {
+                                // Assuming each key is a date string
+                                dateDict[childSnapshot.key] = false
+                            }
+                        }
+                    
                     // User data does not exist, create it
                     let newUserData: [String: Any] = [
                         "email": user.email ?? "",
@@ -187,11 +209,12 @@ class SignIn_withGoogle_VM: ObservableObject {
                         "lname": lname,
                         "active": false,
                         "default_location": "",
-                        "default_attendance_confirmation": false
+                        "default_attendance_confirmation": false,
+                        "attending_dates": dateDict
                     ]
-                
+                    
                     print(newUserData)
-                
+                    
                     // Set the user data in the Realtime Database
                     userRef.setValue(newUserData) { error, _ in
                         if let error = error {
@@ -201,14 +224,15 @@ class SignIn_withGoogle_VM: ObservableObject {
                         }
                         
                         self.viewModel.setName(first: fname, last: lname)
-
+                        
                         print("User data created successfully in 'Fall23-Users' node in Realtime Database")
                         completion(nil)
-
+                        
                         self.viewModel.handleLoginSuccess(withRole: userRole, userID: user.uid) {
                             print("ok")
                         }
                     }
+                })
                 }
             }
         }
@@ -241,10 +265,10 @@ class FirebaseDateFetcher: DateFetcher {
 class PracticeDateViewModel: ObservableObject {
     // Reference to the Firebase Realtime Database
     let databaseRef = Database.database().reference()
-
+    
     // Published property to hold the list of dates
     @Published var practiceDates: [String] = []
-
+    
     // Published property to hold unique ID for date data
     @Published var dateID: [String: String] = [:]
     
@@ -261,7 +285,7 @@ class PracticeDateViewModel: ObservableObject {
         
         let curDate = dateFormatter.string(from: today)
         print(curDate)
-
+        
         let sourceRef = databaseRef.child("Fall23-Practices").child(curDate)
         let destRef = databaseRef.child("Daily-Practice")
         
@@ -271,7 +295,7 @@ class PracticeDateViewModel: ObservableObject {
                 print("Key not found at source location.")
                 return
             }
-
+            
             // Write the key-value pair to the destination location
             destRef.setValue(data) { error, _ in
                 if let error = error {
@@ -279,47 +303,46 @@ class PracticeDateViewModel: ObservableObject {
                     return
                 }
                 print("Key-value pair duplicated successfully!")
-
-//                sourceRef.removeValue { error, _ in
-//                    if let error = error {
-//                        print("Error removing key from source: \(error.localizedDescription)")
-//                    } else {
-//                        print("Key-value pair removed from source location.")
-//                    }
-//                }
+                
+                //                sourceRef.removeValue { error, _ in
+                //                    if let error = error {
+                //                        print("Error removing key from source: \(error.localizedDescription)")
+                //                    } else {
+                //                        print("Key-value pair removed from source location.")
+                //                    }
+                //                }
             }
         }
-
+        
     }
     
     func fetchExistingDates() {
         print("fetching dates")
         dateFetcher.fetchDates { fetchedDates in
             guard var fetchedDates = fetchedDates else { return }
-
+            
             // Sort the dates chronologically
             fetchedDates.sort { (dateString1, dateString2) in
                 let formatter = DateFormatter()
                 formatter.dateFormat = "MMMdd" // Update the date format here
-
+                
                 if let date1 = formatter.date(from: dateString1),
                    let date2 = formatter.date(from: dateString2) {
                     return date1 < date2
                 }
                 return false
             }
-
+            
             // Update the published property with the new list of dates
             self.practiceDates = fetchedDates
-            print(self.practiceDates)
         }
     }
-
+    
     // Function to add a new practice date
     func addPracticeDate(date: String) {
         // Set the ID of the new date to BE the date
         let practiceDateRef = databaseRef.child("Fall23-Practices").child(date)
-
+        
         // Create an empty practice date entry
         let practiceDateEntry: [String: Any] = [
             "date": date,
@@ -333,7 +356,7 @@ class PracticeDateViewModel: ObservableObject {
                 "numRandRequested": 0
             ]
         ]
-
+        
         // Add the new practice date to the database
         practiceDateRef.setValue(practiceDateEntry) { (error, _) in
             if let error = error {
@@ -342,8 +365,31 @@ class PracticeDateViewModel: ObservableObject {
                 print("Practice date added successfully!")
             }
         }
+        
+        //User practice date entry
+        let userDateEntry: [String: Bool] = [
+            date: false
+        ]
+        // Add the new practice date to all users
+        let usersRef = databaseRef.child("Fall23-Users")
+        usersRef.observeSingleEvent(of: .value, with: { snapshot in
+            if let users = snapshot.value as? [String: AnyObject] {
+                print("Adding date to all users...")
+                for (userID, userData) in users {
+                    self.databaseRef.child("Fall23-Users").child(userID).child("attending_dates").updateChildValues(userDateEntry) { (error, _) in
+                        if let error = error {
+                            print("Error adding practice date: \(error.localizedDescription)")
+                        } else {
+                            print("Added date successfully!")
+                        }
+                    }
+                }
+            }
+        })
+        
+        
     }
-
+    
     //Function to delete practice date
     func deletePracticeDate(date: String) {
         // Delete practice date from database
@@ -354,5 +400,22 @@ class PracticeDateViewModel: ObservableObject {
                 print("Deleted date successfully!")
             }
         }
+        
+        // Delete practice date from Fall 23 users as well
+        let usersRef = databaseRef.child("Fall23-Users")
+        usersRef.observeSingleEvent(of: .value, with: { snapshot in
+            if let users = snapshot.value as? [String: AnyObject] {
+                print("Deleting date from all users...")
+                for (userID, _) in users {
+                    self.databaseRef.child("Fall23-Users").child(userID).child("attending_dates").child(date).removeValue { (error, _) in
+                        if let error = error {
+                            print("Error deleting practice date: \(error.localizedDescription)")
+                        } else {
+                            print("Deleted date successfully!")
+                        }
+                    }
+                }
+            }
+        })
     }
 }
