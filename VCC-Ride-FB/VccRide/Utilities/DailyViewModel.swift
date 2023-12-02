@@ -117,8 +117,8 @@ class DailyViewModel: ObservableObject {
     public var isDriversListPopulated: Bool = false
 
     
-    @Published var riders: [String: [String: Any]] = [:] // TESTING
-    @Published var drivers: [String: [String: Any]] = [:] // TESTING
+    @Published var riders: [String: [String: Any]] = [:]
+    @Published var drivers: [String: [String: Any]] = [:]
     
     @Published var numNorthRequested: Int = 0
     @Published var numNorthOffered: Int = 0
@@ -138,29 +138,30 @@ class DailyViewModel: ObservableObject {
     
     private init(dataFetcher: PracticeDataFetching = FirebaseDataFetcher()) {
         self.dataFetcher = dataFetcher
+        getDate()
         // all we have to do is check if drivers have already been assigned that day
         fetchDrivers() {}
         fetchRiders() {self.adjustSeats()}
-        getDate()
+    }
+    
+    public func checkPracticeToday(completion: @escaping (Bool) -> Void) {
+        dataFetcher.fetchDate { fetchedDate in
+            self.practiceToday = (fetchedDate == self.date)
+        }
+        completion(self.practiceToday)
     }
     
     private func getDate() {
         let today = Date()
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMdd" // TODO: decide on date format
+        dateFormatter.dateFormat = "MMMdd"
         self.date = dateFormatter.string(from: today)
         
-        dataFetcher.fetchDate { fetchedDate in
-            self.practiceToday = (fetchedDate == self.date)
-            if (fetchedDate == "none") {
-                self.practiceToday = false
-            }
-        }
+        checkPracticeToday{_ in }
     }
     
     public func adjustSeats() {
-//        print("adjustSeats called")
         let northRiders = filterRiders(locationFilter: "north")
         let randRiders = filterRiders(locationFilter: "rand")
         

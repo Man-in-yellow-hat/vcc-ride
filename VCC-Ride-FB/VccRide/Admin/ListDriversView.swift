@@ -58,7 +58,7 @@ struct ListDriversView: View {
                         .ignoresSafeArea()
                         .opacity(0.8)
                     ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: .red))
+                        .progressViewStyle(CircularProgressViewStyle(tint: Color(UIColor.systemGray)))
                         .scaleEffect(2)
                 }
             }
@@ -67,6 +67,9 @@ struct ListDriversView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 isLoading = false
             }
+        }
+        .onDisappear {
+            dailyViewModel.adjustSeats()
         }
     }
 }
