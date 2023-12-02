@@ -5,6 +5,8 @@ struct LoadRiderView: View {
     @State private var isLoaded = false
     @ObservedObject private var userViewModel = UserViewModel()
     
+    @State private var isSheetPresented = false
+    
     var body: some View {
         Group {
             if (dailyViewModel.practiceToday) {
@@ -12,7 +14,12 @@ struct LoadRiderView: View {
                 if dailyViewModel.riders.keys.contains(where: { $0 == userViewModel.userID }) {
                     RiderView()
                 } else {
-                    AttendanceFormView(role: "rider")
+                    Button("Fill Attendance Form") {
+                        isSheetPresented = true
+                    }
+                    .sheet(isPresented: $isSheetPresented) {
+                        AttendanceFormView(isSheetPresented: $isSheetPresented, role: "rider")
+                    }
                 }
             } else {
                 NoPracticeView()

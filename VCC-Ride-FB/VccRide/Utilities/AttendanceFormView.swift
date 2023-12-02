@@ -9,6 +9,8 @@ import SwiftUI
 import Firebase
 
 struct AttendanceFormView: View {
+    @Binding var isSheetPresented: Bool
+    
     @ObservedObject private var dailyViewModel = DailyViewModel.shared
     @ObservedObject private var userViewModel = UserViewModel()
 
@@ -24,13 +26,6 @@ struct AttendanceFormView: View {
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        if (navigating) {
-            if (role == "rider") {
-                LoadRiderView()
-            } else {
-                LoadDriverView()
-            }
-        }
         VStack {
             if (!responded) {
                 Text("You are currently marked as not attending today. If you would like to attend today, fill out the form below!")
@@ -85,7 +80,7 @@ struct AttendanceFormView: View {
                         .cornerRadius(10)
                         
                         Button(action: {
-                            handleComing() {navigating = true}
+                            handleComing() {isSheetPresented = false}
                         }) {
                             Text("Confirm")
                                 .padding()
@@ -109,6 +104,10 @@ struct AttendanceFormView: View {
             }
         }
         .padding()
+        .navigationTitle("Attendance Form")
+        .navigationBarItems(trailing: Button("Dismiss") {
+            isSheetPresented = false
+        })
     }
     
     
