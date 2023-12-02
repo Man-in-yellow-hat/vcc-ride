@@ -116,6 +116,7 @@ struct AdminView: View {
             // Update textFieldsData when any of the observed properties change
             updateTextFieldsData()
         }
+        .accessibility(identifier: "DriverListPageIdentifier")
     }
     
     private func updateTextFieldsData() {
@@ -223,7 +224,7 @@ struct AdminNoPracticeView: View {
     
     var body: some View {
         VStack {
-            Text("Dear admin, is no practice today.")
+            Text("Dear admin, is no practice today.").accessibilityIdentifier("no practice")
         }
     }
 }
