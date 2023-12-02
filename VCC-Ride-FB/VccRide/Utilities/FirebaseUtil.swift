@@ -80,7 +80,7 @@ class SignIn_withGoogle_VM: ObservableObject {
                     
                     // Create a reference to your Realtime Database
                     let databaseRef = Database.database().reference()
-
+                    
                     // Check if the user's data already exists
                     let userRef = databaseRef.child("Fall23-Users").child(user.uid)
                     userRef.observeSingleEvent(of: .value) { snapshot in
@@ -101,34 +101,46 @@ class SignIn_withGoogle_VM: ObservableObject {
                                 completion("Failed to fetch user data.")
                             }
                         } else {
-                            // User data does not exist, create it
-                            var userData: [String: Any] = [:]
-                            userData = [
-                                "email": user.email ?? "",
-                                "role": userRole,
-                                "fname": "",
-                                "lname": "",
-                                "active": false,
-                                "default_location": "",
-                                "default_attendance_confirmation": false
-                            ]
-
-                            // Set the user data in the Realtime Database under the "Fall23-Users" node using the user's UID as the key
-                            userRef.setValue(userData) { error, _ in
-                                if let error = error {
-                                    print("Error creating user data: \(error.localizedDescription)")
-                                    completion("Failed sign-in, please try again or contact support.")
-                                    return
+                            
+                            let dateRef = databaseRef.child("Fall23-Practices")
+                            dateRef.observeSingleEvent(of: .value, with: { snapshot in
+                                var dateDict: [String: Bool] = [:]
+                                for child in snapshot.children {
+                                    if let childSnapshot = child as? DataSnapshot {
+                                        // Assuming each key is a date string
+                                        dateDict[childSnapshot.key] = false
+                                    }
                                 }
-
-                                print("User data created successfully in 'Fall23-Users' node in Realtime Database")
-                                completion(nil)
                                 
-                                self.viewModel.handleLoginSuccess(withRole: userRole, userID: user.uid) {
-                                    print("ok")
+                                // Now 'dateDict' is populated, proceed with user creation
+                                var userData: [String: Any] = [
+                                    "email": user.email ?? "",
+                                    "role": userRole,
+                                    "fname": "",
+                                    "lname": "",
+                                    "active": false,
+                                    "default_location": "",
+                                    "default_attendance_confirmation": false,
+                                    "attending_dates": dateDict,
+                                ]
+                                
+                                // Set the user data in the Realtime Database under the "Fall23-Users" node using the user's UID as the key
+                                userRef.setValue(userData) { error, _ in
+                                    if let error = error {
+                                        print("Error creating user data: \(error.localizedDescription)")
+                                        completion("Failed sign-in, please try again or contact support.")
+                                        return
+                                    }
+                                    
+                                    print("User data created successfully in 'Fall23-Users' node in Realtime Database")
+                                    completion(nil)
+                                    
+                                    self.viewModel.handleLoginSuccess(withRole: userRole, userID: user.uid) {
+                                        print("ok")
+                                    }
+                                    
                                 }
-
-                            }
+                            })
                         }
                     }
                 }
@@ -178,7 +190,17 @@ class SignIn_withGoogle_VM: ObservableObject {
                     } else {
                         completion("Failed to fetch user data.")
                     }
-            } else {
+                } else {
+                    let dateRef = databaseRef.child("Fall23-Practices")
+                    dateRef.observeSingleEvent(of: .value, with: { snapshot in
+                        var dateDict: [String: Bool] = [:]
+                        for child in snapshot.children {
+                            if let childSnapshot = child as? DataSnapshot {
+                                // Assuming each key is a date string
+                                dateDict[childSnapshot.key] = false
+                            }
+                        }
+                    
                     // User data does not exist, create it
                     let newUserData: [String: Any] = [
                         "email": user.email ?? "",
@@ -187,11 +209,12 @@ class SignIn_withGoogle_VM: ObservableObject {
                         "lname": lname,
                         "active": false,
                         "default_location": "",
-                        "default_attendance_confirmation": false
+                        "default_attendance_confirmation": false,
+                        "attending_dates": dateDict
                     ]
-                
+                    
                     print(newUserData)
-                
+                    
                     // Set the user data in the Realtime Database
                     userRef.setValue(newUserData) { error, _ in
                         if let error = error {
@@ -201,14 +224,15 @@ class SignIn_withGoogle_VM: ObservableObject {
                         }
                         
                         self.viewModel.setName(first: fname, last: lname)
-
+                        
                         print("User data created successfully in 'Fall23-Users' node in Realtime Database")
                         completion(nil)
-
+                        
                         self.viewModel.handleLoginSuccess(withRole: userRole, userID: user.uid) {
                             print("ok")
                         }
                     }
+                })
                 }
             }
         }
@@ -311,7 +335,6 @@ class PracticeDateViewModel: ObservableObject {
 
             // Update the published property with the new list of dates
             self.practiceDates = fetchedDates
-            print(self.practiceDates)
         }
     }
 

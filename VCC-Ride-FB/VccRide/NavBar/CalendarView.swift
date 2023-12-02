@@ -88,7 +88,6 @@ struct CalendarView: View {
             //TODO: Handle the case when there is no logged-in user
             return
         }
-
         // Firebase reference for the user's data
         let userRef = Database.database().reference().child("Fall23-Users").child(userID)
 
@@ -101,6 +100,7 @@ struct CalendarView: View {
                 location = userData["default_location"] as? String ?? ""
                 // Set the current values to the fetched values
                 attendingDates = dbAttendingDates
+                print(attendingDates)
             }
         }
     }
