@@ -137,6 +137,7 @@ struct AdminView: View {
             // Update textFieldsData when any of the observed properties change
             updateTextFieldsData()
         }
+        .accessibility(identifier: "DriverListPageIdentifier")
         .alert(isPresented: $showReminderAlert) {
             // Display an alert when showAlert is true
             Alert(title: Text("Reminder Sent!"))
@@ -249,6 +250,8 @@ struct AdminNoPracticeView: View {
     @State private var reloading: Bool  = false
     
     var body: some View {
+        VStack {
+            Text("Dear admin, is no practice today.").accessibilityIdentifier("no practice")
         if reloading {
             LoadAdminView()
         } else {
