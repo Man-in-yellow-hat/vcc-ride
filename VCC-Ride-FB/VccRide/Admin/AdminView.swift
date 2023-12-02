@@ -12,14 +12,43 @@ enum Status {
 
 struct LoadAdminView: View {
     @ObservedObject private var dailyViewModel = DailyViewModel.shared
-    @State private var isLoaded = false
+    @State private var isLoading: Bool = true
+    @State private var isPractice: Bool = false
+    @State private var fetchedDate: Bool = false
     @ObservedObject private var userViewModel = UserViewModel()
     
     var body: some View {
-        if (dailyViewModel.practiceToday) {
-            AdminView()
-        } else {
-            AdminNoPracticeView()
+        Group {
+            if isLoading {
+                // Show a loading indicator or placeholder while waiting
+                Text("Loading...")
+            } else {
+                if isPractice {
+                    AdminView()
+                } else {
+                    AdminNoPracticeView()
+                }
+            }
+        }
+        .onAppear {
+            if (!fetchedDate) {
+                loadPractice()
+                fetchedDate = true
+            }
+        }
+        .task {
+            dailyViewModel.adjustSeats()
+        }
+    }
+    
+    private func loadPractice() {
+        // Perform asynchronous operation
+        dailyViewModel.checkPracticeToday { isPracticeToday in
+            // Set the loading state to false when the operation completes
+            DispatchQueue.main.async {
+                isLoading = false
+                isPractice = isPracticeToday
+            }
         }
     }
 }
@@ -32,6 +61,8 @@ struct AdminView: View {
     @State private var isViewAppeared = false
     @State private var assignDriversSheet = false
     @ObservedObject private var userViewModel = UserViewModel() // Assuming you have a UserViewModel to fetch and filter users
+    
+    @State private var showReminderAlert = false
     
     @StateObject private var practiceDateViewModel = PracticeDateViewModel(dateFetcher: FirebaseDateFetcher())
 
@@ -59,7 +90,6 @@ struct AdminView: View {
             VStack(spacing: 20) {
                 ForEach(0..<2) { boxIndex in
                     BoxWithTexts(contents: textFieldsData[boxIndex])
-//                        .frame(width: 150, height: 200)
                 }
             }
             .padding()
@@ -74,33 +104,24 @@ struct AdminView: View {
                 ButtonShroud(title: "Assign Drivers", action: {
                     print("assigning drivers!")
                     assignDriversSheet.toggle()
-//                    dailyViewModel.assignDrivers()
                 })
                 .sheet(isPresented: $assignDriversSheet) {
                     ListDriversView()
                 }
                 
                 ButtonShroud(title: "Send Practice Reminder", action: {
-                    //button action goes here
+                    showReminderAlert = true
                 })
                 
-                ButtonShroud(title: "Confirm Attendance", action: {
-                    //button action goes here
-                })
             }
             .padding(.horizontal, 20)
 
-//            ButtonShroud(title: "Update Daily Practice", action: {
-//                print("updating daily practice!")
-//                practiceDateViewModel.transferPracticeDates()
-//            })
-//            .padding(.horizontal, 20)
         }
         .padding(EdgeInsets(top: 0, leading: 7, bottom: 0, trailing: 7)) // Add margins on the sides
         .onAppear {
             userViewModel.fetchUserFeatures()
             if !isViewAppeared {
-                dailyViewModel.assignDrivers() // TODO: CHECK THIS IF SHOULD BE MOVED
+                dailyViewModel.assignDrivers()
                 isViewAppeared = true
             }
             updateTextFieldsData()
@@ -117,7 +138,12 @@ struct AdminView: View {
             updateTextFieldsData()
         }
         .accessibility(identifier: "DriverListPageIdentifier")
+        .alert(isPresented: $showReminderAlert) {
+            // Display an alert when showAlert is true
+            Alert(title: Text("Reminder Sent!"))
+        }
     }
+    
     
     private func updateTextFieldsData() {
         textFieldsData = [
@@ -221,11 +247,28 @@ extension View {
 
 struct AdminNoPracticeView: View {
     @ObservedObject private var dailyViewModel = DailyViewModel.shared
+    @State private var reloading: Bool  = false
     
     var body: some View {
         VStack {
             Text("Dear admin, is no practice today.").accessibilityIdentifier("no practice")
+        if reloading {
+            LoadAdminView()
+        } else {
+            VStack {
+                Text("Dear admin, there is no practice today. If you believe this is a mistake, check the calendar page and press the button below.")
+                    .padding()
+                
+                Button(action: {
+                    reloading = true
+                }) {
+                    Image(systemName: "arrow.2.circlepath") // Use a reloading icon
+                        .imageScale(.large)
+                        .padding()
+                }
+            }
         }
+        
     }
 }
     

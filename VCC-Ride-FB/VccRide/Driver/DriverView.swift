@@ -6,6 +6,8 @@ struct LoadDriverView: View {
     @State private var isLoaded = false
     @ObservedObject private var userViewModel = UserViewModel()
     
+    @State private var isSheetPresented = false
+    
     var body: some View {
         Group {
             if (dailyViewModel.practiceToday) {
@@ -19,7 +21,12 @@ struct LoadDriverView: View {
                                                       preference: driverObj["preference"] as! String,
                                                       isDeparted: driverObj["isDeparted"] as! Bool))
                 } else {
-                    AttendanceFormView(role: "driver")
+                    Button("Fill Attendance Form") {
+                        isSheetPresented = true
+                    }
+                    .sheet(isPresented: $isSheetPresented) {
+                        AttendanceFormView(isSheetPresented: $isSheetPresented, role: "driver")
+                    }
                 }
             } else {
                 NoPracticeView()

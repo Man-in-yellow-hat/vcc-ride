@@ -64,7 +64,6 @@
 		D71B9E212AD05C4C00144928 /* PeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E202AD05C4C00144928 /* PeopleView.swift */; };
 		D71B9E232AD0732800144928 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E222AD0732800144928 /* LoginView.swift */; };
 		D71B9E252AD09C5400144928 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D71B9E242AD09C5400144928 /* GoogleService-Info.plist */; };
-		D72538A42B186E4700CE1B73 /* DriverFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72538A32B186E4700CE1B73 /* DriverFormView.swift */; };
 		D72538A62B186E5500CE1B73 /* RiderFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72538A52B186E5500CE1B73 /* RiderFormView.swift */; };
 		D72538AA2B19233E00CE1B73 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72538A92B19233E00CE1B73 /* SettingsView.swift */; };
 		D72538AC2B1A697D00CE1B73 /* AttendanceFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72538AB2B1A697D00CE1B73 /* AttendanceFormView.swift */; };
@@ -127,7 +126,6 @@
 		D71B9E202AD05C4C00144928 /* PeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleView.swift; sourceTree = "<group>"; };
 		D71B9E222AD0732800144928 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		D71B9E242AD09C5400144928 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		D72538A32B186E4700CE1B73 /* DriverFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverFormView.swift; sourceTree = "<group>"; };
 		D72538A52B186E5500CE1B73 /* RiderFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiderFormView.swift; sourceTree = "<group>"; };
 		D72538A92B19233E00CE1B73 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D72538AB2B1A697D00CE1B73 /* AttendanceFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendanceFormView.swift; sourceTree = "<group>"; };
@@ -298,7 +296,6 @@
 			isa = PBXGroup;
 			children = (
 				D71B9E152AD058DA00144928 /* DriverView.swift */,
-				D72538A32B186E4700CE1B73 /* DriverFormView.swift */,
 			);
 			path = Driver;
 			sourceTree = "<group>";
@@ -545,7 +542,6 @@
 				D7B65DA82AD5A5F200D2701B /* AdminPeopleView.swift in Sources */,
 				A844CE8E2ACE0EEA00EC44C2 /* Application.swift in Sources */,
 				D72538AC2B1A697D00CE1B73 /* AttendanceFormView.swift in Sources */,
-				D72538A42B186E4700CE1B73 /* DriverFormView.swift in Sources */,
 				D73273B32ADE1C6600F5DA44 /* DailyViewModel.swift in Sources */,
 				D71B9E112AD053FF00144928 /* AdminView.swift in Sources */,
 				A858D2D52ACDC73F00A17CCD /* FirebaseUtil.swift in Sources */,
