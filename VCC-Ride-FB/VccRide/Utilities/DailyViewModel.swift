@@ -260,7 +260,7 @@ class DailyViewModel: ObservableObject {
         if let location = locationFilter {
             filteredRiders = filteredRiders.filter { (_, rider) in
                 guard let userLocation = rider["location"] as? String else {return false}
-                return userLocation == location
+                return userLocation.localizedCaseInsensitiveCompare(location) == .orderedSame
             }
         }
         return filteredRiders
@@ -271,7 +271,7 @@ class DailyViewModel: ObservableObject {
         if let location = locationFilter {
             filteredDrivers = filteredDrivers.filter { (_, driver) in
                 guard let userLocation = driver["location"] as? String else {return false}
-                return userLocation == location
+                return userLocation.localizedCaseInsensitiveCompare(location) == .orderedSame
             }
         }
         if isDepartedFilter != nil {

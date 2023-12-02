@@ -40,6 +40,12 @@ struct RiderView: View {
 
             ScrollView {
                 Text("Drivers").font(.subheadline)
+                
+                if (dailyViewModel.drivers.isEmpty) {
+                    Text("There are either no drivers today or there is no practice today.")
+                        .padding()
+                }
+                
                 if (userViewModel.userLocation == "North") {
                     ForEach(Array(dailyViewModel.filterDrivers(locationFilter: "north", isDepartedFilter: false)), id: \.key) { (userID, userData) in
                         // TODO: see filled seats
