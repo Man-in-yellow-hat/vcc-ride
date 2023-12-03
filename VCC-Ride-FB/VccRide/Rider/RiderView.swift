@@ -44,40 +44,30 @@ struct RiderView: View {
             Text("Welcome, \(userViewModel.userName)").font(.headline)
             Text("Next Practice Date: \(dailyViewModel.date)").font(.subheadline)
                 .padding(.bottom)
-
+            
             ScrollView {
-                Text("Drivers").font(.subheadline)
                 
                 if (dailyViewModel.drivers.isEmpty) {
                     Text("There are either no drivers today or there is no practice today.")
                         .padding()
                 }
-                
-                if (userViewModel.userLocation == "North") {
-                    ForEach(Array(dailyViewModel.filterDrivers(locationFilter: "north", isDepartedFilter: false)), id: \.key) { (userID, userData) in
-                        // TODO: see filled seats
+                ForEach(Array(dailyViewModel.drivers.keys), id: \.self) { driverID in
+                    if let driverData = dailyViewModel.drivers[driverID], let location = driverData["location"] as? String, location == userViewModel.userLocation.lowercased() {
+                        Text(userViewModel.userLocation + " Drivers")
                         VStack(alignment: .leading, spacing: 10) {
-                            Text("Name: \(userData["name"] as? String ?? "Unknown Name")")
-                            Text("Location: \(userData["location"] as? String ?? "Unknown Location")")
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
-                        .background(Color(red: 1.0, green: 0.84, blue: 0.3).opacity(0.4))
-                        .cornerRadius(10)
-                    }
-                } else {
-                    ForEach(Array(dailyViewModel.filterDrivers(locationFilter: "rand", isDepartedFilter: false)), id: \.key) { (userID, userData) in
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("Name: \(userData["name"] as? String ?? "Unknown Name")")
-                            Text("Location: \(userData["location"] as? String ?? "Unknown Location")")
+                            Text("Name: \(driverData["name"] as? String ?? "Unknown Name")")
+                            Text("Seats Filled: \(driverData["filled_seats"] as? Int ?? 0)/\(driverData["seats"] as? Int ?? 0)")
+                            Text("Departed: \(driverData["isDeparted"] as? Bool ?? false ? "Yes" : "No")")
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
                         .background(Color.gray.opacity(0.2))
                         .cornerRadius(10)
                     }
+                    else {
+                        
+                    }
                 }
-
             }
             .padding(.top, 20)
             .padding(.horizontal, 20)

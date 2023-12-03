@@ -140,9 +140,10 @@ class DailyViewModel: ObservableObject {
         self.dataFetcher = dataFetcher
         getDate()
         // all we have to do is check if drivers have already been assigned that day
-        fetchDrivers() {}
-        fetchRiders() {self.adjustSeats()}
+        fetchDrivers()
+        fetchRiders()
     }
+
     
     public func checkPracticeToday(completion: @escaping (Bool) -> Void) {
         dataFetcher.fetchDate { fetchedDate in
@@ -233,27 +234,40 @@ class DailyViewModel: ObservableObject {
         self.isDriversListPopulated = true
     }
     
-    func fetchDrivers(completion: @escaping () -> Void) {
-        let drivers = Database.database().reference().child("Daily-Practice").child("drivers")
-        drivers.observe(.value) { snapshot in
-            if let values = snapshot.value as? [String: [String: Any]] {
+    func fetchDrivers() {
+        let driversRef = Database.database().reference().child("Daily-Practice").child("drivers")
+        
+        // Observe for any data change
+        driversRef.observe(.value) { snapshot in
+            guard let values = snapshot.value as? [String: [String: Any]] else {
+                print("Error fetching drivers")
+                return
+            }
+
+            DispatchQueue.main.async {
                 self.drivers = values
             }
-            completion() // Call the completion handler when data is fetched
         }
     }
+
     
-    func fetchRiders(completion: @escaping () -> Void) {
-        let riders = Database.database().reference().child("Daily-Practice").child("riders")
-        print("Observing users.")
-        riders.observe(.value) { snapshot in
-            if let values = snapshot.value as? [String: [String: Any]] {
-                self.riders = values
-            }
-            completion() // Call the completion handler when data is fetched
-        }
+    func fetchRiders() {
+        let ridersRef = Database.database().reference().child("Daily-Practice").child("riders")
         
+        ridersRef.observe(.value) { [weak self] snapshot in
+            guard let self = self, let values = snapshot.value as? [String: [String: Any]] else {
+                print("Error fetching riders")
+                return
+            }
+
+            DispatchQueue.main.async {
+                self.riders = values
+                self.adjustSeats() // Call adjustSeats whenever riders data changes
+            }
+        }
     }
+
+
     
     func filterRiders(locationFilter: String? = nil) -> [String: [String: Any]] {
         var filteredRiders = riders
