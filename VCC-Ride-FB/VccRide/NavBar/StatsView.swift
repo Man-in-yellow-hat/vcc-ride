@@ -1,10 +1,3 @@
-//
-//  StatsView.swift
-//  FirebaseTest
-//
-//  Created by Nathan King on 10/6/23.
-//
-
 import SwiftUI
 import Firebase
 
@@ -12,12 +5,15 @@ struct StatsView: View {
     @ObservedObject private var statsViewModel = StatsViewModel()
 
     var body: some View {
-        VStack(spacing: 80) {
-            DriverStatsSection(driverStats: statsViewModel.driverStats)
-            RiderStatsSection(riderStats: statsViewModel.riderStats)
-        }
-        .onAppear {
-            statsViewModel.fetchStats()
+        ScrollView {
+            VStack(spacing: 80) {
+                DriverStatsSection(driverStats: statsViewModel.driverStats)
+                RiderStatsSection(riderStats: statsViewModel.riderStats)
+            }
+            .padding()
+            .onAppear {
+                statsViewModel.fetchStats()
+            }
         }
     }
 }
@@ -31,7 +27,7 @@ struct DriverStatsSection: View {
                 VStack {
                     Text("Driver Stats").font(.title)
                     ForEach(driverStats.sorted(by: { $0.value > $1.value }), id: \.key) { (userID, count) in
-                        Text("Driver: \(userID), Practices Attended: \(count)")
+                        StatBox(title: "Driver: \(userID)", value: "Practices Attended: \(count)")
                     }
                 }
             } else {
@@ -50,7 +46,7 @@ struct RiderStatsSection: View {
                 VStack {
                     Text("Rider Stats").font(.title)
                     ForEach(riderStats.sorted(by: { $0.value > $1.value }), id: \.key) { (userID, count) in
-                        Text("Rider: \(userID), Practices Attended: \(count)")
+                        StatBox(title: "Rider: \(userID)", value: "Practices Attended: \(count)")
                     }
                 }
             } else {
@@ -60,6 +56,27 @@ struct RiderStatsSection: View {
     }
 }
 
+struct StatBox: View {
+    let title: String
+    let value: String
+
+    var body: some View {
+        VStack {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.gray.opacity(0.2)) // Customize the box color here
+                .frame(height: 80) // Customize the box height here
+                .overlay(
+                    VStack {
+                        Text(title)
+                            .font(.headline)
+                            .padding(.bottom, 4)
+                        Text(value)
+                    }
+                )
+                .padding(5) // Adjust padding as needed
+        }
+    }
+}
 
 class StatsViewModel: ObservableObject {
     @Published var driverStats: [String: Int]?
@@ -88,9 +105,9 @@ class StatsViewModel: ObservableObject {
     }
 }
 
-
 struct StatsView_Previews: PreviewProvider {
     static var previews: some View {
         StatsView()
     }
 }
+
