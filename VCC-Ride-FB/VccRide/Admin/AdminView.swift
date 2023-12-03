@@ -251,11 +251,11 @@ struct AdminNoPracticeView: View {
     
     var body: some View {
         VStack {
-            Text("Dear admin, is no practice today.").accessibilityIdentifier("no practice")
             if reloading {
                 LoadAdminView()
             } else {
                 VStack {
+                    Text("Dear admin, is no practice today.").accessibilityIdentifier("no practice")
                     Text("Dear admin, there is no practice today. If you believe this is a mistake, check the calendar page and press the button below.")
                         .padding()
                     
