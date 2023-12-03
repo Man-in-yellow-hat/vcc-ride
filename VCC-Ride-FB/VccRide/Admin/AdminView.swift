@@ -252,28 +252,30 @@ struct AdminNoPracticeView: View {
     var body: some View {
         VStack {
             Text("Dear admin, is no practice today.").accessibilityIdentifier("no practice")
-        if reloading {
-            LoadAdminView()
-        } else {
-            VStack {
-                Text("Dear admin, there is no practice today. If you believe this is a mistake, check the calendar page and press the button below.")
-                    .padding()
-                
-                Button(action: {
-                    reloading = true
-                }) {
-                    Image(systemName: "arrow.2.circlepath") // Use a reloading icon
-                        .imageScale(.large)
+            if reloading {
+                LoadAdminView()
+            } else {
+                VStack {
+                    Text("Dear admin, there is no practice today. If you believe this is a mistake, check the calendar page and press the button below.")
                         .padding()
+                    
+                    Button(action: {
+                        reloading = true
+                    }) {
+                        Image(systemName: "arrow.2.circlepath") // Use a reloading icon
+                            .imageScale(.large)
+                            .padding()
+                    }.accessibility(identifier: "reloadButton")
                 }
             }
+            
         }
-        
     }
-}
     
-struct AdminView_Previews: PreviewProvider {
-    static var previews: some View {
-        AdminView()
+    struct AdminView_Previews: PreviewProvider {
+        static var previews: some View {
+            AdminView()
+        }
     }
+    
 }

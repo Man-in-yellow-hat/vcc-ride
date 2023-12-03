@@ -21,26 +21,22 @@ final class AdminViewUI: XCTestCase {
     
     
     func testAdminPage() throws {
-        sleep(2)
-        app.swipeLeft()
-        app.swipeRight()
-        sleep(2)
+            sleep(2)
         
-        let isNoPractice = app.staticTexts["no practice"]
-        let conditionExists = isNoPractice.exists
-        
-        if isNoPractice.exists {
+            let isNoPractice = app.staticTexts["no practice"]
+            let conditionExists = isNoPractice.exists
             XCTAssertTrue(isNoPractice.exists, "The specific text should exist.")
-        } else {
+        
+            let reloadButton = app.buttons["reloadButton"]
+            XCTAssertTrue(reloadButton.exists, "The reload button does not exist.")
+
+            reloadButton.tap()
             
             let assignButton = app.buttons["Assign Drivers"]
             XCTAssertTrue(assignButton.exists, "Assign drivers does not exist.")
             
             let remindButton = app.buttons["Send Practice Reminder"]
             XCTAssertTrue(remindButton.exists, "Send Practice Reminder does not exist.")
-            
-            let confirmButton = app.buttons["Confirm Attendance"]
-            XCTAssertTrue(confirmButton.exists, "Confirm Attendance does not exist.")
             
             // test people view page
             let peopleView = app.tabBars.buttons["People"]
@@ -56,7 +52,6 @@ final class AdminViewUI: XCTestCase {
             let statsView = app.tabBars.buttons["Stats"]
             XCTAssertTrue(statsView.exists, "Stats view did not appear after tapping Calendar button.")
             statsView.tap()
-        }
         
     }
     
@@ -70,6 +65,11 @@ final class AdminViewUI: XCTestCase {
        
         app.swipeRight()
         app.swipeRight()
+        
+        let attendanceButton = app.buttons["Fill Attendance Form"]
+        XCTAssertTrue(attendanceButton.exists, "Coming button does not exist.")
+        
+        attendanceButton.tap()
         
         let comingButton = app.buttons["I am coming!"]
         XCTAssertTrue(comingButton.exists, "Coming button does not exist.")

@@ -1,20 +1,22 @@
+//////
+//////  AdminCalendarTests.swift
+//////  VccRideTests
+//////
+//////  Created by Aman Momin on 11/14/23.
+//////
 ////
-////  AdminCalendarTests.swift
-////  VccRideTests
-////
-////  Created by Aman Momin on 11/14/23.
-////
-//
 //import XCTest
 //@testable import VccRide
 //import SwiftUI
 //
 //// MARK: - MockDateFetcher
 //class MockDateFetcher: DateFetcher {
-//    var dates: [String] = ["2023-11-14", "2023-11-15"] // Example dates
-//
-//    func fetchDates(completion: @escaping ([String]) -> Void) {
+//    func fetchDates(completion: @escaping ([String]?) -> Void) {
 //        completion(dates)
+//        <#code#>
+//    }
+//
+//    var dates: [String] = ["2023-11-14", "2023-11-15"] // Example dates
 //    }
 //
 //    func addDate(_ date: String, completion: @escaping (Bool) -> Void) {
