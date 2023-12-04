@@ -75,8 +75,7 @@ This will create a signed IPA file that can be installed on iOS devices.
 4. Once the distribution is complete, continue to the app store review process.
 
 # Dependencies
-We do not use a dependency manager, although CocoaPods is commonly used for iOS development.
-[CocoaPods](https://cocoapods.org) is used as a dependency manager.
+We do not use a dependency manager, although CocoaPods is commonly used for iOS development.<br>
 List of dependencies: 
 * Firebase -> Firebase provides connection to realtime database, cloud messaging, etc.
 * GoogleSignIn -> Our library that serves for authorization.<br>
