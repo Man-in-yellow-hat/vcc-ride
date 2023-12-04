@@ -7,19 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		870752342B02B7CD0099CD6D /* DailyViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870752332B02B7CD0099CD6D /* DailyViewModelTests.swift */; };
 		873333122B02C45B00418ECB /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 873333112B02C45B00418ECB /* FirebaseDatabase */; };
 		873333142B02C46E00418ECB /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 873333132B02C46E00418ECB /* GoogleSignIn */; };
 		873333162B02C4A200418ECB /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 873333152B02C4A200418ECB /* GoogleSignInSwift */; };
 		873437CF2B1AB67C003C267E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 873437CE2B1AB67C003C267E /* FirebaseAuth */; };
 		873437D12B1AB680003C267E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 873437D02B1AB680003C267E /* FirebaseAuth */; };
-		8739070E2B03422100136E77 /* DriverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8739070D2B03422100136E77 /* DriverTests.swift */; };
 		87401F0D2B02FA7600002639 /* RiderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87401F0C2B02FA7600002639 /* RiderTests.swift */; };
 		874BCB432B09C612009758A6 /* AdminViewUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874BCB422B09C612009758A6 /* AdminViewUI.swift */; };
-		95D4B5CF2B03680C00AFAD35 /* DashboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D4B5CE2B03680C00AFAD35 /* DashboardTests.swift */; };
-		95D4B5D12B03684400AFAD35 /* AdminCalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D4B5D02B03684400AFAD35 /* AdminCalendarTests.swift */; };
-		95D4B5D32B036B6700AFAD35 /* AdminPeopleViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D4B5D22B036B6700AFAD35 /* AdminPeopleViewTests.swift */; };
-		95D4B5D52B0372BF00AFAD35 /* AdminSettingsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D4B5D42B0372BF00AFAD35 /* AdminSettingsViewTests.swift */; };
 		A844CE872ACE0A6200EC44C2 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = A844CE862ACE0A6200EC44C2 /* GoogleSignIn */; };
 		A844CE892ACE0A6200EC44C2 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A844CE882ACE0A6200EC44C2 /* GoogleSignInSwift */; };
 		A844CE8E2ACE0EEA00EC44C2 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = A844CE8D2ACE0EEA00EC44C2 /* Application.swift */; };
@@ -60,7 +54,6 @@
 		D71B9E182AD058E100144928 /* RiderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E172AD058E100144928 /* RiderView.swift */; };
 		D71B9E1D2AD05C3A00144928 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E1C2AD05C3A00144928 /* CalendarView.swift */; };
 		D71B9E1F2AD05C4100144928 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E1E2AD05C4100144928 /* StatsView.swift */; };
-		D71B9E212AD05C4C00144928 /* PeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E202AD05C4C00144928 /* PeopleView.swift */; };
 		D71B9E232AD0732800144928 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E222AD0732800144928 /* LoginView.swift */; };
 		D71B9E252AD09C5400144928 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D71B9E242AD09C5400144928 /* GoogleService-Info.plist */; };
 		D72538AA2B19233E00CE1B73 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72538A92B19233E00CE1B73 /* SettingsView.swift */; };
@@ -75,7 +68,6 @@
 		D7A1EAFC2AD2569C0075A4B2 /* AdminCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */; };
 		D7B65D982AD25BCE00D2701B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65D972AD25BCE00D2701B /* UserViewModel.swift */; };
 		D7B65DA82AD5A5F200D2701B /* AdminPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65DA72AD5A5F200D2701B /* AdminPeopleView.swift */; };
-		D7C8655B2AF14FFB00DFFE52 /* VccRideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8655A2AF14FFB00DFFE52 /* VccRideTests.swift */; };
 		D7C99FB62B17F38A0056C5A9 /* NoPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C99FB52B17F38A0056C5A9 /* NoPracticeView.swift */; };
 /* End PBXBuildFile section */
 
@@ -97,16 +89,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		870752332B02B7CD0099CD6D /* DailyViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewModelTests.swift; sourceTree = "<group>"; };
-		8739070D2B03422100136E77 /* DriverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverTests.swift; sourceTree = "<group>"; };
 		87401F0C2B02FA7600002639 /* RiderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiderTests.swift; sourceTree = "<group>"; };
 		874BCB352B09C348009758A6 /* VccRideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VccRideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		874BCB412B09C48C009758A6 /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestPlan.xctestplan; sourceTree = "<group>"; };
 		874BCB422B09C612009758A6 /* AdminViewUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminViewUI.swift; sourceTree = "<group>"; };
-		95D4B5CE2B03680C00AFAD35 /* DashboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTests.swift; sourceTree = "<group>"; };
-		95D4B5D02B03684400AFAD35 /* AdminCalendarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminCalendarTests.swift; sourceTree = "<group>"; };
-		95D4B5D22B036B6700AFAD35 /* AdminPeopleViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPeopleViewTests.swift; sourceTree = "<group>"; };
-		95D4B5D42B0372BF00AFAD35 /* AdminSettingsViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminSettingsViewTests.swift; sourceTree = "<group>"; };
 		A844CE8C2ACE0B6700EC44C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A844CE8D2ACE0EEA00EC44C2 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		A858D2842ACDADB500A17CCD /* VccRide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VccRide.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,7 +107,6 @@
 		D71B9E172AD058E100144928 /* RiderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiderView.swift; sourceTree = "<group>"; };
 		D71B9E1C2AD05C3A00144928 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		D71B9E1E2AD05C4100144928 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
-		D71B9E202AD05C4C00144928 /* PeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleView.swift; sourceTree = "<group>"; };
 		D71B9E222AD0732800144928 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		D71B9E242AD09C5400144928 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D72538A92B19233E00CE1B73 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -137,7 +122,6 @@
 		D7B65D972AD25BCE00D2701B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		D7B65DA72AD5A5F200D2701B /* AdminPeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPeopleView.swift; sourceTree = "<group>"; };
 		D7C865582AF14FFB00DFFE52 /* VccRideTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VccRideTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D7C8655A2AF14FFB00DFFE52 /* VccRideTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VccRideTests.swift; sourceTree = "<group>"; };
 		D7C99FB52B17F38A0056C5A9 /* NoPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPracticeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -302,7 +286,6 @@
 			children = (
 				D71B9E1C2AD05C3A00144928 /* CalendarView.swift */,
 				D71B9E1E2AD05C4100144928 /* StatsView.swift */,
-				D71B9E202AD05C4C00144928 /* PeopleView.swift */,
 				D72538A92B19233E00CE1B73 /* SettingsView.swift */,
 			);
 			path = NavBar;
@@ -321,14 +304,7 @@
 		D7C865592AF14FFB00DFFE52 /* VccRideTests */ = {
 			isa = PBXGroup;
 			children = (
-				D7C8655A2AF14FFB00DFFE52 /* VccRideTests.swift */,
-				870752332B02B7CD0099CD6D /* DailyViewModelTests.swift */,
 				87401F0C2B02FA7600002639 /* RiderTests.swift */,
-				8739070D2B03422100136E77 /* DriverTests.swift */,
-				95D4B5CE2B03680C00AFAD35 /* DashboardTests.swift */,
-				95D4B5D02B03684400AFAD35 /* AdminCalendarTests.swift */,
-				95D4B5D22B036B6700AFAD35 /* AdminPeopleViewTests.swift */,
-				95D4B5D42B0372BF00AFAD35 /* AdminSettingsViewTests.swift */,
 			);
 			path = VccRideTests;
 			sourceTree = "<group>";
@@ -542,7 +518,6 @@
 				D71B9E112AD053FF00144928 /* AdminView.swift in Sources */,
 				A858D2D52ACDC73F00A17CCD /* FirebaseUtil.swift in Sources */,
 				D792DB2A2AF45BAB003D2E8E /* StartupScreen.swift in Sources */,
-				D71B9E212AD05C4C00144928 /* PeopleView.swift in Sources */,
 				D71B9E1F2AD05C4100144928 /* StatsView.swift in Sources */,
 				D79C3FA42B1D6847002BECD1 /* DriverModel.swift in Sources */,
 				A858D2D72ACDCD5F00A17CCD /* ImagePickerView.swift in Sources */,
@@ -559,13 +534,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				87401F0D2B02FA7600002639 /* RiderTests.swift in Sources */,
-				870752342B02B7CD0099CD6D /* DailyViewModelTests.swift in Sources */,
-				D7C8655B2AF14FFB00DFFE52 /* VccRideTests.swift in Sources */,
-				95D4B5D12B03684400AFAD35 /* AdminCalendarTests.swift in Sources */,
-				95D4B5CF2B03680C00AFAD35 /* DashboardTests.swift in Sources */,
-				8739070E2B03422100136E77 /* DriverTests.swift in Sources */,
-				95D4B5D32B036B6700AFAD35 /* AdminPeopleViewTests.swift in Sources */,
-				95D4B5D52B0372BF00AFAD35 /* AdminSettingsViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
