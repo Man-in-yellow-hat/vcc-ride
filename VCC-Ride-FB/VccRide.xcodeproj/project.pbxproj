@@ -48,7 +48,6 @@
 		A858D2D12ACDC6C100A17CCD /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A858D2D02ACDC6C100A17CCD /* FirebaseStorage */; };
 		A858D2D32ACDC6C100A17CCD /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = A858D2D22ACDC6C100A17CCD /* FirebaseStorageCombine-Community */; };
 		A858D2D52ACDC73F00A17CCD /* FirebaseUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858D2D42ACDC73F00A17CCD /* FirebaseUtil.swift */; };
-		A858D2D72ACDCD5F00A17CCD /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A858D2D62ACDCD5F00A17CCD /* ImagePickerView.swift */; };
 		D71B9E112AD053FF00144928 /* AdminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E102AD053FF00144928 /* AdminView.swift */; };
 		D71B9E162AD058DA00144928 /* DriverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E152AD058DA00144928 /* DriverView.swift */; };
 		D71B9E182AD058E100144928 /* RiderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E172AD058E100144928 /* RiderView.swift */; };
@@ -101,7 +100,6 @@
 		A858D28E2ACDADC700A17CCD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A858D2972ACDAFFD00A17CCD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A858D2D42ACDC73F00A17CCD /* FirebaseUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUtil.swift; sourceTree = "<group>"; };
-		A858D2D62ACDCD5F00A17CCD /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		D71B9E102AD053FF00144928 /* AdminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminView.swift; sourceTree = "<group>"; };
 		D71B9E152AD058DA00144928 /* DriverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverView.swift; sourceTree = "<group>"; };
 		D71B9E172AD058E100144928 /* RiderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiderView.swift; sourceTree = "<group>"; };
@@ -231,12 +229,9 @@
 				D7CA928E2ACE38CF007C1994 /* Admin */,
 				D71B9E122AD0579800144928 /* Utilities */,
 				D792DB282AF45B5B003D2E8E /* Startup */,
-				A858D2872ACDADB500A17CCD /* VccRideApp.swift */,
-				D771DED12ACF575C00E79153 /* MainView.swift */,
-				A858D2D62ACDCD5F00A17CCD /* ImagePickerView.swift */,
-				A858D2972ACDAFFD00A17CCD /* ContentView.swift */,
-				D71B9E242AD09C5400144928 /* GoogleService-Info.plist */,
+				D7D771EC2B1E7E270020F3BD /* App */,
 				A844CE8C2ACE0B6700EC44C2 /* Info.plist */,
+				D71B9E242AD09C5400144928 /* GoogleService-Info.plist */,
 				A858D28B2ACDADC700A17CCD /* Assets.xcassets */,
 				A858D28D2ACDADC700A17CCD /* Preview Content */,
 			);
@@ -256,7 +251,6 @@
 			children = (
 				D73273B22ADE1C6600F5DA44 /* DailyViewModel.swift */,
 				A858D2D42ACDC73F00A17CCD /* FirebaseUtil.swift */,
-				A844CE8D2ACE0EEA00EC44C2 /* Application.swift */,
 				D7B65D972AD25BCE00D2701B /* UserViewModel.swift */,
 				D7C99FB52B17F38A0056C5A9 /* NoPracticeView.swift */,
 				D72538AB2B1A697D00CE1B73 /* AttendanceFormView.swift */,
@@ -318,6 +312,17 @@
 				D792DB242AF42769003D2E8E /* ListDriversView.swift */,
 			);
 			path = Admin;
+			sourceTree = "<group>";
+		};
+		D7D771EC2B1E7E270020F3BD /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A844CE8D2ACE0EEA00EC44C2 /* Application.swift */,
+				A858D2872ACDADB500A17CCD /* VccRideApp.swift */,
+				D771DED12ACF575C00E79153 /* MainView.swift */,
+				A858D2972ACDAFFD00A17CCD /* ContentView.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -520,7 +525,6 @@
 				D792DB2A2AF45BAB003D2E8E /* StartupScreen.swift in Sources */,
 				D71B9E1F2AD05C4100144928 /* StatsView.swift in Sources */,
 				D79C3FA42B1D6847002BECD1 /* DriverModel.swift in Sources */,
-				A858D2D72ACDCD5F00A17CCD /* ImagePickerView.swift in Sources */,
 				D792DB252AF42769003D2E8E /* ListDriversView.swift in Sources */,
 				D7B65D982AD25BCE00D2701B /* UserViewModel.swift in Sources */,
 				A858D2882ACDADB500A17CCD /* VccRideApp.swift in Sources */,
