@@ -54,6 +54,11 @@ struct SettingsView: View {
                     if role == "driver" || role == "admin" {
                         Stepper("Available Seats: \(availableSeats)", value: $availableSeats, in: 1...5)
                     }
+                    if role == "admin" {
+                        NavigationLink(destination: CalendarView()) {
+                            Text("Select Practice Date Attendance")
+                        }
+                    }
                 }
                 
                 Section {
