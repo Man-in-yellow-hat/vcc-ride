@@ -20,7 +20,7 @@ struct ListDriversView: View {
             if !isLoading {
                 List {
                     Section(header: Text("NORTH Drivers").foregroundColor(.green)) {
-                        ForEach(Array(dailyViewModel.filterDrivers(locationFilter: "north", careDeparted: false)), id: \.key) { (userID, userData) in
+                        ForEach(Array(dailyViewModel.filterDrivers(locationFilter: "north", careDeparted: true, isDepartedFilter: false)), id: \.key) { (userID, userData) in
                             HStack {
                                 Text(userData["name"] as? String ?? "Unknown Name")
                                 Spacer()
@@ -36,7 +36,7 @@ struct ListDriversView: View {
                     }
                     
                     Section(header: Text("RAND Drivers").foregroundColor(.blue)) {
-                        ForEach(Array(dailyViewModel.filterDrivers(locationFilter: "rand", careDeparted: false)), id: \.key) { (userID, userData) in
+                        ForEach(Array(dailyViewModel.filterDrivers(locationFilter: "rand", careDeparted: true, isDepartedFilter: false)), id: \.key) { (userID, userData) in
                             HStack {
                                 Text(userData["name"] as? String ?? "Unknown Name")
                                 Spacer()

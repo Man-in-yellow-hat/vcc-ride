@@ -13,7 +13,9 @@ import GoogleSignIn
 @main
 struct FirebaseTestApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @StateObject var viewModel = MainViewModel() // Create an instance of MainViewModel
+    @ObservedObject private var viewModel = MainViewModel.shared
+
+//    @StateObject var viewModel = MainViewModel() // Create an instance of MainViewModel
     @State private var isMainViewVisible = false // Add a boolean for the startup screen
 
     var body: some Scene {
@@ -28,10 +30,11 @@ struct FirebaseTestApp: App {
                         if(GIDSignIn.sharedInstance.hasPreviousSignIn() && GIDSignIn.sharedInstance.currentUser == nil) {
                             GIDSignIn.sharedInstance.restorePreviousSignIn() { user, error in
                                 if let user = Auth.auth().currentUser {
-                                    print(user.uid)
                                     viewModel.isLoggedIn = true
                                     viewModel.userID = user.uid
-                                    viewModel.fetchUserRole(forUserID: user.uid)
+                                    viewModel.fetchUserRole(forUserID: user.uid) {
+                                        self.isMainViewVisible = true
+                                    }
                                 } else {
                                     print(error ?? "unknown error")
                                 }

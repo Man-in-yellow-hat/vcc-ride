@@ -19,7 +19,8 @@ struct LoadDriverView: View {
                                                       seats: driverObj["seats"] as! Int,
                                                       filledSeats: driverObj["filled_seats"] as! Int,
                                                       preference: driverObj["preference"] as! String,
-                                                      isDeparted: driverObj["isDeparted"] as! Bool))
+                                                      isDeparted: driverObj["isDeparted"] as! Bool),
+                               isDeparted: driverObj["isDeparted"] as! Bool)
                 } else {
                     Button("Fill Attendance Form") {
                         isSheetPresented = true
@@ -46,13 +47,13 @@ struct LoadDriverView: View {
 struct DriverView: View {
     
     @ObservedObject private var dailyViewModel = DailyViewModel.shared
+    
+    @State public var thisDriver: Driver
+    @State public var isDeparted: Bool
+
     @State private var selectedLocation = "Any"
     @State private var isActive = "Any"
-    @State public var thisDriver: Driver
-    
     @State private var carOffset: CGSize = .zero
-    @State private var isDeparted: Bool = false
-    
     @State private var isReturning: Bool = false
     @State private var availableSeatsInput: Int = 0
     
@@ -222,8 +223,8 @@ struct DriverView: View {
                 Text("North Rider Manifest").font(.subheadline)
                 ForEach(Array(dailyViewModel.filterRiders(locationFilter: "north")), id: \.key) { (userID, userData) in
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("Name: \(userData["name"] as? String ?? "?")")
-                        Text("Location: \(userData["location"] as? String ?? "?")")
+                        let userName = (userData["name"] as? String ?? "").isEmpty ? "Anonymous" : (userData["name"] as? String ?? "")
+                        Text("\(userName)")
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
@@ -236,8 +237,9 @@ struct DriverView: View {
                 Text("Rand Rider Manifest").font(.subheadline)
                 ForEach(Array(dailyViewModel.filterRiders(locationFilter: "rand")), id: \.key) { (userID, userData) in
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("Name: \(userData["name"] as? String ?? "?")")
-                        Text("Location: \(userData["location"] as? String ?? "?")")
+                        let userName = (userData["name"] as? String ?? "").isEmpty ? "Anonymous" : (userData["name"] as? String ?? "")
+                        Text("\(userName)")
+//                        Text("\(userData["name"] as? String ?? "?")")
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
@@ -252,7 +254,8 @@ struct DriverView: View {
                     ForEach(Array(dailyViewModel.filterDrivers(locationFilter: "north", careDeparted: false)), id: \.key) { (userID, userData) in
                         VStack(alignment: .leading, spacing: 10) {
                             Text("Name: \(userData["name"] as? String ?? "?")")
-                            Text("Location: \(userData["location"] as? String ?? "?")")
+                            Text("Seats Filled: \(userData["filled_seats"] as? Int ?? 0)/\(userData["seats"] as? Int ?? 0)")
+                            Text("Departed: \(userData["isDeparted"] as? Bool ?? false ? "Yes" : "No")")
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
@@ -266,7 +269,8 @@ struct DriverView: View {
                     ForEach(Array(dailyViewModel.filterDrivers(locationFilter: "rand", careDeparted: false)), id: \.key) { (userID, userData) in
                         VStack(alignment: .leading, spacing: 10) {
                             Text("Name: \(userData["name"] as? String ?? "?")")
-                            Text("Location: \(userData["location"] as? String ?? "?")")
+                            Text("Seats Filled: \(userData["filled_seats"] as? Int ?? 0)/\(userData["seats"] as? Int ?? 0)")
+                            Text("Departed: \(userData["isDeparted"] as? Bool ?? false ? "Yes" : "No")")
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
@@ -308,7 +312,8 @@ struct DriverView: View {
 struct DriverView_Previews: PreviewProvider {
     static var previews: some View {
         DriverView(thisDriver: Driver(id: "tmp", name: "tmp", location: "tmp", seats: 4,
-                                      filledSeats: 0, preference: "tmp", isDeparted: false))
+                                      filledSeats: 0, preference: "tmp", isDeparted: false),
+                   isDeparted: false)
     }
 }
 
