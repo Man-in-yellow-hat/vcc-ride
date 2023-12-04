@@ -43,7 +43,7 @@ In order to log in, you must create an account and go through the sign-in proces
 Important: DEV and PROD enviroment are <strong>NOT WORKING</strong> on Friday from 00:00 - 01:00 GMT due to the server maintenance.
 
 # Architecture
-* Hello World project is generally implemented using the <strong>Model-View-Controller (MVC)</strong> architecture pattern. Note that due to the use of Firebase's Realtime Database, some of the components overlap.
+* Our project is generally implemented using the <strong>Model-View-Controller (MVC)</strong> architecture pattern. Note that due to the use of Firebase's Realtime Database, some of the components overlap.
 * Model generally has all data and some necessary logic.
 * View is responsible for displaying everything to the user, such as a list of practice dates.
 * Controller handles any user input or interactions and update the Model and View as needed.
