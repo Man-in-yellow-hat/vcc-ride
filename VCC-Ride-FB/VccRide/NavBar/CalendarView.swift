@@ -31,6 +31,9 @@ struct CalendarView: View {
     @State private var fname: String = ""
     @State private var lname: String = ""
     @State private var location: String = ""
+    
+    @State private var showSavedAlert = false
+
     let locations = ["North", "Rand"]
 
     // Firebase reference for user preferences
@@ -75,10 +78,14 @@ struct CalendarView: View {
                 }
             }
         }
-        .navigationBarTitle("Rider Settings")
+        .navigationBarTitle("Attendance Settings")
         .onAppear {
             // Fetch user preferences from the Realtime Database when the view appears
             fetchUserPreferences()
+        }
+        .alert(isPresented: $showSavedAlert) {
+            // Display an alert when showAlert is true
+            Alert(title: Text("Attendance Saved!"))
         }
     }
     
@@ -187,6 +194,7 @@ struct CalendarView: View {
                 }
             }
         }
+        showSavedAlert = true
     }
 }
 

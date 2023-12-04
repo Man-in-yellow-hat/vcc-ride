@@ -22,6 +22,8 @@ struct SettingsView: View {
     @State private var flashColor: Color = Color(UIColor.systemGray5)
 
     let locations = ["North", "Rand", "No Preference"]
+    
+    @State private var showSavedAlert = false
 
     @State private var dbLocation = ""
     @State private var dbAutoConfirm = true
@@ -65,6 +67,7 @@ struct SettingsView: View {
                     Button(action: {
                         // Save the updated preferences to the Realtime Database
                         savePreferences()
+                        showSavedAlert = true
                     }) {
                         Text("Save Preferences")
                             .foregroundColor(.blue)
@@ -140,6 +143,10 @@ struct SettingsView: View {
             .onAppear {
                 // Fetch user preferences from the Realtime Database when the view appears
                 fetchPreferences()
+            }
+            .alert(isPresented: $showSavedAlert) {
+                // Display an alert when showAlert is true
+                Alert(title: Text("Attendance Saved!"))
             }
         }
     }

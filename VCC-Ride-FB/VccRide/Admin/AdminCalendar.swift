@@ -28,25 +28,15 @@ struct AdminCalendar: View {
                             .onDelete(perform: delete)
                         }
                         
-                        //List(practiceDateViewModel.practiceDates, id: \.self) { date in
-                        //    Text(date)
-                        //}
                     } else {
                         Text("No practice dates available.")
                     }
-                    /*
-                     TextField("Enter date (e.g., oct4)", text: $newDate)
-                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                     
-                     Button("Add Practice Date") {
-                     practiceDateViewModel.addPracticeDate(date: newDate)
-                     newDate = ""
-                     }
-                     */
                     
                     Button("Add Practice Date") {
                         datePickerVisible = true
                     }
+                    Text("You can select your attendance in settings.")
+                        .frame(maxWidth: .infinity)
                 } //VStack
                 .padding()
                 .navigationBarTitle("Practice Dates")
@@ -68,7 +58,6 @@ struct AdminCalendar: View {
                             Button("Done", action: {
                                 datePickerVisible = false
                                 dateFormatter.dateStyle = .medium
-//                                practiceDateViewModel.addPracticeDate(date: dateFormatter.string(from: newDate))
                                 let filteredChar = newDate.formatted(Date.FormatStyle().month(.abbreviated).day(.twoDigits)).filter { !$0.isWhitespace }
                                 practiceDateViewModel.addPracticeDate(date: String(filteredChar))
                             }).padding()

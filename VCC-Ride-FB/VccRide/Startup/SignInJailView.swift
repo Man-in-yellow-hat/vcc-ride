@@ -57,7 +57,7 @@ struct SignInJailView: View {
                     Picker("Role", selection: $selectedRole) {
                         Text("Rider").tag("rider")
                         Text("Driver").tag("driver")
-                        Text("Admin").tag("admin") // TODO: remove? this is for apple release
+//                        Text("Admin").tag("admin") // TODO: remove? this is for apple release
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     .onChange(of: selectedRole) { newValue in
