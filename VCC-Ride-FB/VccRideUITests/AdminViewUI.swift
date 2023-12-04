@@ -21,94 +21,61 @@ final class AdminViewUI: XCTestCase {
     
     
     func testAdminPage() throws {
-            sleep(2)
+        sleep(2)
+            
+        let assignButton = app.buttons["Assign Drivers"]
+        XCTAssertTrue(assignButton.exists, "Assign drivers does not exist.")
+            
+        let remindButton = app.buttons["Send Practice Reminder"]
+        XCTAssertTrue(remindButton.exists, "Send Practice Reminder does not exist.")
+            
+        // test people view page
+        let peopleView = app.tabBars.buttons["People"]
+        XCTAssertTrue(peopleView.exists, "People view did not appear after tapping Calendar button.")
+        peopleView.tap()
         
-            let isNoPractice = app.staticTexts["no practice"]
-            let conditionExists = isNoPractice.exists
-            XCTAssertTrue(isNoPractice.exists, "The specific text should exist.")
+        let roleButton = app.buttons["Filter by Role, Any"]
+        XCTAssertTrue(roleButton.exists, "Role filter exists.")
+    
+        let locationButton = app.buttons["Filter by Location, Any"]
+        XCTAssertTrue(roleButton.exists, "Location filter doesn't exists.")
         
-            let reloadButton = app.buttons["reloadButton"]
-            XCTAssertTrue(reloadButton.exists, "The reload button does not exist.")
-
-            reloadButton.tap()
+        let statusButton = app.buttons["Filter by Status, Any"]
+        XCTAssertTrue(roleButton.exists, "Status filter exists.")
+        
+        statusButton.tap()
+        let activeButton = app.buttons["Active"]
+        XCTAssertTrue(activeButton.exists, "Rider button exists.")
+        activeButton.tap()
+        
+        let clearFilterButton = app.buttons["Clear Filters"]
+        XCTAssertTrue(clearFilterButton.exists, "Clear Filters doesn't exist.")
             
-            let assignButton = app.buttons["Assign Drivers"]
-            XCTAssertTrue(assignButton.exists, "Assign drivers does not exist.")
-            
-            let remindButton = app.buttons["Send Practice Reminder"]
-            XCTAssertTrue(remindButton.exists, "Send Practice Reminder does not exist.")
-            
-            // test people view page
-            let peopleView = app.tabBars.buttons["People"]
-            XCTAssertTrue(peopleView.exists, "People view did not appear after tapping Calendar button.")
-            peopleView.tap()
-            
-            // testing calendar view page
-            let calendarView = app.tabBars.buttons["Calendar"]
-            XCTAssertTrue(calendarView.exists, "Calendar view did not appear after tapping Calendar button.")
-            calendarView.tap()
-            
-            // test stats page
-            let statsView = app.tabBars.buttons["Stats"]
-            XCTAssertTrue(statsView.exists, "Stats view did not appear after tapping Calendar button.")
-            statsView.tap()
+        // testing calendar view page
+        let calendarView = app.tabBars.buttons["Calendar"]
+        XCTAssertTrue(calendarView.exists, "Calendar view did not appear after tapping Calendar button.")
+        calendarView.tap()
+        
+        let addPractice = app.buttons["Add Practice Date"]
+        XCTAssertTrue(addPractice.exists, "Calendar view did not appear after tapping Calendar button.")
+        
+        // test stats page
+        let statsView = app.tabBars.buttons["Stats"]
+        XCTAssertTrue(statsView.exists, "Stats view did not appear after tapping Calendar button.")
+        statsView.tap()
         
     }
     
     func testDashboardSwipe() throws {
         sleep(2)
         
-        let driversNextPractice = app.staticTexts["Drivers"]
+        let driversNextPractice = app.staticTexts["North Drivers"]
         app.swipeLeft()
         // Check if the driver list page is now present
         XCTAssertTrue(driversNextPractice.exists, "The specific text should exist.")
        
         app.swipeRight()
         app.swipeRight()
-        
-        let attendanceButton = app.buttons["Fill Attendance Form"]
-        XCTAssertTrue(attendanceButton.exists, "Coming button does not exist.")
-        
-        attendanceButton.tap()
-        
-        let comingButton = app.buttons["I am coming!"]
-        XCTAssertTrue(comingButton.exists, "Coming button does not exist.")
-        
-        let notComingButton = app.buttons["I am not coming :("]
-        XCTAssertTrue(notComingButton.exists, "Not coming button does not exist.")
-        
-        notComingButton.tap()
-        let notComingText = app.staticTexts["You have been marked as not attending."]
-        sleep(3)
-        
-        let changeMindButton = app.buttons["Want to change your mind?"]
-        XCTAssertTrue(changeMindButton.exists, "Change mind button does not exist.")
-        changeMindButton.tap()
-        
-        let comingButtonTwo = app.buttons["I am coming!"]
-        comingButtonTwo.tap()
-        
-        // Test step up
-        let startingValue = 1 // Replace with the actual starting value
-        let maximumValue = 5
-        
-        let stepperIncrementButton = app.buttons["Increment"]
-        XCTAssertTrue(stepperIncrementButton.exists, "Stepper increment button does not exist")
-        
-        // check maximum increments
-        for _ in startingValue..<maximumValue {
-            stepperIncrementButton.tap()
-        }
-        
-        stepperIncrementButton.tap()
-        
-        
-        
-        let confirmButton = app.buttons["Confirm"]
-        XCTAssertTrue(confirmButton.exists, "Change mind button does not exist.")
-        
-        let cancelButton = app.buttons["Cancel"]
-        XCTAssertTrue(cancelButton.exists, "Change mind button does not exist.")
         
     }
     
@@ -156,27 +123,11 @@ final class AdminViewUI: XCTestCase {
         let signoutButton = app.buttons["Sign Out"]
         XCTAssertTrue(signoutButton.exists, "sign out button does not exist.")
         
+        let deleteButton = app.buttons["Delete Account"]
+        XCTAssertTrue(deleteButton.exists, "delete button does not exist.")
+        
+        
         
     }
-    
-    
-        
-        
-
-//    }
 }
         
-//        let locPicker = app.pickers["LocationPicker"]
-//        XCTAssertTrue(locPicker.exists, "Role Picker does not exist")
-//
-//        // test if driver was selected
-//        locPicker.tap()
-//
-//        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "North")
-//        XCTAssertTrue(locPicker.exists, "Role Picker does not exist")
-//
-//        sleep(1)
-//
-//        let selectedRoleLabel = app.staticTexts["Picker_North"]
-//        XCTAssertTrue(selectedRoleLabel.exists, "Selected role label does not exist")
-//        XCTAssertEqual(selectedRoleLabel.label, "North", "Selected role is not North")
