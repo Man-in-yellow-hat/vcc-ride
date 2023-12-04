@@ -15,7 +15,6 @@ struct FirebaseTestApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @ObservedObject private var viewModel = MainViewModel.shared
 
-//    @StateObject var viewModel = MainViewModel() // Create an instance of MainViewModel
     @State private var isMainViewVisible = false // Add a boolean for the startup screen
 
     var body: some Scene {
