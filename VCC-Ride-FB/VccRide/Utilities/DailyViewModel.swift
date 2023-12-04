@@ -167,8 +167,8 @@ class DailyViewModel: ObservableObject {
         let northRiders = filterRiders(locationFilter: "north")
         let randRiders = filterRiders(locationFilter: "rand")
         
-        let northDrivers = filterDrivers(locationFilter: "north")
-        let randDrivers = filterDrivers(locationFilter: "rand")
+        let northDrivers = filterDrivers(locationFilter: "north", careDeparted: false)
+        let randDrivers = filterDrivers(locationFilter: "rand", careDeparted: false)
         
         numNorthRequested = northRiders.count
         numRandRequested = randRiders.count
@@ -281,7 +281,9 @@ class DailyViewModel: ObservableObject {
         return filteredRiders
     }
     
-    func filterDrivers(locationFilter: String? = nil, isDepartedFilter: Bool? = false) -> [String: [String: Any]] {
+    // care departed represents whether or not we care if the drivers are departed
+    // if we care, we use the isDepartedFilter. otherwise, we ignore it
+    func filterDrivers(locationFilter: String? = nil, careDeparted: Bool, isDepartedFilter: Bool? = false) -> [String: [String: Any]] {
         var filteredDrivers = drivers
         if let location = locationFilter {
             filteredDrivers = filteredDrivers.filter { (_, driver) in
@@ -289,7 +291,7 @@ class DailyViewModel: ObservableObject {
                 return userLocation.localizedCaseInsensitiveCompare(location) == .orderedSame
             }
         }
-        if isDepartedFilter != nil {
+        if careDeparted {
             filteredDrivers = filteredDrivers.filter { (_, driver) in
                 guard let driverDeparted = driver["isDeparted"] as? Bool else { return false }
                 return driverDeparted == isDepartedFilter
@@ -300,7 +302,7 @@ class DailyViewModel: ObservableObject {
     
     func assignNoPref() {
         // Filter drivers with location "no_pref"
-        let noPrefDrivers = filterDrivers(locationFilter: "no_pref")
+        let noPrefDrivers = filterDrivers(locationFilter: "no_pref", careDeparted: false)
         
         // Loop through each no_pref driver and assign to either "north" or "rand"
         for (driverID, driverInfo) in noPrefDrivers {

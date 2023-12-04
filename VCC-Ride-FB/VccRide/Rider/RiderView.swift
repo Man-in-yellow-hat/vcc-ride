@@ -51,13 +51,15 @@ struct RiderView: View {
                     Text("There are either no drivers today or there is no practice today.")
                         .padding()
                 }
-                ForEach(Array(dailyViewModel.drivers.keys), id: \.self) { driverID in
+                // we want to see the drivers who are still there
+                ForEach(Array(dailyViewModel.filterDrivers(careDeparted: true, isDepartedFilter: false).keys), id: \.self) { driverID in
+//                ForEach(Array(dailyViewModel.drivers.keys), id: \.self) { driverID in
                     if let driverData = dailyViewModel.drivers[driverID], let location = driverData["location"] as? String, location == userViewModel.userLocation.lowercased() {
                         Text(userViewModel.userLocation + " Drivers")
                         VStack(alignment: .leading, spacing: 10) {
                             Text("Name: \(driverData["name"] as? String ?? "Unknown Name")")
                             Text("Seats Filled: \(driverData["filled_seats"] as? Int ?? 0)/\(driverData["seats"] as? Int ?? 0)")
-                            Text("Departed: \(driverData["isDeparted"] as? Bool ?? false ? "Yes" : "No")")
+//                            Text("Departed: \(driverData["isDeparted"] as? Bool ?? false ? "Yes" : "No")")
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()

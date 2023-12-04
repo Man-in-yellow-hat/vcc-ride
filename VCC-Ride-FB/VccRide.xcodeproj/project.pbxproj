@@ -63,7 +63,6 @@
 		D71B9E212AD05C4C00144928 /* PeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E202AD05C4C00144928 /* PeopleView.swift */; };
 		D71B9E232AD0732800144928 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B9E222AD0732800144928 /* LoginView.swift */; };
 		D71B9E252AD09C5400144928 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D71B9E242AD09C5400144928 /* GoogleService-Info.plist */; };
-		D72538A62B186E5500CE1B73 /* RiderFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72538A52B186E5500CE1B73 /* RiderFormView.swift */; };
 		D72538AA2B19233E00CE1B73 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72538A92B19233E00CE1B73 /* SettingsView.swift */; };
 		D72538AC2B1A697D00CE1B73 /* AttendanceFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72538AB2B1A697D00CE1B73 /* AttendanceFormView.swift */; };
 		D73273B32ADE1C6600F5DA44 /* DailyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73273B22ADE1C6600F5DA44 /* DailyViewModel.swift */; };
@@ -125,7 +124,6 @@
 		D71B9E202AD05C4C00144928 /* PeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleView.swift; sourceTree = "<group>"; };
 		D71B9E222AD0732800144928 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		D71B9E242AD09C5400144928 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		D72538A52B186E5500CE1B73 /* RiderFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiderFormView.swift; sourceTree = "<group>"; };
 		D72538A92B19233E00CE1B73 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D72538AB2B1A697D00CE1B73 /* AttendanceFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendanceFormView.swift; sourceTree = "<group>"; };
 		D73273B22ADE1C6600F5DA44 /* DailyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewModel.swift; sourceTree = "<group>"; };
@@ -286,7 +284,6 @@
 			isa = PBXGroup;
 			children = (
 				D71B9E172AD058E100144928 /* RiderView.swift */,
-				D72538A52B186E5500CE1B73 /* RiderFormView.swift */,
 			);
 			path = Rider;
 			sourceTree = "<group>";
@@ -531,7 +528,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D771DECC2ACF561400E79153 /* ContentView.swift in Sources */,
-				D72538A62B186E5500CE1B73 /* RiderFormView.swift in Sources */,
 				D7C99FB62B17F38A0056C5A9 /* NoPracticeView.swift in Sources */,
 				D7A1EAFC2AD2569C0075A4B2 /* AdminCalendar.swift in Sources */,
 				D71B9E162AD058DA00144928 /* DriverView.swift in Sources */,

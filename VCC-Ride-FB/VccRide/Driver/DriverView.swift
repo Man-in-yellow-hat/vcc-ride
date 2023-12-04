@@ -249,7 +249,7 @@ struct DriverView: View {
                     Spacer()
                     
                     Text("North Drivers").font(.subheadline)
-                    ForEach(Array(dailyViewModel.filterDrivers(locationFilter: "north")), id: \.key) { (userID, userData) in
+                    ForEach(Array(dailyViewModel.filterDrivers(locationFilter: "north", careDeparted: false)), id: \.key) { (userID, userData) in
                         VStack(alignment: .leading, spacing: 10) {
                             Text("Name: \(userData["name"] as? String ?? "?")")
                             Text("Location: \(userData["location"] as? String ?? "?")")
@@ -263,7 +263,7 @@ struct DriverView: View {
                     Spacer()
                     
                     Text("Rand Drivers").font(.subheadline)
-                    ForEach(Array(dailyViewModel.filterDrivers(locationFilter: "rand")), id: \.key) { (userID, userData) in
+                    ForEach(Array(dailyViewModel.filterDrivers(locationFilter: "rand", careDeparted: false)), id: \.key) { (userID, userData) in
                         VStack(alignment: .leading, spacing: 10) {
                             Text("Name: \(userData["name"] as? String ?? "?")")
                             Text("Location: \(userData["location"] as? String ?? "?")")
@@ -289,18 +289,19 @@ struct DriverView: View {
         squishScale = 1
         squishOffset = .zero
         
-        
-        
         let leftRef = Database.database().reference().child("Daily-Practice").child("drivers")
             .child(thisDriver.id).child("isDeparted")
         leftRef.setValue(false)
+        dailyViewModel.adjustSeats()
     }
     
     private func handleDeparture() {
         print("leaving!")
-        let leftRef = Database.database().reference().child("Daily-Practice").child("drivers")
-            .child(thisDriver.id).child("isDeparted")
-        leftRef.setValue(true)
+        let driverRef = Database.database().reference().child("Daily-Practice").child("drivers")
+            .child(thisDriver.id)
+        driverRef.child("isDeparted").setValue(true)
+        driverRef.child("seats").setValue(thisDriver.filledSeats) // this essentially "removes" extra seats
+        dailyViewModel.adjustSeats()
     }
 }
 
