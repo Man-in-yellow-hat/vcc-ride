@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		870752322B02A9280099CD6D /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870752312B02A9280099CD6D /* UserModel.swift */; };
 		870752342B02B7CD0099CD6D /* DailyViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870752332B02B7CD0099CD6D /* DailyViewModelTests.swift */; };
 		873333122B02C45B00418ECB /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 873333112B02C45B00418ECB /* FirebaseDatabase */; };
 		873333142B02C46E00418ECB /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 873333132B02C46E00418ECB /* GoogleSignIn */; };
@@ -72,6 +71,7 @@
 		D771DED22ACF575C00E79153 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D771DED12ACF575C00E79153 /* MainView.swift */; };
 		D792DB252AF42769003D2E8E /* ListDriversView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D792DB242AF42769003D2E8E /* ListDriversView.swift */; };
 		D792DB2A2AF45BAB003D2E8E /* StartupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D792DB292AF45BAB003D2E8E /* StartupScreen.swift */; };
+		D79C3FA42B1D6847002BECD1 /* DriverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79C3FA32B1D6847002BECD1 /* DriverModel.swift */; };
 		D7A0B1272AD7252500FC5AAC /* SignInJailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A0B1262AD7252500FC5AAC /* SignInJailView.swift */; };
 		D7A1EAFC2AD2569C0075A4B2 /* AdminCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */; };
 		D7B65D982AD25BCE00D2701B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B65D972AD25BCE00D2701B /* UserViewModel.swift */; };
@@ -98,7 +98,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		870752312B02A9280099CD6D /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		870752332B02B7CD0099CD6D /* DailyViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewModelTests.swift; sourceTree = "<group>"; };
 		8739070D2B03422100136E77 /* DriverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverTests.swift; sourceTree = "<group>"; };
 		87401F0C2B02FA7600002639 /* RiderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiderTests.swift; sourceTree = "<group>"; };
@@ -134,6 +133,7 @@
 		D792DB212AF3F78A003D2E8E /* VccRide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VccRide.entitlements; sourceTree = "<group>"; };
 		D792DB242AF42769003D2E8E /* ListDriversView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDriversView.swift; sourceTree = "<group>"; };
 		D792DB292AF45BAB003D2E8E /* StartupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupScreen.swift; sourceTree = "<group>"; };
+		D79C3FA32B1D6847002BECD1 /* DriverModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverModel.swift; sourceTree = "<group>"; };
 		D7A0B1262AD7252500FC5AAC /* SignInJailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInJailView.swift; sourceTree = "<group>"; };
 		D7A1EAFB2AD2569C0075A4B2 /* AdminCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminCalendar.swift; sourceTree = "<group>"; };
 		D7B65D972AD25BCE00D2701B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
@@ -276,7 +276,6 @@
 				A858D2D42ACDC73F00A17CCD /* FirebaseUtil.swift */,
 				A844CE8D2ACE0EEA00EC44C2 /* Application.swift */,
 				D7B65D972AD25BCE00D2701B /* UserViewModel.swift */,
-				870752312B02A9280099CD6D /* UserModel.swift */,
 				D7C99FB52B17F38A0056C5A9 /* NoPracticeView.swift */,
 				D72538AB2B1A697D00CE1B73 /* AttendanceFormView.swift */,
 			);
@@ -296,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				D71B9E152AD058DA00144928 /* DriverView.swift */,
+				D79C3FA32B1D6847002BECD1 /* DriverModel.swift */,
 			);
 			path = Driver;
 			sourceTree = "<group>";
@@ -547,8 +547,8 @@
 				A858D2D52ACDC73F00A17CCD /* FirebaseUtil.swift in Sources */,
 				D792DB2A2AF45BAB003D2E8E /* StartupScreen.swift in Sources */,
 				D71B9E212AD05C4C00144928 /* PeopleView.swift in Sources */,
-				870752322B02A9280099CD6D /* UserModel.swift in Sources */,
 				D71B9E1F2AD05C4100144928 /* StatsView.swift in Sources */,
+				D79C3FA42B1D6847002BECD1 /* DriverModel.swift in Sources */,
 				A858D2D72ACDCD5F00A17CCD /* ImagePickerView.swift in Sources */,
 				D792DB252AF42769003D2E8E /* ListDriversView.swift in Sources */,
 				D7B65D982AD25BCE00D2701B /* UserViewModel.swift in Sources */,

@@ -148,8 +148,9 @@ class DailyViewModel: ObservableObject {
     public func checkPracticeToday(completion: @escaping (Bool) -> Void) {
         dataFetcher.fetchDate { fetchedDate in
             self.practiceToday = (fetchedDate == self.date)
+            print("checked practice, got \(self.practiceToday)")
+            completion(self.practiceToday)
         }
-        completion(self.practiceToday)
     }
     
     private func getDate() {

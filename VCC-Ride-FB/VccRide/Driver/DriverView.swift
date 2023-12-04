@@ -289,6 +289,8 @@ struct DriverView: View {
         squishScale = 1
         squishOffset = .zero
         
+        
+        
         let leftRef = Database.database().reference().child("Daily-Practice").child("drivers")
             .child(thisDriver.id).child("isDeparted")
         leftRef.setValue(false)
