@@ -12,15 +12,21 @@ struct LoadDriverView: View {
         Group {
             if (dailyViewModel.practiceToday) {
                 if let driverID = dailyViewModel.drivers.keys.first(where: { $0 == userViewModel.userID }),
-                   let driverObj = dailyViewModel.drivers[driverID] {
+                   let driverObj = dailyViewModel.drivers[driverID],
+                   let name = driverObj["name"] as? String,
+                   let location = driverObj["location"] as? String,
+                   let seats = driverObj["seats"] as? Int,
+                   let filledSeats = driverObj["filled_seats"] as? Int,
+                   let preference = driverObj["preference"] as? String,
+                   let isDeparted = driverObj["isDeparted"] as? Bool {
                     DriverView(thisDriver: Driver(id: userViewModel.userID,
-                                                      name: driverObj["name"] as! String,
-                                                      location: driverObj["location"] as! String,
-                                                      seats: driverObj["seats"] as! Int,
-                                                      filledSeats: driverObj["filled_seats"] as! Int,
-                                                      preference: driverObj["preference"] as! String,
-                                                      isDeparted: driverObj["isDeparted"] as! Bool),
-                               isDeparted: driverObj["isDeparted"] as! Bool)
+                                                  name: name,
+                                                  location: location,
+                                                  seats: seats,
+                                                  filledSeats: filledSeats,
+                                                  preference: preference,
+                                                  isDeparted: isDeparted),
+                               isDeparted: isDeparted)
                 } else {
                     Button("Fill Attendance Form") {
                         isSheetPresented = true
@@ -43,6 +49,7 @@ struct LoadDriverView: View {
         }
     }
 }
+
 
 struct DriverView: View {
     
