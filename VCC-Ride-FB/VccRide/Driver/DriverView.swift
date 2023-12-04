@@ -55,7 +55,7 @@ struct DriverView: View {
     @State private var isActive = "Any"
     @State private var carOffset: CGSize = .zero
     @State private var isReturning: Bool = false
-    @State private var availableSeatsInput: Int = 0
+    @State private var availableSeatsInput: Int = 1
     
     @State private var squishScale: CGFloat = 1
     @State private var squishOffset: CGFloat = .zero
@@ -187,8 +187,8 @@ struct DriverView: View {
                     }
                 } else {
                     VStack {
-                        Stepper("Available Seats: \(availableSeatsInput)", value: $availableSeatsInput, in: 0...6)
-                                            .padding()
+                        Stepper("Open/Available Seats: \(availableSeatsInput)", value: $availableSeatsInput, in: 1...6)
+                            .padding()
 
                         HStack {
                             Button(action: {
@@ -239,7 +239,6 @@ struct DriverView: View {
                     VStack(alignment: .leading, spacing: 10) {
                         let userName = (userData["name"] as? String ?? "").isEmpty ? "Anonymous" : (userData["name"] as? String ?? "")
                         Text("\(userName)")
-//                        Text("\(userData["name"] as? String ?? "?")")
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
@@ -293,9 +292,33 @@ struct DriverView: View {
         squishScale = 1
         squishOffset = .zero
         
-        let leftRef = Database.database().reference().child("Daily-Practice").child("drivers")
-            .child(thisDriver.id).child("isDeparted")
-        leftRef.setValue(false)
+        let departedDriverData = [
+            "filled_seats": thisDriver.filledSeats,
+            "name": "Departed Driver",
+            "preference": thisDriver.locationPreference,
+            "seats": thisDriver.seats,
+            "isDeparted": true,
+            "location": thisDriver.location
+        ] as [String : Any]
+        
+        // Reference to the Daily-Practice/drivers location in the Realtime Database
+        let setRef = Database.database().reference().child("Daily-Practice").child("drivers")
+        guard let randomID = setRef.childByAutoId().key else { return }
+        setRef.child(randomID).setValue(departedDriverData) { error, _ in
+            if let error = error {
+                print("Error adding user to database:", error)
+            }
+        }
+        
+        // Get our driver reference, reset seat values
+        thisDriver.seats = availableSeats
+        thisDriver.filledSeats = 0
+        thisDriver.isDeparted = false
+        let driverRef = setRef.child(thisDriver.id)
+        driverRef.child("isDeparted").setValue(false)
+        driverRef.child("seats").setValue(availableSeats)
+        driverRef.child("filled_seats").setValue(0)
+        
         dailyViewModel.adjustSeats()
     }
     

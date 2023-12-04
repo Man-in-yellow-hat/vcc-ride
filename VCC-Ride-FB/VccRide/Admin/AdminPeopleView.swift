@@ -52,7 +52,7 @@ struct EditUserView: View {
                 }
                 if role != "rider" {
                     Section(header: Text("Number of Seats")) {
-                        Stepper(value: $seats, in: 0...10) {
+                        Stepper(value: $seats, in: 1...10) {
                             Text("Seats: \(seats)")
                         }
                     }

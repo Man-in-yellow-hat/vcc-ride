@@ -35,7 +35,7 @@ struct FirebaseTestApp: App {
                                         self.isMainViewVisible = true
                                     }
                                 } else {
-                                    print(error ?? "unknown error")
+                                    print(error ?? "error logging user back in")
                                 }
                             }
                         }
