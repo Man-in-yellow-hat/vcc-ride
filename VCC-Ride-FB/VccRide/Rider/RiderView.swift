@@ -52,9 +52,9 @@ struct RiderView: View {
                         .padding()
                 }
                 // we want to see the drivers who are still there
+                Text(userViewModel.userLocation + " Drivers")
                 ForEach(Array(dailyViewModel.filterDrivers(careDeparted: true, isDepartedFilter: false).keys), id: \.self) { driverID in
                     if let driverData = dailyViewModel.drivers[driverID], let location = driverData["location"] as? String, location == userViewModel.userLocation.lowercased() {
-                        Text(userViewModel.userLocation + " Drivers")
                         VStack(alignment: .leading, spacing: 10) {
                             Text("Name: \(driverData["name"] as? String ?? "Unknown Name")")
                             Text("Seats Filled: \(driverData["filled_seats"] as? Int ?? 0)/\(driverData["seats"] as? Int ?? 0)")

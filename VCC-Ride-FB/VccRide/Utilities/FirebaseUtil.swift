@@ -14,7 +14,7 @@ class FirebaseUtil: NSObject {
     let auth: Auth
     let db: Database
     
-    let WHITELISTED: [String] = ["nate.k788@gmail.com", "nathan@algernon.com", "vccride@gmail.com", "vccride.test@gmail.com"]
+    let WHITELISTED: [String] = ["nate.k788@gmail.com", "nathan@algernon.com", "vccride@gmail.com", "vccride.test@gmail.com, aman0328@gmail.com"]
 
     static let shared = FirebaseUtil()
 
