@@ -40,8 +40,6 @@ In order to log in, you must create an account and go through the sign-in proces
 * Username: vccride.test@gmail.com
 * Password: dikjoks-4myRave-bofaQ%
 
-Important: DEV and PROD enviroment are <strong>NOT WORKING</strong> on Friday from 00:00 - 01:00 GMT due to the server maintenance.
-
 # Architecture
 * Our project is generally implemented using the <strong>Model-View-Controller (MVC)</strong> architecture pattern. Note that due to the use of Firebase's Realtime Database, some of the components overlap.
 * Model generally has all data and some necessary logic.
