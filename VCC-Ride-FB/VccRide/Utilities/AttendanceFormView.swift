@@ -115,7 +115,6 @@ struct AttendanceFormView: View {
         // TODO: Handle logic
         
         print("nah not today")
-//        dailyViewModel.updateFilledSeats(forLocation: pickupLocation, change: 1)
         // Go to the NextPracticeScreen or implement your navigation logic
     }
     
@@ -158,10 +157,4 @@ struct AttendanceFormView: View {
         }
     }
 }
-
-
-//#Preview {
-//    AttendanceFormView(role: "rider")
-//}
-
 

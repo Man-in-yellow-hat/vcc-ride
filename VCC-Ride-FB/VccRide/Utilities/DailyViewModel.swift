@@ -20,7 +20,6 @@ struct SeatCounts {
 protocol PracticeDataFetching {
     func checkDriverAssignment(completion: @escaping (Bool) -> Void)
     func fetchDriverData(fromLocation: String, completion: @escaping ([Driver]) -> Void)
-//    func fetchRiderData(fromLocation: String, completion: @escaping ([Climber]) -> Void)
     func fetchSeatCounts(completion: @escaping (SeatCounts) -> Void)
     func fetchDate(completion: @escaping (String) -> Void)
 }

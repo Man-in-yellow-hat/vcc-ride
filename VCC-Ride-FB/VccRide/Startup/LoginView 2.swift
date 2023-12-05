@@ -141,7 +141,6 @@ struct LoginView: View {
                                 .offset(y: 12)
                                 .foregroundColor(.black)
                         }
-                        .accessibilityIdentifier("AppleVisibilityToggleButton")
                     }
                 }
             }

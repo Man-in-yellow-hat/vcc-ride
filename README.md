@@ -60,10 +60,16 @@ Important: DEV and PROD enviroment are <strong>NOT WORKING</strong> on Friday fr
 Note: All of the above are within VccRide. The test suite is found in <strong>VccRideTests</strong>.
 
 # Running the tests
-<p>@TODO INSERT INFO HERE<br>
-To start testing the project, you will need to @TODO INSERT INFO HERE<br>
-Any new test files should be placed in the "VccRideTests" folder, following the project structure.
-Once new files have been created, @TODO INSERT INFO HERE</p>
+To start unit testing the project, you will need to clone the repo and run the simulator. 
+
+1. Log into vccride.test@gmail.com, as seen in the instructions above.
+2. Make sure vccride.test@gmail.com is in ADMIN mode AND that there is practice today. If not, please contact [Karen](mailto:karen.c.pu@vanderbilt.edu)
+3. Navigate to the test plan icon.
+4. Run all two test bundles. Coverage should be around 60%.
+
+Note: If you run the test more than once, testDriverPage() will fail due to changes in the backend. You 
+will also have to login again for retesting.
+
 
 # Deployment
 Deploying an iOS app to the App Store requires having an Apple Developer account. Ours is held by [Nathan King](mailto:nathan.s.king@vanderbilt.edu), so reach out to him to get a provisioning profile, development key, and any other necessary requirements for development.

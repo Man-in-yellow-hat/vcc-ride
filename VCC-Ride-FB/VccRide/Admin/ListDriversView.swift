@@ -30,7 +30,7 @@ struct ListDriversView: View {
                                     dailyViewModel.moveUser(userID: userID, to: "rand")
                                 }) {
                                     Image(systemName: "arrow.down.circle.fill")
-                                }
+                                }.accessibilityIdentifier("down arrow")
                             }
                         }
                     }
@@ -46,7 +46,7 @@ struct ListDriversView: View {
                                     dailyViewModel.moveUser(userID: userID, to: "north")
                                 }) {
                                     Image(systemName: "arrow.up.circle.fill")
-                                }
+                                }.accessibilityIdentifier("rand arrow")
                             }
                         }
                     }
