@@ -61,8 +61,9 @@ Note: All of the above are within VccRide. The test suite is found in <strong>Vc
 
 # Running the tests
 To start unit testing the project, you will need to clone the repo and run the simulator. 
+
 1. Log into vccride.test@gmail.com, as seen in the instructions above.
-2. Make sure vccride.test@gmail.com is in ADMIN mode.
+2. Make sure vccride.test@gmail.com is in ADMIN mode AND that there is practice today. If not, please contact [Karen](mailto:karen.c.pu@vanderbilt.edu)
 3. Navigate to the test plan icon.
 4. Run all two test bundles. Coverage should be around 60%.
 
