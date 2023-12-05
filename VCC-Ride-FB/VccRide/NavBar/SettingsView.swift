@@ -250,7 +250,3 @@ struct SettingsView: View {
         }
     }
 }
-
-//Preview {
-//    SettingsView(role: "rider")
-//}

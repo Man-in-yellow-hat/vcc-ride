@@ -14,6 +14,7 @@
 		873437D12B1AB680003C267E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 873437D02B1AB680003C267E /* FirebaseAuth */; };
 		87401F0D2B02FA7600002639 /* RiderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87401F0C2B02FA7600002639 /* RiderTests.swift */; };
 		874BCB432B09C612009758A6 /* AdminViewUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874BCB422B09C612009758A6 /* AdminViewUI.swift */; };
+		877624AA2B1EBB20007959AB /* LoginUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877624A92B1EBB20007959AB /* LoginUI.swift */; };
 		A844CE872ACE0A6200EC44C2 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = A844CE862ACE0A6200EC44C2 /* GoogleSignIn */; };
 		A844CE892ACE0A6200EC44C2 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A844CE882ACE0A6200EC44C2 /* GoogleSignInSwift */; };
 		A844CE8E2ACE0EEA00EC44C2 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = A844CE8D2ACE0EEA00EC44C2 /* Application.swift */; };
@@ -92,6 +93,7 @@
 		874BCB352B09C348009758A6 /* VccRideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VccRideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		874BCB412B09C48C009758A6 /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestPlan.xctestplan; sourceTree = "<group>"; };
 		874BCB422B09C612009758A6 /* AdminViewUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminViewUI.swift; sourceTree = "<group>"; };
+		877624A92B1EBB20007959AB /* LoginUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUI.swift; sourceTree = "<group>"; };
 		A844CE8C2ACE0B6700EC44C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A844CE8D2ACE0EEA00EC44C2 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		A858D2842ACDADB500A17CCD /* VccRide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VccRide.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				874BCB422B09C612009758A6 /* AdminViewUI.swift */,
+				877624A92B1EBB20007959AB /* LoginUI.swift */,
 			);
 			path = VccRideUITests;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				874BCB432B09C612009758A6 /* AdminViewUI.swift in Sources */,
+				877624AA2B1EBB20007959AB /* LoginUI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

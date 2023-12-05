@@ -156,7 +156,7 @@ struct DriverView: View {
                                 .animation(.easeIn, value: squishScale)
                                 .animation(.easeIn, value: squishOffset)
 
-                        }
+                        }.accessibilityIdentifier("clear")
                         ForEach(0..<thisDriver.seats, id: \.self) { index in
                             Image(systemName: thisDriver.isSeatFilled(at: index) ? "person.fill" : "person")
                                 .font(.system(size: 40)) // Adjust the size as needed
